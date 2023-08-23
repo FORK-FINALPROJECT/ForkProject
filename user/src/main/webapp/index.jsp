@@ -8,5 +8,6 @@
 </head>
 <body>
 유저11
+<a href="choice">choice</a>
 </body>
 </html>
