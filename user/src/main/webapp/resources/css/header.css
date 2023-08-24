@@ -1,0 +1,36 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.header_outer{
+    width: 100%;
+    background-color: rgb(50,50,50);
+    height: 80px;
+    position: fixed;
+    top: 0;
+}
+.header{
+    width: 1000px;
+    height: 100%;
+    display: flex;
+    margin: 0 auto;
+    align-items: center;
+    flex-grow: 1 10px;
+}
+.header_btn{
+    padding: 0 15px;
+    margin-right: 10px;
+    height: 34px;
+    line-height: 34px;
+    background-color: white;
+    border-radius: 15px;
+    font-size: 14px;
+}
+#time{
+    margin-left: 10px;
+    color: white;
+}
+.forklogo{
+    flex-grow: 1 10px;
+    margin-left: auto;
+}
