@@ -132,7 +132,7 @@
                 <img src="/user/resources/img/fork2.png" width="500px" />
             </div>
             <div class="notice">
-                <ul class="notice-list" style="position: relative"> 
+                <ul class="notice-list" style="position: relative">
                 	<c:if test="${not empty list}">
                 		<c:forEach var="notice" items="${list}">
                     		<li onclick="noticeDetail(${notice.noticeNo})">[${notice.noticeCreateDate}] ${notice.noticeTitle}
@@ -213,6 +213,10 @@
     			}
     		})
     	}
+    	
+        /* $('.notice').click(function(e){
+			
+		}); */
 
         $('#noticeList').click(function(e){
             $('#noticeModal').modal("hide");
