@@ -22,21 +22,15 @@ public class NoticeController {
 	@Autowired
 	private NoticeService noticeService;
 
-	@GetMapping("/choice")
-	public String choice(Model model) {
-		List<Notice> list = noticeService.selectNoticeList();
-		model.addAttribute("list", list);
-		log.info("list = {}", list);
-		
-		return "choice";
-	}
 	
+	/**
+	 * @param nno 공지사항번호
+	 * @return 공지사항 번호를 가지고  공지사항 상세화면 조회 
+	 */
 	@GetMapping("/noticeDetail/{nno}")
 	@ResponseBody
 	public Notice noticeDetailView(Model model, @PathVariable("nno") int nno) {
 		Notice n = noticeService.noticeDetailView(nno);
-		log.info("Notice = {}", n);
-		
 		return n;
 	}
 	

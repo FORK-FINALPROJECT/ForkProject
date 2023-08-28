@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="salesMapper">
+
+	<resultMap id="structureResultSet" type="Structure">
+		<result column="KIOSK_NO" property="kioskNo" />
+		<result column="STRUC_TYPE" property="strucType" />
+		<result column="STRUC_TITLE" property="strucTitle" />
+		<result column="POSITION_X" property="positionX" />
+		<result column="POSITION_Y" property="positionY" />
+	</resultMap>
+	
+	<select id="selectStructureList" resultMap="structureResultSet">
+		SELECT *
+		FROM STRUCTURE	
+	</select>
+	
+	<delete id="deleteStructure">
+		DELETE FROM STRUCTURE
+	</delete>
+	
+	<insert id="saveStructure" parameterType="structure">
+		INSERT INTO STRUCTURE VALUES
+		(#{kioskNo}, #{strucType}, #{strucTitle}, #{positionX}, #{positionY})
+	</insert>
+	
+	
+	<resultMap id="receiptResultSet" type="receipt">
+		<result column="MENU_NAME" property="menuName" />
+		<result column="CNT" property="cnt" />
+		<result column="PRICE" property="price" />
+		<result column="KIOSK_NO" property="kioskNo" />
+	</resultMap>
+	
+	<select id="selectOrderList" resultMap="receiptResultSet">
+		SELECT MENU_NAME, CNT, PRICE, KIOSK_NO
+		FROM STRUCTURE
+		JOIN TOTAL_RECEIPT USING(KIOSK_NO)
+		JOIN RECEIPT USING(TR_NO)
+		JOIN RECEIPT_MENU USING(RECEIPT_NO)
+		JOIN MENU USING(MENU_NO)
+		WHERE ORDER_STATUS = 'Y'
+		ORDER BY RCM_NO
+	</select>
+	
+	<select id="detailOrderList" resultMap="receiptResultSet">
+		SELECT MENU_NAME, CNT, PRICE, KIOSK_NO
+		FROM STRUCTURE
+		JOIN TOTAL_RECEIPT USING(KIOSK_NO)
+		JOIN RECEIPT USING(TR_NO)
+		JOIN RECEIPT_MENU USING(RECEIPT_NO)
+		JOIN MENU USING(MENU_NO)
+		WHERE ORDER_STATUS = 'Y' AND KIOSK_NO = #{kioskNo}
+		ORDER BY RCM_NO
+	</select>
+	
+	<update id="clearTable">
+		UPDATE TOTAL_RECEIPT
+	    SET ORDER_STATUS = 'N'
+	    WHERE KIOSK_NO = #{kioskNo}
+	</update>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

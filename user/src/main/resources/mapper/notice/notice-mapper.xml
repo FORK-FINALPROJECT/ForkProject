@@ -23,6 +23,7 @@
 		SELECT *
 		FROM NOTICE
 		WHERE NOTICE_NO = #{nno}
+		
 	</select>
 	
 </mapper>
