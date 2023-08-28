@@ -27,7 +27,6 @@
     <script type='text/javascript'
         src='https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js'></script>
 </head>
-
 <body oncontextmenu='return false' class='snippet-body'>
 
 	<c:if test="${not empty alertMsg }">
