@@ -62,6 +62,8 @@
             </div>
         </form>
     </div>
+    
+    <a href="main">choice</a>
     <script type='text/javascript'></script>
 </body>
 
