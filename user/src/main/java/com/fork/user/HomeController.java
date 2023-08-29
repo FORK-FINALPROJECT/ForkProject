@@ -8,8 +8,6 @@ public class HomeController {
 
 	@GetMapping("/")
 	public String home() {
-		new SimpleDateFormat
-		
 		return "forward:index.jsp";
 	}
 	
