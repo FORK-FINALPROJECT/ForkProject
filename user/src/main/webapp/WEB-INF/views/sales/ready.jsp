@@ -22,22 +22,6 @@
 
 <div class="outer">
         <div class="content">
-        ${structureList} <br><br><br>
-        
-        <c:forEach var="struc" items="${structureList }" varStatus="status" >
-        	<c:if test="${status.index % 2 eq 0}">
-        		index ${status.index}<br>
-        		
-        		<c:forEach var="j" begin="${status.index}" end="${status.index + (2-1)}" step="1">
-        			${structureList[j]}<br>
-        		
-        		</c:forEach>
-        		
-        	</c:if>
-        	
-        </c:forEach>
-         
-            <!--  
             <c:if test="${not empty structureList}">
                 <c:forEach var="struc" items="${structureList}">
                     <c:if test="${struc.strucType eq '계산대'}">
@@ -81,7 +65,6 @@
                     <c:set var="inMenu" value="" />
                 </c:forEach>
             </c:if>
--->
             <div class="setting" onclick="location.href='salesSetting'">
                 <img src="resources/img/change_setting.png"><br>설정
             </div>
@@ -113,7 +96,4 @@
     
     <script>
         $("#sales-ready").addClass("header_btn_on").removeClass("header_btn");
-        
-        const array = '${structureList}';
-        console.log(array);
     </script>
