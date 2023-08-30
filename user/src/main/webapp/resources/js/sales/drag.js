@@ -122,16 +122,29 @@ function addItem(name){
 
 /* 구조물 클릭시 제일 상단으로 올리기 */
 function topZIndex(){
-	let maxZ = 2;
+	const arr = [];
+	let max;
+
 	structure.forEach((struc) => {
-		console.log(struc.style.zIndex)
-		console.log(maxZ)
-		if ( struc.style.zIndex > maxZ ) {
-			maxZ = struc.style.zIndex+1;
-			console.log(maxZ);
+		arr.push(Number(struc.style.zIndex))
+		
+		max = arr.reduce(function(a,b){
+			return Math.max(a,b);
+		})
+	})
+	
+	this.style.zIndex = max+1;
+}
+
+function maxZIndex(){
+	let maxZ;
+	
+	structure.forEach((struc) => {
+		if ( Number(struc.style.zIndex) > maxZ ) {
+			maxZ = Number(struc.style.zIndex) + 1;
 		}
 	})
-	// console.log(this);
-	this.style.zIndex = maxZ;
+	
 }
-                            
+
+                        

@@ -403,6 +403,8 @@
                 closeModal();
             }
         });
+        
+        $("#header-menu").addClass("header_btn_on").removeClass("header_btn");
     </script>
 
 </body>
