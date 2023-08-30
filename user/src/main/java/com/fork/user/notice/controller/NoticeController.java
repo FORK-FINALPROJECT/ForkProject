@@ -26,8 +26,6 @@ public class NoticeController {
 	public String choice(Model model) {
 		List<Notice> list = noticeService.selectNoticeList();
 		model.addAttribute("list", list);
-		log.info("list = {}", list);
-		
 		return "choice";
 	}
 	
@@ -35,8 +33,6 @@ public class NoticeController {
 	@ResponseBody
 	public Notice noticeDetailView(Model model, @PathVariable("nno") int nno) {
 		Notice n = noticeService.noticeDetailView(nno);
-		log.info("Notice = {}", n);
-		
 		return n;
 	}
 	

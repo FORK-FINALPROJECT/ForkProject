@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fork.user.common.template.Pagenation;
+import com.fork.user.common.vo.PageInfo;
 import com.fork.user.notice.model.service.NoticeService;
 import com.fork.user.notice.model.vo.Notice;
 import com.fork.user.sales.model.service.SalesService;
@@ -27,9 +30,27 @@ public class MainController {
 
     @GetMapping("/main")
     public String goMain(Model model) {
-        List<Notice> list = noticeService.selectNoticeList();
-        model.addAttribute("list", list);
+    	int currentPage = 1;
+        List<Notice> list = selectNoticeList(1);
+        
+        // 총 게시글 갯수
+        int total = noticeService.selectListCount();
+        int pageLimit = 10;
+		int boardLimit = 5;
+		PageInfo pi = Pagenation.getPageInfo(total, 1, pageLimit, boardLimit);
+        
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		
         return "main";
+    }
+    
+    @GetMapping("/selectNotice")
+    @ResponseBody
+    public List<Notice> selectNoticeList(int currentPage){
+    	List<Notice> list = noticeService.selectNoticeList(currentPage);
+
+    	return list;
     }
 
     @GetMapping("/salesReady")

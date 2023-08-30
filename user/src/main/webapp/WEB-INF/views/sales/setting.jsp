@@ -32,7 +32,7 @@
                     <c:if test="${struc.strucType eq '구조물'}">
                         <c:set var="struc_class" value="struc_structure" />
                     </c:if>
-                    <div class="struc ${struc_class}" draggable="true" style="transform: translate3d(${struc.positionX}px, ${struc.positionY}px, 0);">
+                    <div class="struc ${struc_class}" draggable="true" style="transform: translate3d(${struc.positionX}px, ${struc.positionY}px, 0); z-index: 1">
                         <input type="hidden" id="struc_type" value="${struc.strucType}" />
                         <div class="struc_del" onclick='delItem(this)'>X</div>
                         <input type="text" name="struc_name" value="${struc.strucTitle}" size="10" id="struc_name" /> <br>
