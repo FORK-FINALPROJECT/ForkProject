@@ -44,10 +44,10 @@ public class MemberController {
 			Model model
 			) {
 		
-		int result = mService.login(m);
+		Member loginUser = mService.login(m);
 		
-		if(result > 0) {
-			return "member/enrollPage1"; // 바꿀 예정
+		if(loginUser != null) {
+			return "management/category"; // 바꿀 예정
 		} else {
 			return "forward:index.jsp"; 
 		}
@@ -120,11 +120,19 @@ public class MemberController {
 		
 	}
 	
+	/**
+	 * 아이디 찾기 페이지로 이동 
+	 * @return
+	 */
 	@GetMapping("/searchId")
 	public String searchId() {
 		return "member/searchId";
 	}
 
+	/**
+	 * 비밀번호 찾기 페이지로 이동
+	 * @return
+	 */
 	@GetMapping("/searchPwd")
 	public String searchPwd() {
 		return "member/searchPwd";

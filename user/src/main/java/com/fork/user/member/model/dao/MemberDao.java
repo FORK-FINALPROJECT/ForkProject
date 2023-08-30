@@ -16,7 +16,7 @@ public class MemberDao {
 		return sqlSession.insert("memberMapper.insertMember", m);
 	}
 
-	public int login(Member m) {
+	public Member login(Member m) {
 		return sqlSession.selectOne("memberMapper.login", m);
 	}
 	

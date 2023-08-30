@@ -34,3 +34,7 @@
     flex-grow: 1 10px;
     margin-left: auto;
 }
+
+.pagination {
+	justify-content: center;
+}
