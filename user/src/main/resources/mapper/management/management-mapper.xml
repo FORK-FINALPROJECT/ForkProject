@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="managementMapper">
+	
+	<resultMap type="category" id="categoryResultSet">
+		<id column="CATEGORY_NO" property="categoryNo"/>
+		<result column="CATEGORY_NAME" property="categoryName"/>
+		<result column="PR_CATEGORY_NO" property="prCategoryNo"/>
+	</resultMap>
+	
+	<resultMap type="option" id="optionResultSet">
+		<id column="OPTION_NO" property="optionNo"/>
+		<result column="OPTION_NAME" property="optionName"/>
+		<result column="PRICE" property="price"/>
+		<result column="PR_OPTION_NO" property="prOptionNo"/>
+		<result column="MENU_NO" property="menuNo"/>
+	</resultMap>
+	
+	<resultMap type="coo" id="cooResultSet">
+		<id column="COO_NO" property="cooNo"/>
+		<result column="COO_NAME" property="cooName"/>
+		<result column="COO_COUNTRY" property="cooCountry"/>
+	</resultMap>
+	
+	<resultMap type="menu" id="menuResultSet">
+		<id column="MENU_NO" property="menuNo"/>
+		<result column="MENU_NAME" property="menuName"/>
+		<result column="MENU_DETAIL" property="menuDetail"/>
+		<result column="PRICE" property="price"/>
+		<result column="ORIGIN_NAME" property="originName"/>
+		<result column="CHANGE_NAME" property="changeName"/>
+		<result column="CATEGORY_NO" property="categoryNo"/>
+		<result column="FILE_PATH" property="filePath"/>
+	</resultMap>
+
+	<insert id="insertCategory">
+		INSERT INTO CATEGORY VALUES (
+			SEQ_CATEGORY.NEXTVAL,
+			#{categoryName},
+			#{prCategoryNo}
+		)
+	</insert>
+	
+	<insert id="insertMenu">
+		INSERT INTO MENU VALUES (
+			SEQ_MN.NEXTVAL,
+			#{menuName},
+			#{menuDetail},
+			#{price},
+			#{originName},
+			#{changeName},
+			#{categoryNo},
+			#{filePath}
+		)
+	</insert>
+	
+	<select id="selectCategoryList" resultMap="categoryResultSet">
+		SELECT CATEGORY_NO, CATEGORY_NAME, PR_CATEGORY_NO
+		FROM CATEGORY
+	</select>
+	
+	<insert id="insertOption">
+		INSERT INTO OPT (
+			OPTION_NO,
+			OPTION_NAME,
+			PRICE,
+			PR_OPTION_NO
+		) VALUES (
+			SEQ_OPTION.NEXTVAL,
+			#{optionName},
+			#{price},
+			#{prOptionNo}
+		)
+	</insert>
+	
+	<select id="selectOptionList" resultMap="optionResultSet">
+		SELECT OPTION_NO, OPTION_NAME, PRICE, PR_OPTION_NO, MENU_NO
+		FROM OPT
+	</select>
+	
+	<insert id="insertCoo">
+		INSERT INTO COO VALUES (
+			SEQ_COO.NEXTVAL,
+			#{cooName},
+			#{cooCountry}
+		)
+	</insert>
+	
+	<delete id="deleteCoo" parameterType="int">
+		DELETE FROM COO
+		WHERE COO_NO = #{cooNo}
+	</delete>
+	
+	<select id="selectCategory" parameterType="string" resultMap="categoryResultSet">
+		SELECT CATEGORY_NO, CATEGORY_NAME, PR_CATEGORY_NO
+		FROM CATEGORY
+		ORDER BY CATEGORY_NO ASC
+	</select>
+	
+	<select id="selectCategoryCount" parameterType="hashmap" resultType="int">
+		SELECT COUNT(*)
+		FROM CATEGORY
+	</select>
+	
+	<select id="selectCoo" parameterType="string" resultMap="cooResultSet">
+		SELECT COO_NO, COO_NAME, COO_COUNTRY
+		FROM COO
+		ORDER BY COO_NO ASC
+	</select>
+	
+	<select id="selectCooCount" parameterType="hashmap" resultType="int">
+		SELECT COUNT(*)
+		FROM COO
+	</select>
+	
+	<update id="updateCategory" parameterType="category">
+		UPDATE CATEGORY
+		SET 
+			CATEGORY_NAME = #{categoryName},
+			PR_CATEGORY_NO = #{prCategoryNo}
+		WHERE CATEGORY_NO = #{categoryNo}
+	</update>
+	
+	<select id="selectCategoryOne" parameterType="int" resultMap="categoryResultSet">
+		SELECT *
+		FROM CATEGORY
+		WHERE CATEGORY_NO = #{categoryNo}
+	</select>
+	
+	<delete id="deleteCategory" parameterType="int">
+		DELETE FROM CATEGORY
+		WHERE CATEGORY_NO = #{categoryNo}
+	</delete>
+	
+	<select id="selectOption" parameterType="string" resultMap="optionResultSet">
+		SELECT *
+		FROM OPT
+		ORDER BY OPTION_NO ASC
+	</select>
+	
+	<select id="selectOptionCount" parameterType="hashmap" resultType="int">
+		SELECT COUNT(*)
+		FROM OPT
+	</select>
+	
+	<select id="selectOptionOne" parameterType="int" resultMap="optionResultSet">
+		SELECT *
+		FROM OPT
+		WHERE OPTION_NO = #{optionNo}
+	</select>
+	
+	<delete id="deleteOption" parameterType="int">
+		DELETE FROM OPT
+		WHERE OPTION_NO = #{optionNo}
+	</delete>
+	
+	<select id="selectMenu" parameterType="string" resultMap="menuResultSet">
+		SELECT *
+		FROM MENU
+		ORDER BY CATEGORY_NO ASC
+	</select>
+
+</mapper>

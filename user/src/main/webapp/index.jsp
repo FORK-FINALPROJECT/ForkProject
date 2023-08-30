@@ -48,7 +48,7 @@
             <div class="form-group py-1 pb-2">
                 <div class="input-field">
                     <span class="fas fa-lock p-2"></span>
-                    <input type="text" name="memberPwd" placeholder="비밀번호를 입력하세요" required>
+                    <input type="password" name="memberPwd" placeholder="비밀번호를 입력하세요" required>
                 </div>
             </div>
             <div class="d-flex align-items-start forgot-links">

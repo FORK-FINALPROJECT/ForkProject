@@ -4,7 +4,7 @@ import com.fork.user.member.model.vo.Member;
 
 public interface MemberService {
 
-	int login(Member m);
+	Member login(Member m);
 	
 	int insertMember(Member m);
 
