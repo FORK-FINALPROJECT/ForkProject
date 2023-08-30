@@ -187,6 +187,9 @@
         	background-color: lightgray;
         }
 
+		.pagination{
+			justify-content: center;
+		}
 
     </style>
 </head>

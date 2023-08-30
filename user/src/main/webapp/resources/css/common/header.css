@@ -1,0 +1,56 @@
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css); 
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans KR', sans-serif; 
+}
+
+.header_outer{
+    width: 100%;
+    background-color: rgb(50,50,50);
+    height: 80px;
+    top: 0;
+    position: fixed;
+}
+.header{
+    width: 1500px;
+    height: 100%;
+    display: flex;
+    margin: 0 auto;
+    align-items: center;
+    flex-grow: 1 10px;
+}
+.header_btn{
+    padding: 0 15px;
+    margin-right: 10px;
+    height: 34px;
+    line-height: 34px;
+    background-color: white;
+    border-radius: 15px;
+    font-size: 14px;
+    cursor: pointer;
+}
+.header_btn:active{
+    position: relative;
+    top: 1px;
+}
+#time{
+    margin-left: 10px;
+    color: white;
+}
+.forklogo{
+    flex-grow: 1 10px;
+    margin-left: auto;
+}
+
+.header_btn_on{
+    background-color: red;
+    color: white;
+    padding: 0 15px;
+    margin-right: 10px;
+    height: 34px;
+    line-height: 34px;
+    border-radius: 15px;
+    font-size: 14px;
+}
