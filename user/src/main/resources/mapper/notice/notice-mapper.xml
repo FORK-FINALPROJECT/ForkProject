@@ -10,19 +10,27 @@
 		<result column="NOTICE_COUNT" property="noticeCount" />
 		<result column="NOTICE_CREATE_DATE" property="noticeCreateDate" />
 		<result column="NOTICE_STATUS" property="noticeStatus" />
+		<result column="NEW_NOTICE" property="newNotice" />
 	</resultMap>
 	
 	<select id="selectNoticeList" resultMap="noticeResultSet">
-		SELECT *
+		SELECT NOTICE_NO, NOTICE_TITLE, MEMBER_NAME, NOTICE_CONTENT, NOTICE_CREATE_DATE, TRUNC(SYSDATE - TO_DATE(NOTICE_CREATE_DATE)) AS NEW_NOTICE
 		FROM NOTICE
 		JOIN MEMBER ON NOTICE_WRITER = MEMBER_NO
-		ORDER BY NOTICE_NO DESC
+        WHERE NOTICE_STATUS = 'Y'
+        ORDER BY NOTICE_NO DESC
 	</select>
 	
 	<select id="noticeDetailView" parameterType="int" resultMap="noticeResultSet">
-		SELECT *
+		SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_CREATE_DATE, TRUNC(SYSDATE - TO_DATE(NOTICE_CREATE_DATE)) AS NEW_NOTICE
 		FROM NOTICE
 		WHERE NOTICE_NO = #{nno}
+	</select>
+	
+	<select id="selectListCount" resultType="int">
+		SELECT COUNT(*)
+		FROM NOTICE
+		WHERE NOTICE_STATUS = 'Y'
 	</select>
 	
 </mapper>

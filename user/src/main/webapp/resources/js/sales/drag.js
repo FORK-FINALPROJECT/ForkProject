@@ -3,6 +3,8 @@ const container = document.querySelector(".content");
 
 /* 모든 구조물에 드래그 이벤트 추가 */
 structure.forEach((moveitem) => {
+	moveitem.addEventListener('mousedown', topZIndex);
+
     const position = moveitem.style.transform;
     
     let positionx = position.substr(12);
@@ -85,6 +87,7 @@ function delItem(ex){ ex.parentNode.remove(); }
 /* 구조물 추가 */
 function addItem(name){
     let addDiv = document.createElement('div');
+    addDiv.style.zIndex = 1;
     addDiv.className = 'struc struc_'+name+'_setting';
     addDiv.setAttribute('draggable', 'true');
     addDiv.innerHTML = `<div class="struc_del" onclick='delItem(this);'>X</div>`;   
@@ -96,8 +99,15 @@ function addItem(name){
     }
 
     if ( name == "pos" ) {
-        addDiv.innerHTML += `<input type="hidden" id="struc_type" value="계산대">
-                            <input type="text" name="struc_name" value="계산대" size="10" id="struc_name"/> <br>`;
+    	const checkDiv = document.querySelectorAll("#struc_type");
+    	for (i in checkDiv) {
+    		if ( checkDiv[i].defaultValue == "계산대" ) {
+    			alert("이미 계산대가 추가되어있습니다");
+    			return;
+    		} 
+    	}
+    	addDiv.innerHTML += `<input type="hidden" id="struc_type" value="계산대">
+            	             <input type="text" name="struc_name" value="계산대" size="10" id="struc_name"/> <br>`;
     }
 
     if ( name == "structure" ) {
@@ -110,4 +120,18 @@ function addItem(name){
     dragItem(addDiv,0,0);
 }
 
+/* 구조물 클릭시 제일 상단으로 올리기 */
+function topZIndex(){
+	let maxZ = 2;
+	structure.forEach((struc) => {
+		console.log(struc.style.zIndex)
+		console.log(maxZ)
+		if ( struc.style.zIndex > maxZ ) {
+			maxZ = struc.style.zIndex+1;
+			console.log(maxZ);
+		}
+	})
+	// console.log(this);
+	this.style.zIndex = maxZ;
+}
                             

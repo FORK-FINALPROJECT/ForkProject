@@ -134,17 +134,10 @@
             <div class="notice">
                 <ul class="notice-list" style="position: relative">
                 	<c:if test="${not empty list}">
+                	
                 		<c:forEach var="notice" items="${list}">
                     		<li onclick="noticeDetail(${notice.noticeNo})">[${notice.noticeCreateDate}] ${notice.noticeTitle}
-                    			<%-- 
-	                    			<c:set var="today" value="<%=new java.util.Date()%>" />
-	                    			${ today }
-	                    			<fmt:parseDate value="${today}" var="todayDate" pattern="yyyy-MM-dd"/>
-	                    			<fmt:parseNumber value="${today.time / (1000*60*60*24)}" integerOnly="true" var="strDate"></fmt:parseNumber>
-									<fmt:parseDate value="${noticeCreateDate}" var="noticeCreateDate" pattern="yyyy-MM-dd"/>
-									<fmt:parseNumber value="${noticeCreateDate.time / (1000*60*60*24)}" integerOnly="true" var="endDate"></fmt:parseNumber>
-		                    			<span class="new">new</span>
-								 --%>
+                    			<c:if test="${notice.newNotice lt 14 }" ><span class="new">new</span></c:if> 
                     		</li>
                 		</c:forEach>
 					</c:if>
@@ -177,29 +170,43 @@
 		</div>
 	</div>
 
+	<!-- 팝업 공지사항 리스트 -->
     <div class="modal fade" id="noticeListModal">
 		<div class="modal-dialog modal-dialog-centered modal-lg">
-			<div class="modal-content bg-dark">
+			<div class="modal-content bg-dark" style="min-height: 450px">
 				<div class="modal-body">
                     <button class="close text-white" type="button" data-dismiss="modal" aria-label="Close">
                         <span>X</span>
                     </button>
                     <h2 class="text-white">공지사항</h2>
-                    <ul>
+                    <ul id="lists">
                     	<c:if test="${not empty list}">
-	                    	<c:forEach var="notice" items="${list}" begin="0" end="3">
-	                        	<li class="rounded p-2" style="margin-top: 20px;" onclick="noticeDetail(${notice.noticeNo})">[${notice.noticeCreateDate}] ${notice.noticeTitle}</li>
+	                    	<c:forEach var="notice" items="${list}" begin="0" end="4">
+	                        	<li class="rounded p-2" style="margin-top: 20px;" onclick="noticeDetail(${notice.noticeNo})">[${notice.noticeCreateDate}] ${notice.noticeTitle} 
+	                        		<c:if test="${notice.newNotice lt 14 }" ><span class="new">new</span></c:if>
+	                        	</li>
 	                    	</c:forEach>
                     	</c:if>
                     </ul>
                 </div>
+                <div class="modal-fotter">
+					<ul class="pagination" style="justify-content: center;">
+						<c:forEach var="pageNumber" begin="1" end="${ pi.endPage }">
+							<li class="page-item">
+								<div class="page-link" onclick="noticePaging(this)">${ pageNumber }</div>
+							</li>
+						</c:forEach>
+                   	</ul>
+                </div>
 			</div>
 		</div>
 	</div>
-
+	
+	
 
     <script>
     	function noticeDetail(nno){
+    		$('#noticeListModal').modal("hide");
     		const notice_create_date = $('#notice_create_date');
     		const notice_title = $('#notice_title');
     		const notice_content = $('#notice_content');
@@ -213,17 +220,13 @@
     			}
     		})
     	}
-    	
-        /* $('.notice').click(function(e){
-			
-		}); */
 
         $('#noticeList').click(function(e){
             $('#noticeModal').modal("hide");
 			$('#noticeListModal').modal("show");
 		});
 
-        $('#noticeListModal li').each(function(){
+        $('#lists li').each(function(){
                 $(this).click(function(e){
                     $('#noticeListModal').modal("hide");
                     $('#noticeModal').modal("show");
@@ -249,6 +252,27 @@
         $(".notice-list").append($(".notice-list li").first().clone());
         
         setInterval(noticeRolling,2000);
+        
+
+        function noticePaging(num){
+        	$.ajax({
+        		url : "selectNotice",
+        		data : { currentPage : $(num).text() },
+        		success(notice){
+        			let li = "";
+        			for (i in notice) {
+        				li += `<li class='rounded p-2' style='margin-top: 20px;' onclick='noticeDetail(\${notice[i].noticeNo})'>[\${notice[i].noticeCreateDate}] \${notice[i].noticeTitle}` 
+        				if ( notice[i].newNotice < 14 ) {
+        					li += ` <span class='new'>new</span>`
+        				}
+                		li += `</li>`
+        			};
+        			
+        			$("#lists").html(li);
+        			
+        		}
+        	})
+        }
 
         
     </script>

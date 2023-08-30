@@ -11,5 +11,6 @@ public class Notice {
 	private int noticeCount;
 	private String noticeCreateDate;
 	private String noticeStatus;
+	private int newNotice;
 	
 }

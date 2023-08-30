@@ -15,13 +15,18 @@ public class NoticeServiceImpl implements NoticeService {
 	private NoticeDao noticeDao;
 
 	@Override
-	public List<Notice> selectNoticeList() {
-		return noticeDao.selectNoticeList();
+	public List<Notice> selectNoticeList(int currentPage) {
+		return noticeDao.selectNoticeList(currentPage);
 	}
 
 	@Override
 	public Notice noticeDetailView(int nno) {
 		return noticeDao.noticeDetailView(nno);
+	}
+
+	@Override
+	public int selectListCount() {
+		return noticeDao.selectListCount();
 	}
 
 }
