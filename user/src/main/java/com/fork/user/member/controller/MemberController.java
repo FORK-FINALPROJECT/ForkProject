@@ -47,7 +47,7 @@ public class MemberController {
 		Member loginUser = mService.login(m);
 		
 		if(loginUser != null) {
-			return "management/category"; // 바꿀 예정
+			return "redirect:main"; // 바꿀 예정
 		} else {
 			return "forward:index.jsp"; 
 		}
