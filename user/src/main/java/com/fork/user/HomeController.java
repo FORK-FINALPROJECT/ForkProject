@@ -8,9 +8,8 @@ public class HomeController {
 
 	@GetMapping("/")
 	public String home() {
-		
 		return "forward:index.jsp";
-		
 	}
+	
 	
 }
