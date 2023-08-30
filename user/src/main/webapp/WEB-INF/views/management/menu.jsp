@@ -533,6 +533,19 @@ textarea {
 
 	<script>
 	
+		// 배열 확인
+		console.log(typeof `${clist}`);
+		console.log(typeof `${list}`);
+		
+		$.ajax({
+			url : "menu",
+			success(){
+				
+			}
+		})
+	
+	
+	
     	// 메뉴 등록
     	function insertMenu1() {
     		
