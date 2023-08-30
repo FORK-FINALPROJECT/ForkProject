@@ -74,7 +74,7 @@
 	</insert>
 	
 	<select id="selectOptionList" resultMap="optionResultSet">
-		SELECT OPTION_NO, OPTION_NAME, PRICE, PR_OPTION_NO, MENU_NO
+		SELECT OPTION_NO, OPTION_NAME, PRICE, NVL(PR_OPTION_NO, 0), MENU_NO
 		FROM OPT
 	</select>
 	
