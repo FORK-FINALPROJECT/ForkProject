@@ -7,7 +7,7 @@ const Headers = () => {
     <div className="header-wrap">
       <div className="header-content">
         <div className="header-logo-wrap">
-          <img id='header-logo' src={`${process.env.PUBLIC_URL}/포크로고 ver2`} />
+          <img id='header-logo' src={`${process.env.PUBLIC_URL}/forkLogo.PNG`}></img>
         </div>
         <div className="header category-wrap">
           <div className="detail-category"><a>상세카테고리1</a></div>

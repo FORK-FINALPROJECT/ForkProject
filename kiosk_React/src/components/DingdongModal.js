@@ -44,11 +44,11 @@ function Dingdong(props) {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                    <p>
+                <div>
                     <h1>직원을 호출하셨습니다.</h1> <br/>
                     <h1>잠시만 기다려주세요.</h1> <br/>
                     <h1>{modalTimer}초 후에 자동으로 창이 닫힙니다.</h1>
-                    </p>
+                </div>
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={props.onHide}>Close</Button>

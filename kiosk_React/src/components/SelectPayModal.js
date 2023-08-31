@@ -73,22 +73,22 @@ function SelectPayModal(props) {
                         <div className='selectPayModal2'>
                             {payMethod === "카드결제" && <p>카드 결제 정보 입력란이 표시됩니다.</p>}
                             {payMethod === "현금결제" && <>
-                                <p>
+                                <div>
                                     <h1>직원이 현금을 받으러 갑니다.</h1> <br />
                                     <h1>현금을 미리 준비해주세요.</h1> <br />
                                     <h1>{modalTimer}초 후에 자동으로 창이 닫힙니다.</h1>
-                                </p>
+                                </div>
                             </>}
                             {payMethod === "분할결제" && <>
                                 <ul>
                                     <Link to="/dutchpayByMenu" onClick={handleCloseModal}>
-                                        <li><img src={require('../resources/image/메뉴별로고.PNG')} /></li>
+                                        <li><img src={require('../resources/image/dutchMenuLogo.PNG')} /></li>
                                         <li>메뉴별</li>
                                     </Link>
                                 </ul>
                                 <ul>
                                     <Link to="/dutchpayByPrice" onClick={handleCloseModal}>
-                                        <li><img src={require('../resources/image/금액별로고.PNG')} /></li>
+                                        <li><img src={require('../resources/image/dutchPriceLogo.PNG')} /></li>
                                         <li>금액별</li>
                                     </Link>
                                 </ul>
@@ -98,15 +98,15 @@ function SelectPayModal(props) {
                     ) : (
                         <div className='selectPayModal'>
                             <ul onClick={() => handlePaymentMethodClick("카드결제")}>
-                                <li><img src={require('../resources/image/카드로고.PNG')} /></li>
+                                <li><img src={require('../resources/image/payCardLogo.PNG')} /></li>
                                 <li>카드결제</li>
                             </ul>
                             <ul onClick={() => handlePaymentMethodClick("현금결제")}>
-                                <li><img src={require('../resources/image/현금결제로고.PNG')} /></li>
+                                <li><img src={require('../resources/image/payCashLogo.PNG')} /></li>
                                 <li>현금결제</li>
                             </ul>
                             <ul onClick={() => handlePaymentMethodClick("분할결제")}>
-                                <li><img src={require('../resources/image/분할결제로고.PNG')} /></li>
+                                <li><img src={require('../resources/image/payDutchLogo.PNG')} /></li>
                                 <li>분할결제</li>
                             </ul>
                         </div>

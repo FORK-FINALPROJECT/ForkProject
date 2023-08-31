@@ -17,6 +17,11 @@ const MenuDetail = (props) => {
         navigate(-1);
     }
 
+    // 선택된 아이템 드롭다운 버튼에 보이게하기
+    const [selectedOption1, setSelectedOption1] = useState(null); // 상위 드롭다운 버튼에 표시할 값
+    const [selectedOption2, setSelectedOption2] = useState(null);
+    const [selectedOption3, setSelectedOption3] = useState(null);
+
     return (
         <div className="content-wrap">
             <div className="main-content">
@@ -33,7 +38,7 @@ const MenuDetail = (props) => {
                     </div>
                     <div className="detailmenu-content">
                         <div className="detailmenu-content-left">
-                            <img src={require('../resources/image/물강아지.jpg')} />
+                            <img src={require('../resources/image/menuTest.jpg')} />
                             <ul>
                                 <li>
                                     맛있는거ㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓ
@@ -59,44 +64,30 @@ const MenuDetail = (props) => {
                                             <tr>
                                                 <td>옵션123123</td>
                                                 <td id='dropdownbtn'>
-                                                    <DropdownButton as={ButtonGroup} key={"옵션명"} id={`dropdown-variants-"옵션명"`} title={"옵션명"} variant='secondary'>
-                                                        <DropdownItem>1단계</DropdownItem>
-                                                        <DropdownItem>2단계</DropdownItem>
-                                                        <DropdownItem>3단계</DropdownItem>
-                                                        {/* 드롭다운아이템이 눌려지면 온클릭 -> 드롭다운버튼에 해당값이 들어가게 */}
+                                                    <DropdownButton as={ButtonGroup} key={"옵션명"} id={`dropdown-variants-"옵션명"`} title={selectedOption1 || "옵션명"} variant='secondary'>
+                                                        <DropdownItem onClick={() => setSelectedOption1("1단계")}>1단계</DropdownItem>
+                                                        <DropdownItem onClick={() => setSelectedOption1("2단계")}>2단계</DropdownItem>
+                                                        <DropdownItem onClick={() => setSelectedOption1("3단계")}>3단계</DropdownItem>
                                                     </DropdownButton>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>옵션123123</td>
                                                 <td id='dropdownbtn'>
-                                                    <DropdownButton as={ButtonGroup} key={"옵션명"} id={`dropdown-variants-"옵션명"`} title={"옵션명ssss"} variant='secondary'>
-                                                        <DropdownItem>1단계</DropdownItem>
-                                                        <DropdownItem>2단계</DropdownItem>
-                                                        <DropdownItem>3단계</DropdownItem>
-                                                        {/* 드롭다운아이템이 눌려지면 온클릭 -> 드롭다운버튼에 해당값이 들어가게 */}
+                                                    <DropdownButton as={ButtonGroup} key={"옵션명"} id={`dropdown-variants-"옵션명"`} title={selectedOption2 || "옵션명"} variant='secondary'>
+                                                        <DropdownItem onClick={() => setSelectedOption2("1단계")}>1단계</DropdownItem>
+                                                        <DropdownItem onClick={() => setSelectedOption2("2단계")}>2단계</DropdownItem>
+                                                        <DropdownItem onClick={() => setSelectedOption2("3단계")}>3단계</DropdownItem>
                                                     </DropdownButton>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>옵션123123</td>
                                                 <td id='dropdownbtn'>
-                                                    <DropdownButton as={ButtonGroup} key={"옵션명"} id={`dropdown-variants-"옵션명"`} title={"옵션명"} variant='secondary'>
-                                                        <DropdownItem>1단계</DropdownItem>
-                                                        <DropdownItem>2단계</DropdownItem>
-                                                        <DropdownItem>3단계</DropdownItem>
-                                                        {/* 드롭다운아이템이 눌려지면 온클릭 -> 드롭다운버튼에 해당값이 들어가게 */}
-                                                    </DropdownButton>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>옵션123123</td>
-                                                <td id='dropdownbtn'>
-                                                    <DropdownButton as={ButtonGroup} key={"옵션명"} id={`dropdown-variants-"옵션명"`} title={"옵션명"} variant='secondary'>
-                                                        <DropdownItem>1단계</DropdownItem>
-                                                        <DropdownItem>2단계</DropdownItem>
-                                                        <DropdownItem>3단계</DropdownItem>
-                                                        {/* 드롭다운아이템이 눌려지면 온클릭 -> 드롭다운버튼에 해당값이 들어가게 */}
+                                                    <DropdownButton as={ButtonGroup} key={"옵션명"} id={`dropdown-variants-"옵션명"`} title={selectedOption3 || "옵션명"} variant='secondary'>
+                                                        <DropdownItem onClick={() => setSelectedOption3("1단계")}>1단계</DropdownItem>
+                                                        <DropdownItem onClick={() => setSelectedOption3("2단계")}>2단계</DropdownItem>
+                                                        <DropdownItem onClick={() => setSelectedOption3("3단계")}>3단계</DropdownItem>
                                                     </DropdownButton>
                                                 </td>
                                             </tr>

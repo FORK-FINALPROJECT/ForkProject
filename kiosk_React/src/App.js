@@ -17,10 +17,10 @@ import axios from 'axios';
 
 // 터치 / 터치스크롤로 수정하기
 // 화면보호기 화면
-const standByScreen1 = () => <div id='standByScreen'><img src={require('./resources/image/대기화면1.png')} /></div>
-const standByScreen2 = () => <div id='standByScreen'><img src={require('./resources/image/대기화면2.png')} /></div>
-const standByScreen3 = () => <div id='standByScreen'><img src={require('./resources/image/대기화면3.png')} /></div>
-const standByScreen4 = () => <div id='standByScreen'><img src={require('./resources/image/대기화면4.png')} /></div>
+const standByScreen1 = () => <div id='standByScreen'><img src={require('./resources/image/standByScreen1.png')} /></div>
+const standByScreen2 = () => <div id='standByScreen'><img src={require('./resources/image/standByScreen2.png')} /></div>
+const standByScreen3 = () => <div id='standByScreen'><img src={require('./resources/image/standByScreen3.png')} /></div>
+const standByScreen4 = () => <div id='standByScreen'><img src={require('./resources/image/standByScreen4.png')} /></div>
 
 function App() {
   // 동연 시작  
@@ -62,10 +62,7 @@ function App() {
       clearInterval(intervalScreen);
     }
 
-  }, [standByScreenIndex]);
-
-  // 랜더링 할 화면보호기
-  // const RenderStandByScreen = standByScreenList[standByScreenIndex];
+  }, []);
 
   const [standByScreen, setStandByScreen] = useState(false);
 
@@ -96,7 +93,6 @@ function App() {
       }, 100)
     });
     document.addEventListener('keydown', handleUserUsing);
-    console.log('standByScreen : ', standByScreen);
 
     // 언마운트될때 이벤트 제거
     return () => {
