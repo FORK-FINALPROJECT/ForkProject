@@ -14,6 +14,7 @@ import DutchpayByPrice from './components/DutchpayByPrice';
 import useFullscreen from './components/useFullscreen';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import LoginView from './components/LoginView';
 
 // 터치 / 터치스크롤로 수정하기
 // 화면보호기 화면
@@ -188,13 +189,14 @@ function App() {
     });
 
     //스프링부트 연결
-    axios.get("http://localhost:3000/kiosk/menu").then((response) => {
+    axios.get("http://localhost:3000/kiosk/category").then((response) => {
       console.log(response, response.data);
     }).catch(console.log);
 
   }, []);
 
-  // 선유 끝  
+  // 선유 끝
+  
 
   return (
     <>
@@ -217,6 +219,7 @@ function App() {
             전체화면으로 보기
           </button>
         )}
+        
         <div className="main-wrap">
           <Headers />
           <div className="body-wrap">
