@@ -19,20 +19,25 @@ const DutchpayByPrice = (props) => {
                     </div>
                     <div className="dutchpayByPrice-content">
                         <div className="totalPrice">
-                            <tr>
-                                <th>총 금액 : </th>
-                                <td>2,000원</td>
-                            </tr>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <th>총 금액 : </th>
+                                        <td>2,000원</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                         <div className="pay-list">
                             <ul>
                                 <li>
                                     <table>
-                                        <tr>
-                                            <th>금액</th>
-                                            <td><CloseButton variant="white" /></td>
-                                        </tr>
-
+                                        <tbody>
+                                            <tr>
+                                                <th>금액</th>
+                                                <td><CloseButton variant="white" /></td>
+                                            </tr>
+                                        </tbody>
                                     </table>
                                 </li>
                                 <li>
@@ -46,10 +51,12 @@ const DutchpayByPrice = (props) => {
                             <ul>
                                 <li>
                                     <table>
-                                        <tr>
-                                            <th>금액</th>
-                                            <td><CloseButton variant="white" /></td>
-                                        </tr>
+                                        <tbody>
+                                            <tr>
+                                                <th>금액</th>
+                                                <td><CloseButton variant="white" /></td>
+                                            </tr>
+                                        </tbody>
                                     </table>
                                 </li>
                                 <li>
@@ -63,10 +70,12 @@ const DutchpayByPrice = (props) => {
                             <ul>
                                 <li>
                                     <table>
-                                        <tr>
-                                            <th>금액</th>
-                                            <td><CloseButton variant="white" /></td>
-                                        </tr>
+                                        <tbody>
+                                            <tr>
+                                                <th>금액</th>
+                                                <td><CloseButton variant="white" /></td>
+                                            </tr>
+                                        </tbody>
                                     </table>
                                 </li>
                                 <li>
@@ -80,10 +89,12 @@ const DutchpayByPrice = (props) => {
                             <ul>
                                 <li>
                                     <table>
-                                        <tr>
-                                            <th>금액</th>
-                                            <td><CloseButton variant="white" /></td>
-                                        </tr>
+                                        <tbody>
+                                            <tr>
+                                                <th>금액</th>
+                                                <td><CloseButton variant="white" /></td>
+                                            </tr>
+                                        </tbody>
                                     </table>
                                 </li>
                                 <li>
@@ -97,10 +108,12 @@ const DutchpayByPrice = (props) => {
                             <ul>
                                 <li>
                                     <table>
-                                        <tr>
-                                            <th>금액</th>
-                                            <td><CloseButton variant="white" /></td>
-                                        </tr>
+                                        <tbody>
+                                            <tr>
+                                                <th>금액</th>
+                                                <td><CloseButton variant="white" /></td>
+                                            </tr>
+                                        </tbody>
                                     </table>
                                 </li>
                                 <li>
@@ -114,10 +127,12 @@ const DutchpayByPrice = (props) => {
                             <ul>
                                 <li>
                                     <table>
-                                        <tr>
-                                            <th>금액</th>
-                                            <td><CloseButton variant="white" /></td>
-                                        </tr>
+                                        <tbody>
+                                            <tr>
+                                                <th>금액</th>
+                                                <td><CloseButton variant="white" /></td>
+                                            </tr>
+                                        </tbody>
                                     </table>
                                 </li>
                                 <li>

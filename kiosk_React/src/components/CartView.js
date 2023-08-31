@@ -14,7 +14,7 @@ const CartView = () => {
 
         {
             id: 1,
-            imagePath: require('../resources/image/메뉴샘플.png'),
+            imagePath: require('../resources/image/menuSample.png'),
             name: '메뉴이름 1',
             price: '가격 1',
             option: '옵션 어쩌구 저쩌구 메뉴랑 이것저것 많이 들어갈 예정이니까 일단 길게 써보자',
@@ -22,7 +22,7 @@ const CartView = () => {
         },
         {
             id: 2,
-            imagePath: require('../resources/image/물강아지.jpg'),
+            imagePath: require('../resources/image/menuTest.jpg'),
             name: '메뉴이름 2',
             price: '가격 2',
             option: '다른 옵션 내용...',
@@ -30,7 +30,7 @@ const CartView = () => {
         },
         {
             id: 3,
-            imagePath: require('../resources/image/물강아지.jpg'),
+            imagePath: require('../resources/image/menuTest.jpg'),
             name: '메뉴',
             price: '가격 2',
             option: '다른 옵션 내용.옵션션션션션션ㅅ..',
@@ -38,7 +38,7 @@ const CartView = () => {
         },
         {
             id: 4,
-            imagePath: require('../resources/image/물강아지.jpg'),
+            imagePath: require('../resources/image/menuTest.jpg'),
             name: '메뉴',
             price: '가격 2',
             option: '다른 옵션 내용.옵션션션션션션ㅅ..',
@@ -97,7 +97,7 @@ const CartView = () => {
                                                 <span className="cart-menu-name-1">{item.name}</span>
                                                 <span className="cart-menu-name-2"> {item.price} </span>
                                                 <span onClick={() => removeCartItem(item.id)}>
-                                                    <img className="close int" src={require('../resources/image/닫기6.png')} />
+                                                    <img className="close int" src={require('../resources/image/closeLogo6.png')} />
                                                 </span>
                                             </div>
                                             <div className="cart-menu-option">
