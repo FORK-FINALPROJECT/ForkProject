@@ -212,6 +212,7 @@ function App() {
           ))}
         </div>
       )}
+
       <Router>
         {/* 전체화면 보기 버튼 */}
         {isFullscreen ? null : (
@@ -219,7 +220,7 @@ function App() {
             전체화면으로 보기
           </button>
         )}
-        
+      
         <div className="main-wrap">
           <Headers />
           <div className="body-wrap">
