@@ -90,14 +90,14 @@ const CartView = () => {
                                 {cartItems.map(item => (
                                     <div key={item.id} className="cart-order-wrap">
                                         <div className="cart-menu-pic">
-                                            <img src={item.imagePath} />
+                                            <img src={item.imagePath} alt="메뉴사진" onError={(e) => {e.target.src = require('../resources/image/defaultimg.jpg')}}/>
                                         </div>
                                         <div className="cart-menu-details">
                                             <div className="cart-menu-name">
                                                 <span className="cart-menu-name-1">{item.name}</span>
                                                 <span className="cart-menu-name-2"> {item.price} </span>
                                                 <span onClick={() => removeCartItem(item.id)}>
-                                                    <img className="close int" src={require('../resources/image/closeLogo6.png')} />
+                                                    <img className="close int" src={require('../resources/image/closeLogo6.png')} alt="닫기"/>
                                                 </span>
                                             </div>
                                             <div className="cart-menu-option">

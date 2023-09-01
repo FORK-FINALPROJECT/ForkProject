@@ -20,7 +20,7 @@ const DutchpayByMenu = (props) => {
                         <div className="pay-list">
                             <ul>
                                 <li>
-                                    <img src={require('../resources/image/menuTest.jpg')} />
+                                    <img src={require('../resources/image/menuTest.jpg')} alt="메뉴사진" onError={(e) => {e.target.src = require('../resources/image/defaultimg.jpg')}}/>
                                 </li>
                                 <li>
                                     메뉴이름
@@ -32,7 +32,7 @@ const DutchpayByMenu = (props) => {
                             </ul>
                             <ul>
                                 <li>
-                                    <img src={require('../resources/image/menuTest.jpg')} />
+                                    <img src={require('../resources/image/menuTest.jpg')} alt="메뉴사진" onError={(e) => {e.target.src = require('../resources/image/defaultimg.jpg')}}/>
                                 </li>
                                 <li>
                                     메뉴이름
@@ -44,7 +44,7 @@ const DutchpayByMenu = (props) => {
                             </ul>
                             <ul>
                                 <li>
-                                    <img src={require('../resources/image/menuTest.jpg')} />
+                                    <img src={require('../resources/image/menuTest.jpg')} alt="메뉴사진" onError={(e) => {e.target.src = require('../resources/image/defaultimg.jpg')}}/>
                                 </li>
                                 <li>
                                     메뉴이름
@@ -56,7 +56,7 @@ const DutchpayByMenu = (props) => {
                             </ul>
                             <ul>
                                 <li>
-                                    <img src={require('../resources/image/menuTest.jpg')} />
+                                    <img src={require('../resources/image/menuTest.jpg')} alt="메뉴사진" onError={(e) => {e.target.src = require('../resources/image/defaultimg.jpg')}}/>
                                 </li>
                                 <li>
                                     메뉴이름
@@ -68,7 +68,7 @@ const DutchpayByMenu = (props) => {
                             </ul>
                             <ul>
                                 <li>
-                                    <img src={require('../resources/image/menuTest.jpg')} />
+                                    <img src={require('../resources/image/menuTest.jpg')} alt="메뉴사진" onError={(e) => {e.target.src = require('../resources/image/defaultimg.jpg')}}/>
                                 </li>
                                 <li>
                                     메뉴이름

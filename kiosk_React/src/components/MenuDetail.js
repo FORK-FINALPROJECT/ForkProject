@@ -38,7 +38,7 @@ const MenuDetail = (props) => {
                     </div>
                     <div className="detailmenu-content">
                         <div className="detailmenu-content-left">
-                            <img src={require('../resources/image/menuTest.jpg')} />
+                            <img src={require('../resources/image/menuTest.jpg')} alt="메뉴사진" onError={(e) => {e.target.src = require('../resources/image/defaultimg.jpg')}}/>
                             <ul>
                                 <li>
                                     맛있는거ㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓ

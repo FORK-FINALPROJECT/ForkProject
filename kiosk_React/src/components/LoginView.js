@@ -15,7 +15,7 @@ const LoginView = () => {
         <body oncontextmenu='return false' class='snippet-body'>
             <div class="wrapper bg-white">
                 <div class="h2 text-center">
-                    <img id='header-logo' src={`${process.env.PUBLIC_URL}/forkLogo.PNG`}></img>
+                    <img id='header-logo' src={`${process.env.PUBLIC_URL}/forkLogo.PNG`} alt='로고'></img>
                 </div>
                 <form class="pt-3">
                     <div class="form-group py-2">
