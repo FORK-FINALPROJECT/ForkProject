@@ -36,7 +36,7 @@ const ReceiptDetailViewl = (props) => {
                         <div colSpan="3">주문내역</div>
                         <div>
                             <img onClick={handleCloseReceipt} className="close int"
-                                src={require('../resources/image/closeLogo6.png')} />
+                                src={require('../resources/image/closeLogo6.png')} alt="닫기"/>
                         </div>
                     </div>
                     <div className="receipt-detail-top-2">

@@ -12,56 +12,56 @@ const MenuList = (props) => {
                     <div className="menu-list">
                         <ul>
                             <Link to="menuDetail">
-                                <li><img src={require('../resources/image/menuTest.jpg')} /></li>
+                                <li><img src={require('../resources/image/menuTest.jpg')} alt="메뉴사진" onError={(e) => {e.target.src = require('../resources/image/defaultimg.jpg')}}/></li>
                                 <li>메뉴이름</li>
                                 <li>가격</li>
                             </Link>
                         </ul>
                         <ul>
                             <Link to="menuDetail">
-                                <li><img src={require('../resources/image/menuTest.jpg')} /></li>
+                                <li><img src={require('../resources/image/menuTest.jpg')} alt="메뉴사진" onError={(e) => {e.target.src = require('../resources/image/defaultimg.jpg')}}/></li>
                                 <li>메뉴이름</li>
                                 <li>가격</li>
                             </Link>
                         </ul>
                         <ul>
                             <Link to="menuDetail">
-                                <li><img src={require('../resources/image/menuTest.jpg')} /></li>
+                                <li><img src={require('../resources/image/menuTest.jpg')} alt="메뉴사진" onError={(e) => {e.target.src = require('../resources/image/defaultimg.jpg')}}/></li>
                                 <li>메뉴이름</li>
                                 <li>가격</li>
                             </Link>
                         </ul>
                         <ul>
                             <Link to="menuDetail">
-                                <li><img src={require('../resources/image/menuTest.jpg')} /></li>
+                                <li><img src={require('../resources/image/menuTest.jpg')} alt="메뉴사진" onError={(e) => {e.target.src = require('../resources/image/defaultimg.jpg')}}/></li>
                                 <li>메뉴이름</li>
                                 <li>가격</li>
                             </Link>
                         </ul>
                         <ul>
                             <Link to="menuDetail">
-                                <li><img src={require('../resources/image/menuTest.jpg')} /></li>
+                                <li><img src={require('../resources/image/menuTest.jpg')} alt="메뉴사진" onError={(e) => {e.target.src = require('../resources/image/defaultimg.jpg')}}/></li>
                                 <li>메뉴이름</li>
                                 <li>가격</li>
                             </Link>
                         </ul>
                         <ul>
                             <Link to="menuDetail">
-                                <li><img src={require('../resources/image/menuTest.jpg')} /></li>
+                                <li><img src={require('../resources/image/menuTest.jpg')} alt="메뉴사진" onError={(e) => {e.target.src = require('../resources/image/defaultimg.jpg')}}/></li>
                                 <li>메뉴이름</li>
                                 <li>가격</li>
                             </Link>
                         </ul>
                         <ul>
                             <Link to="menuDetail">
-                                <li><img src={require('../resources/image/menuTest.jpg')} /></li>
+                                <li><img src={require('../resources/image/menuTest.jpg')} alt="메뉴사진" onError={(e) => {e.target.src = require('../resources/image/defaultimg.jpg')}}/></li>
                                 <li>메뉴이름</li>
                                 <li>가격</li>
                             </Link>
                         </ul>
                         <ul>
                             <Link to="menuDetail">
-                                <li><img src={require('../resources/image/menuTest.jpg')} /></li>
+                                <li><img src={require('../resources/image/menuTest.jpg')} alt="메뉴사진" onError={(e) => {e.target.src = require('../resources/image/defaultimg.jpg')}}/></li>
                                 <li>메뉴이름</li>
                                 <li>가격</li>
                             </Link>
@@ -73,56 +73,56 @@ const MenuList = (props) => {
                     <div className="menu-list">
                         <ul>
                             <Link to="menuDetail">
-                                <li><img src={require('../resources/image/menuTest.jpg')} /></li>
+                                <li><img src={require('../resources/image/menuTest.jpg')} alt="메뉴사진" onError={(e) => {e.target.src = require('../resources/image/defaultimg.jpg')}}/></li>
                                 <li>메뉴이름</li>
                                 <li>가격</li>
                             </Link>
                         </ul>
                         <ul>
                             <Link to="menuDetail">
-                                <li><img src={require('../resources/image/menuTest.jpg')} /></li>
+                                <li><img src={require('../resources/image/menuTest.jpg')} alt="메뉴사진" onError={(e) => {e.target.src = require('../resources/image/defaultimg.jpg')}}/></li>
                                 <li>메뉴이름</li>
                                 <li>가격</li>
                             </Link>
                         </ul>
                         <ul>
                             <Link to="menuDetail">
-                                <li><img src={require('../resources/image/menuTest.jpg')} /></li>
+                                <li><img src={require('../resources/image/menuTest.jpg')} alt="메뉴사진" onError={(e) => {e.target.src = require('../resources/image/defaultimg.jpg')}}/></li>
                                 <li>메뉴이름</li>
                                 <li>가격</li>
                             </Link>
                         </ul>
                         <ul>
                             <Link to="menuDetail">
-                                <li><img src={require('../resources/image/menuTest.jpg')} /></li>
+                                <li><img src={require('../resources/image/menuTest.jpg')} alt="메뉴사진" onError={(e) => {e.target.src = require('../resources/image/defaultimg.jpg')}}/></li>
                                 <li>메뉴이름</li>
                                 <li>가격</li>
                             </Link>
                         </ul>
                         <ul>
                             <Link to="menuDetail">
-                                <li><img src={require('../resources/image/menuTest.jpg')} /></li>
+                                <li><img src={require('../resources/image/menuTest.jpg')} alt="메뉴사진" onError={(e) => {e.target.src = require('../resources/image/defaultimg.jpg')}}/></li>
                                 <li>메뉴이름</li>
                                 <li>가격</li>
                             </Link>
                         </ul>
                         <ul>
                             <Link to="menuDetail">
-                                <li><img src={require('../resources/image/menuTest.jpg')} /></li>
+                                <li><img src={require('../resources/image/menuTest.jpg')} alt="메뉴사진" onError={(e) => {e.target.src = require('../resources/image/defaultimg.jpg')}}/></li>
                                 <li>메뉴이름</li>
                                 <li>가격</li>
                             </Link>
                         </ul>
                         <ul>
                             <Link to="menuDetail">
-                                <li><img src={require('../resources/image/menuTest.jpg')} /></li>
+                                <li><img src={require('../resources/image/menuTest.jpg')} alt="메뉴사진" onError={(e) => {e.target.src = require('../resources/image/defaultimg.jpg')}}/></li>
                                 <li>메뉴이름</li>
                                 <li>가격</li>
                             </Link>
                         </ul>
                         <ul>
                             <Link to="menuDetail">
-                                <li><img src={require('../resources/image/menuTest.jpg')} /></li>
+                                <li><img src={require('../resources/image/menuTest.jpg')} alt="메뉴사진" onError={(e) => {e.target.src = require('../resources/image/defaultimg.jpg')}}/></li>
                                 <li>메뉴이름</li>
                                 <li>가격</li>
                             </Link>

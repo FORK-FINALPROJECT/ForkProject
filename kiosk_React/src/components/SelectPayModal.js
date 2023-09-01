@@ -82,13 +82,13 @@ function SelectPayModal(props) {
                             {payMethod === "분할결제" && <>
                                 <ul>
                                     <Link to="/dutchpayByMenu" onClick={handleCloseModal}>
-                                        <li><img src={require('../resources/image/dutchMenuLogo.PNG')} /></li>
+                                        <li><img src={require('../resources/image/dutchMenuLogo.PNG')} alt='메뉴별로고'/></li>
                                         <li>메뉴별</li>
                                     </Link>
                                 </ul>
                                 <ul>
                                     <Link to="/dutchpayByPrice" onClick={handleCloseModal}>
-                                        <li><img src={require('../resources/image/dutchPriceLogo.PNG')} /></li>
+                                        <li><img src={require('../resources/image/dutchPriceLogo.PNG')} alt='금액별로고'/></li>
                                         <li>금액별</li>
                                     </Link>
                                 </ul>
@@ -98,15 +98,15 @@ function SelectPayModal(props) {
                     ) : (
                         <div className='selectPayModal'>
                             <ul onClick={() => handlePaymentMethodClick("카드결제")}>
-                                <li><img src={require('../resources/image/payCardLogo.PNG')} /></li>
+                                <li><img src={require('../resources/image/payCardLogo.PNG')} alt='카드결제로고'/></li>
                                 <li>카드결제</li>
                             </ul>
                             <ul onClick={() => handlePaymentMethodClick("현금결제")}>
-                                <li><img src={require('../resources/image/payCashLogo.PNG')} /></li>
+                                <li><img src={require('../resources/image/payCashLogo.PNG')} alt='현금결제로고'/></li>
                                 <li>현금결제</li>
                             </ul>
                             <ul onClick={() => handlePaymentMethodClick("분할결제")}>
-                                <li><img src={require('../resources/image/payDutchLogo.PNG')} /></li>
+                                <li><img src={require('../resources/image/payDutchLogo.PNG')} alt='분할결제로고'/></li>
                                 <li>분할결제</li>
                             </ul>
                         </div>
