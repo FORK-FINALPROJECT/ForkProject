@@ -8,9 +8,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
 
 root.render(
-    <React.StrictMode>
+    <>
         {isLoggedIn ? <App /> : <LoginView />}
-    </React.StrictMode>,
+    </>
 );
 
 
