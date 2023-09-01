@@ -7,7 +7,7 @@ const LoginView = () => {
 
     const handleLogin = () => {
         setLoginSuccess(true);
-        localStorage.setItem('isLoggedIn','true');
+        sessionStorage.setItem('isLoggedIn','true');
     }
 
     return (

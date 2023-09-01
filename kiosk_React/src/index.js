@@ -5,7 +5,7 @@ import App from './App';
 import LoginView from './components/LoginView';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
 
 root.render(
     <>
