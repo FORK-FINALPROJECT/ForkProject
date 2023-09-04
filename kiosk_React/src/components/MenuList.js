@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
+import { useCategoryStore } from '../store/mainViewStore';
 
-const MenuList = (props) => {
+const MenuList = () => {
 
+    const menus = useCategoryStore((state) => state.menus);
     return (
         <div className="content-wrap">
             <div className="main-content">
@@ -10,7 +12,21 @@ const MenuList = (props) => {
                         <p className="main-content-detail-category">세부카테고리</p>
                     </div>
                     <div className="menu-list">
-                        <ul>
+                        {
+                            menus && menus.map( menu => {
+
+                                return (
+                                    <ul>
+                                    <Link to="menuDetail">
+                                        <li><img src={require('../resources/image/menuTest.jpg')} alt="메뉴사진" onError={(e) => {e.target.src = require('../resources/image/defaultimg.jpg')}}/></li>
+                                        <li>{menu.menuName}</li>
+                                        <li>{menu.price}</li>
+                                    </Link>
+                                </ul>
+                                )
+                            })
+                        }
+                        {/* <ul>
                             <Link to="menuDetail">
                                 <li><img src={require('../resources/image/menuTest.jpg')} alt="메뉴사진" onError={(e) => {e.target.src = require('../resources/image/defaultimg.jpg')}}/></li>
                                 <li>메뉴이름</li>
@@ -65,7 +81,7 @@ const MenuList = (props) => {
                                 <li>메뉴이름</li>
                                 <li>가격</li>
                             </Link>
-                        </ul>
+                        </ul> */}
                     </div>
                 </div>
                 <div className="main-content-menu">
