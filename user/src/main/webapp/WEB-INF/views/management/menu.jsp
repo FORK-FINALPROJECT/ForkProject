@@ -475,7 +475,7 @@ textarea {
 							// 카테고리 번호가 0일 경우 상위 카테고리
 							if ( prCate.prCategoryNo === 0 ) {
 								
-								// 제목에 상위 카테고리 이름 뿌려줌 
+								// 제목에 상위 카테고리 이름 뿌려줌
 								topMenu = `<div class="top-menu" onclick='topMenuClick(this);'>\${prCate.categoryName}</div>`;
 								
 								// 카테고리 메뉴 시작점

@@ -8,6 +8,7 @@
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <title>아이디 찾기</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js'></script>
     <script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js'></script>
     <style>
@@ -76,6 +77,7 @@
             width: 310px;
             height: 40px;
             font-size: 13px;
+            padding-left: 10px;
         }
 
         button {
@@ -89,6 +91,42 @@
             color: white;
             font-weight: bolder;
             font-size: medium;
+            cursor: pointer;
+        }
+        
+        	/* 모달 배경 */
+        .modal-background {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 모달 창 */
+        .modal {
+            background-color: white;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* 모달 내용 */
+        .modal-content {
+            margin-bottom: 20px;
+        }
+
+        /* 모달 확인 버튼 */
+        .modal-button {
+            background-color: #FF8B3D;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
             cursor: pointer;
         }
     </style>
@@ -105,21 +143,74 @@
                         <th><h3>사업자명</h3></th>
                     </tr>
                     <tr>
-                        <td><input type="text" class="userName" placeholder=" 사업자명을 입력해주세요"></td>
+                        <td><input type="text" class="memberName" name="memberName" placeholder="사업자명을 입력해주세요"></td>
                     </tr>
                     <tr>
                         <th><h3>전화번호</h3></th>
                     </tr>
                     <tr>
-                        <td><input type="text" class="phone" placeholder=" 전화번호를 입력해주세요"></td>
+                        <td><input type="text" class="phone" name="phone" placeholder="전화번호를 입력해주세요"></td>
                     </tr>
                 </tbody>
             </table>
-            <div class="nextpage">
-                <button type="submit">아이디 찾기</button>
-            </div>
+           <div class="nextpage">
+               <button id="openModalButton" type="button">아이디 찾기</button>
+           </div>
         </form>
     </div>
+    
+	 <!-- 모달 배경과 내용 -->
+    <div class="modal-background" id="modalBackground">
+        <div class="modal">
+            <div class="modal-content"></div>
+            <button class="modal-button" id="closeModalButton">확인</button>
+        </div>
+    </div>
+
+    <script>
+        // 모달 열기 버튼 클릭 이벤트
+        document.getElementById('openModalButton').addEventListener('click', function() {
+		    document.getElementById('modalBackground').style.display = 'flex';
+		    
+		    var memberName = document.querySelector('.memberName').value;
+		    var phone = document.querySelector('.phone').value;
+		    
+		    $.ajax({
+		        url: "${contextPath}/searchId",
+		        method: "post",
+		        data: {
+		            memberName: memberName,
+		            phone: phone
+		        },
+		        success: function(response) {
+		        	if(response.memberName != undefined) {
+			            var html = response.memberName + "님의 아이디는 " + response.memberId + "입니다.";
+			            $(".modal-content").html(html);
+			            
+			            // '확인' 버튼 클릭 이벤트
+	                    document.getElementById('closeModalButton').addEventListener('click', function() {
+	                        location.href="${contextPath}";
+	                    });
+			            
+		        	} else {
+		        		var html1 = "사업자명 또는 전화번호를 잘못입력하셨습니다. <br> 다시 입력해주세요";
+			            $(".modal-content").html(html1);
+			            
+			            document.getElementById('closeModalButton').addEventListener('click', function() {
+			            	document.querySelector('.memberName').value = ""; // 입력 필드 비우기
+	                        document.querySelector('.phone').value = ""; 
+	                    });
+		        	}
+		        }
+		    });
+		});
+
+        // 모달 닫기 버튼 클릭 이벤트
+        document.getElementById('closeModalButton').addEventListener('click', function() {
+            document.getElementById('modalBackground').style.display = 'none';
+        });
+    </script>
+    
 </body>
 
 </html>

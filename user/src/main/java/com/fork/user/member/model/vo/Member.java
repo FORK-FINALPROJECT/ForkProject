@@ -15,7 +15,7 @@ public class Member {
 	private String address;
 	private String phone;
 	private String email;
-	private String extraNumber;
+	private int extraNumber;
 	private String modifyDate;
 	private String status;
 	

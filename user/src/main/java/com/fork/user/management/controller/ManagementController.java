@@ -355,6 +355,12 @@ public class ManagementController {
 		return "redirect:/option";
 	}
 	
+	/**
+	 * 특정 옵션 삭제
+	 * @param optionNo
+	 * @param session
+	 * @return
+	 */
 	@PostMapping("/deleteOption/{optionNo}")
 	public String deleteOption(
 				@PathVariable("optionNo") int optionNo,

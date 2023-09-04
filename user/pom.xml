@@ -78,6 +78,11 @@
 		</dependency>
 		<!-- jsp이용을 위한 추가 의존성파일들 끝 -->
 		
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+		
 	</dependencies>
 
 	<build>

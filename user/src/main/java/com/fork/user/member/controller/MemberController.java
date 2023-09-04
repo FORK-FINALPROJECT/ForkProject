@@ -7,21 +7,25 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fork.user.common.Utils;
 import com.fork.user.member.model.service.MemberService;
 import com.fork.user.member.model.vo.Member;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@RequiredArgsConstructor
 public class MemberController {
 
 	@Autowired
@@ -138,5 +142,48 @@ public class MemberController {
 		return "member/searchPwd";
 	}
 	
+	/**
+	 * 아이디 찾기
+	 * @param m
+	 * @return
+	 */
+	@PostMapping("/searchId")
+	@ResponseBody
+	public ResponseEntity<Member> selectId(Member m) {
+		Member member = mService.selectId(m);
+		return ResponseEntity.ok(member);
+	}
+	
+	/**
+	 * 비밀번호 찾기
+	 * @param m
+	 * @param session
+	 * @return
+	 */
+	@PostMapping("/selectPwd")
+	public String selectPwd(
+				Member m,
+				HttpSession session
+			) {
+		
+		Member member = mService.selectPwd(m);
+		
+		if(member != null) {
+			checkNumber(member);
+			return "member/searchPwd";
+		} else {
+			session.setAttribute("alertMsg", "아이디 또는 이메일을 잘못입력하셨습니다.");
+			return "member/searchPwd";
+		}
+		
+	}
+	
+	/**
+	 * 이메일 전송
+	 * @param m
+	 */
+	public void checkNumber(Member m) {
+		mService.checkNumber(m);
+	}
 	
 }

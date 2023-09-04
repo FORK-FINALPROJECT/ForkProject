@@ -8,4 +8,10 @@ public interface MemberService {
 	
 	int insertMember(Member m);
 
+	Member selectId(Member m);
+
+	Member selectPwd(Member m);
+
+	void checkNumber(Member m);
+
 }

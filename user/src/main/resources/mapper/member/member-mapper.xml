@@ -53,5 +53,23 @@
 			'N'
 		)
 	</insert>
+	
+	<select id="selectId" parameterType="member" resultMap="memberResultSet">
+		SELECT *
+		FROM MEMBER
+		WHERE MEMBER_NAME = #{memberName} AND PHONE = #{phone}
+	</select>
+	
+	<select id="selectPwd" parameterType="member" resultMap="memberResultSet">
+		SELECT *
+		FROM MEMBER
+		WHERE MEMBER_ID = #{memberId} AND EMAIL = #{email}
+	</select>
+	
+	<update id="updateNumber" parameterType="member">
+		UPDATE MEMBER
+		SET EXTRA_NUMBER = #{extraNumber}
+		WHERE MEMBER_NAME = #{memberName}
+	</update>
 
 </mapper>
