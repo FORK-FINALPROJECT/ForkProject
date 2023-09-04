@@ -25,7 +25,7 @@ function detail_order(title, no){
                 $("#struc-title").html(title);
                 $("#total-price").html(total_price.toLocaleString());
                 $(".modal-body").html(menu);
-                $('#struc_detail').modal("show");
+                $("#struc_detail").modal("show");
             }
         }
     })

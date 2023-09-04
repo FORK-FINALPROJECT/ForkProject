@@ -113,5 +113,15 @@ public class ManagementServiceImpl implements ManagementService {
 		return managementDao.selectMenu(paramMap);
 	}
 
+	@Override
+	public List<Menu> selectMenu() {
+		return managementDao.selectMenu();
+	}
+
+	@Override
+	public List<Category> selectCategory() {
+		return managementDao.selectCategory();
+	}
+
 
 }

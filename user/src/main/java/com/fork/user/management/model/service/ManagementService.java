@@ -48,4 +48,8 @@ public interface ManagementService {
 
 	List<Menu> selectMenu(Map<String, Object> paramMap);
 
+	List<Menu> selectMenu();
+
+	List<Category> selectCategory();
+
 }

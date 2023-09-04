@@ -159,5 +159,17 @@
 		FROM MENU
 		ORDER BY CATEGORY_NO ASC
 	</select>
+	
+	<select id="selectAllMenu" resultMap="menuResultSet">
+		SELECT *
+		FROM MENU
+		ORDER BY CATEGORY_NO ASC
+	</select>
+	
+	<select id="selectAllCategory" resultMap="categoryResultSet">
+		SELECT CATEGORY_NO, CATEGORY_NAME, NVL(PR_CATEGORY_NO, 0) PR_CATEGORY_NO
+		FROM CATEGORY
+		ORDER BY CATEGORY_NO ASC
+	</select>
 
 </mapper>

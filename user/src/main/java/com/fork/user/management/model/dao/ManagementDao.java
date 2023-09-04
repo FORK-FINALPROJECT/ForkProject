@@ -112,5 +112,13 @@ public class ManagementDao {
 	public List<Menu> selectMenu(Map<String, Object> paramMap) {
 		return session.selectList("managementMapper.selectMenu", paramMap);
 	}
+
+	public List<Menu> selectMenu() {
+		return session.selectList("managementMapper.selectAllMenu");
+	}
+
+	public List<Category> selectCategory() {
+		return session.selectList("managementMapper.selectAllCategory");
+	}
 	
 }
