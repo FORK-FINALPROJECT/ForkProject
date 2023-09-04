@@ -10,7 +10,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>메뉴 관리</title>
-<link rel="stylesheet" href="css/header.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 <style>
 * {
 	/* border: 1px solid red; */
@@ -62,7 +63,7 @@ button:hover {
 
 .content {
 	width: 100%;
-	margin-top: 130px;
+	margin-top: 30px;
 }
 
 table * {
@@ -262,6 +263,24 @@ textarea {
 	width: 300px;
 	height: 300px;
 }
+.top-menu{
+	height: 50px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bolder;
+	font-size: 20px;
+	padding-left: 10px;
+	background-color: rgb(50, 50, 50);
+	color: white; 
+	width: 1500px;
+	margin: 0 auto; 
+	line-height: 50px;
+}
+.menu_img>img{
+	width: 100%;
+	
+
+}
+
 </style>
 </head>
 
@@ -291,119 +310,15 @@ textarea {
 				<button onclick="insertMenu1()" class="insertMenu">메뉴 등록</button>
 			</div>
 		</div>
-		<hr>
-		<div class="content">
-			<div class="table_outer">
-				<c:forEach var="category" items="${clist }">
-					<c:if test="${category.prCategoryNo ne 0 }">
-					<c:forEach var="m" items="${list }">
-						<c:if test="${category.categoryNo eq m.categoryNo }">
-							<c:set var="count" value="${count+1 }"/>
-						</c:if>					
-					</c:forEach>
-					<table class="menuTable">
-                    <thead>
-                        <tr>
-                        <c:if test="${category.prCategoryNo ne 0 }">
-                            <th colspan="5">${category.categoryName}</th>
-                        </c:if>
-                        </tr>
-                    </thead>
-                    <tbody>
-					<%-- <tr>
-						<c:if test="${count eq 5 }">
-							<c:forEach var="menu" items="${list }">
-								<c:if test="${category.categoryNo eq menu.categoryNo }">
-									<td class="menu_img">${menu.menuNo }<br> <span class="footer-text">${menu.menuName }</span></td>
-								</c:if>	
-							</c:forEach>
-						</c:if>
-						<c:if test="${count > 5 }">
-							<c:forEach var="menu" items="${list }" end="${count}">
-								<c:if test="${category.categoryNo eq menu.categoryNo }">
-									<td class="menu_img">${menu.menuNo }<br> <span class="footer-text">${menu.menuName }</span></td>
-								</c:if>	
-							</c:forEach>
-							<c:forEach var="empty" begin="1" end="${5 - count}">
-								<td class="menu_img">X<br> <span class="footer-text">-</span></td>
-							</c:forEach>
-						</c:if>
-						</tr> --%>
-					</tbody>
-                </table>
-                </c:if>
-				</c:forEach>
-				
-				
-			
-				<!-- <table class="menuTable">
-                    <thead>
-                        <tr>
-                            <th colspan="5">카테고리 1</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="menu_img"></td>
-                            <td class="menu_img"></td>
-                            <td class="menu_img"></td>
-                            <td class="menu_img"></td>
-                            <td class="menu_img"></td>
-                        </tr>
-                        <tr>
-                            <td class="footer-text">상품1</td>
-                            <td class="footer-text">상품2</td>
-                            <td class="footer-text">상품3</td>
-                            <td class="footer-text">상품4</td>
-                            <td class="footer-text">상품5</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br>
-                <table class="menuTable">
-                    <thead>
-                        <tr>
-                            <th colspan="5">카테고리 1</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="menu_img"></td>
-                            <td class="menu_img"></td>
-                            <td class="menu_img"></td>
-                            <td class="menu_img"></td>
-                            <td class="menu_img"></td>
-                        </tr>
-                        <tr>
-                            <td class="footer-text">상품1</td>
-                            <td class="footer-text">상품2</td>
-                            <td class="footer-text">상품3</td>
-                            <td class="footer-text">상품4</td>
-                            <td class="footer-text">상품5</td>
-                        </tr>
-                        <tr>
-                            <td class="menu_img"></td>
-                            <td class="menu_img"></td>
-                            <td class="menu_img"></td>
-                            <td class="menu_img"></td>
-                            <td class="menu_img"></td>
-                        </tr>
-                        <tr>
-                            <td class="footer-text">상품1</td>
-                            <td class="footer-text">상품2</td>
-                            <td class="footer-text">상품3</td>
-                            <td class="footer-text">상품4</td>
-                            <td class="footer-text">상품5</td>
-                        </tr>
-                    </tbody>
-                </table> -->
-				<br> 
-				<br>
-				<br>
-				<br>
-			</div>
-		</div>
+		
 	</div>
+
+	<div class="content">
+		<!-- 메뉴가 들어가는 곳 -->
+	</div>
+
+
+
 
 	<!-- 메뉴 등록 모달 -->
 	<div id="insertMenuModal" class="modal" style="display: none">
@@ -531,18 +446,109 @@ textarea {
 		</div>
 	</div>
 
-	<script>
 	
-		// 배열 확인
-		console.log(typeof `${clist}`);
-		console.log(typeof `${list}`);
-		
+	
+	
+	<script>
+
+
+	// 메뉴 리스트 불러오기
+	const content = document.querySelector(".content");
+	
 		$.ajax({
-			url : "menu",
-			success(){
-				
+			// 전체 카테고리 불러오기
+			url : "${contextPath}/category",
+			type : "POST",
+			success(category){
+				// 카테고리 로드 성공시 전체 메뉴 불러오기
+				$.ajax({
+					url : "${contextPath}/menu",
+					type : "POST",
+					async: false,
+					success(menus){
+						
+						// 상위 카테고리 시작점  
+						for (prCate of category){
+							let topMenu = ""; // 상위 카테고리 이름이 들어갈 영역
+							let table = ""; // 메뉴 리스트 들어갈 영역
+							
+							// 카테고리 번호가 0일 경우 상위 카테고리
+							if ( prCate.prCategoryNo === 0 ) {
+								
+								// 제목에 상위 카테고리 이름 뿌려줌 
+								topMenu = `<div class="top-menu" onclick='topMenuClick(this);'>\${prCate.categoryName}</div>`;
+								
+								// 카테고리 메뉴 시작점
+								table += `<div class="table_outer">`
+								
+								// 전체 카테고리 리스트 중 카테고리 번호와 상위 카테고리 번호가 일치할시 같은 카테고리로 분류
+								for (c of category){
+									if ( prCate.categoryNo === c.prCategoryNo) {
+										
+										table += `<table class="menuTable">`;
+										
+										table += `<thead>
+										    <tr>
+									            <th colspan="5" style="background-color: gray">\${c.categoryName}</th>
+									        </tr>
+									       </thead>`;
+										
+										table += `<tbody>`;
+										
+										// 전체 메뉴들 중 현재 카테고리 번호와 메뉴의 카테고리 번호가 일치하는 것들을 필터
+										let menu = menus.filter( (menu) =>  {
+											if ( c.categoryNo == menu.categoryNo) {
+													return menu;
+												}
+											}
+										)
+										
+										// 메뉴 순차적으로 반복 (1. 5의 배수)
+										let index = 0; // 배열의 숫자를 담아줄 변수 index
+										
+			 							for ( i=0; i<(Math.floor(menu.length/5)); i++) {
+			 								table += `<tr>`;
+			 								for ( j=0; j<5; j++ ) {
+			 									table += `<td class="footer-text menu_img" onclick="openModal3(\${menu[index].menuNo})"><img src='http://localhost:8083/kiosk\${menu[index].filePath}\${menu[index].changeName}' /><br>\${menu[index].menuName}</td>`;
+			 									index++;
+			 								}
+											table += `</tr>`;
+										}
+										
+										// 메뉴 순차적으로 반복 (2. 5의 배수 나머지 [0~4개])
+			 							
+			 							if ( (Math.round(menu.length%5)) > 0 ) {
+			 								table += `<tr>`;
+			 								for ( i=0; i<(Math.round(menu.length%5)); i++ ) {
+			 									table += `<td class="footer-text menu_img" onclick="openModal3(\${menu[index].menuNo})	"><img src='http://localhost:8083/kiosk\${menu[index].filePath}\${menu[index].changeName}' /><br>\${menu[index].menuName}</td>`;
+			 									index++;
+			 								}
+			 	 							for ( i=0; i<5-(Math.floor(menu.length%5)); i++ ) {
+			 									table += `<td class="footer-text">-</td>`;
+			 								} 
+			 	 							table += `</tr>`;
+			 							} 
+									}
+								}
+								table += `</div>`
+							}
+							// 카테고리 메뉴 종료
+							
+							// content영역에 상위 카테고리 제목과 카테고리 리스트 넣어줌
+							$(content).append(topMenu);
+							$(content).append(table);
+							
+						}
+						// 상위 카테고리 종료
+					}
+				})
 			}
 		})
+		
+		// 상위 카테고리 클릭시 하위 카테고리 슬라이드 토글
+		function topMenuClick(title){
+			$(title).next().slideToggle();	
+		}
 	
 	
 	
@@ -584,7 +590,7 @@ textarea {
 
         const menu_img_elements = document.querySelectorAll('.menu_img');
         const menuDetailModal = document.getElementById('menuDetailModal');
-
+        
         // 메뉴 등록 모달창
         function openModal() {
             insertMenuModal.style.display = 'block';
@@ -636,7 +642,7 @@ textarea {
         updatebutton.addEventListener('click', openModal2);
 
         // 메뉴 상세정보 모달창
-        function openModal3() {
+        function openModal3(menuNo) {
             menuDetailModal.style.display = 'block';
             
             /* $.ajax({
@@ -656,7 +662,7 @@ textarea {
         menu_img_elements.forEach((menu_img_element) => {
             menu_img_element.addEventListener('click', openModal3);
         });
-
+        
         window.addEventListener('click', (event) => {
             if (event.target === insertMenuModal) {
                 closeModal();

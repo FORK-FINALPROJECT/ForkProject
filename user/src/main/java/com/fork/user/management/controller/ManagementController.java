@@ -28,7 +28,10 @@ import com.fork.user.management.model.vo.Coo;
 import com.fork.user.management.model.vo.Menu;
 import com.fork.user.management.model.vo.Option;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 public class ManagementController {
 
 	@Autowired
@@ -99,6 +102,24 @@ public class ManagementController {
 		
 		return "management/menu";
 	}
+	
+	@PostMapping("/category")
+	@ResponseBody
+	public List<Category> category(){
+		List<Category> categoryList = mService.selectCategory();
+		log.info("Category = {}", categoryList);
+		return categoryList;
+	}
+	
+	@PostMapping("/menu")
+	@ResponseBody
+	public List<Menu> menu(){
+		List<Menu> menuList = mService.selectMenu();
+		log.info("menu = {}", menuList);
+
+		return menuList;
+	}
+	
 	
 	/**
 	 * 카테고리 관리 페이지로 이동

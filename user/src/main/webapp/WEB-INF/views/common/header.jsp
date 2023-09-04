@@ -6,11 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!-- alertify -->
-<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-<!-- alertify css -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+
 <link rel="stylesheet" href="resources/css/common/header.css">
 </head>
 <body>
@@ -35,7 +31,7 @@
                 <img src="resources/img/fork2.png" width="100px" />
             </div>
         </div>
-    </div>>
+    </div>
     <script type="text/javascript" src="resources/js/common/header.js"></script>
 </body>
 </html>
