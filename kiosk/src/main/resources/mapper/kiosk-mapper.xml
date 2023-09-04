@@ -2,4 +2,145 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="kiosk">
 
+<!-- 최상위 카테고리만 선택 collection으로 하위 카테고리 선택 -->
+<resultMap type="mainCategory" id="mainCategoryResultMap">
+	<id column="CATEGORY_NO" property="categoryNo"/>
+	<result column="CATEGORY_NAME" property="categoryName"/>
+	<result column="PR_CATEGORY_NO" property="prCategoryNo"/>
+	<collection property="categoryList" ofType="category" javaType="java.util.List" resultMap="subCategoryResultMap"/>
+</resultMap>
+
+<!-- 상세카테고리 선택  collection으로 카테고리별 메뉴 불러오기 -->
+<resultMap type="subCategory" id="subCategoryResultMap">
+	<id column="SUB_CATEGORY_NO" property="categoryNo"/>
+	<result column="SUB_CATEGORY_NAME" property="categoryName"/>
+	<result column="SUB_PR_CATEGORY_NO" property="prCategoryNo"/>
+	<collection property="menuList" ofType="menu" javaType="java.util.List" resultMap="menuResultSet"/>
+</resultMap>
+
+<!-- 메뉴 선택 컬렉션으로 메뉴별 옵션(상위 옵션) 불러오기 -->
+<resultMap type="menu" id="menuResultSet">
+	<id column="MENU_NO" property="menuNo"/>
+	<result column="MENU_NAME" property="menuName"/>
+	<result column="MENU_DETAIL" property="menuDetail"/>
+	<result column="PRICE" property="price"/>
+	<result column="ORIGIN_NAME" property="originName"/>
+	<result column="CHANGE_NAME" property="changeName"/>
+	<result column="FILE_PATH" property="filePath"/>
+	<result column="CATEGORY_NO" property="categoryNo"/>
+	<collection property="optList" ofType="opt" javaType="java.util.List" resultMap="mainOptionResultSet"/>
+</resultMap>
+
+<!-- 상위 옵션  컬렉션으로 하위 옵션 불러오기 -->
+<resultMap type="mainOpt" id="mainOptionResultSet">
+	<id column="OPTION_NO" property="optionNo"/>
+	<result column="OPTION_NAME" property="optionName"/>
+	<result column="PRICE" property="price"/>
+	<result column="PR_OPTION_NO" property="prOptionNo"/>
+	<result column="MENU_NO" property="menuNo"/>
+	<collection property="optList" ofType="opt" javaType="java.util.List" resultMap="optionResultSet"/>
+</resultMap>
+
+<!-- 하위 옵션 선택 -->
+<resultMap type="opt" id="optionResultSet">
+	<id column="SUB_OPTION_NO" property="optionNo"/>
+	<result column="SUB_OPTION_NAME" property="optionName"/>
+	<result column="SUB_PRICE" property="price"/>
+	<result column="SUB_PR_OPTION_NO" property="prOptionNo"/>
+	<result column="SUB_MENU_NO" property="menuNo"/>
+</resultMap>
+
+<!-- 2차 수정본 추가 -->
+<!-- <select id="selectCategoryAndMenuAndOptions" resultMap="mainCategoryResultMap">
+	SELECT 
+	    CATEGORY_NO,
+	    CATEGORY_NAME,
+	    PR_CATEGORY_NO
+	FROM CATEGORY 
+	WHERE PR_CATEGORY_NO IS NULL
+	ORDER BY CATEGORY_NO ASC
+</select> -->
+
+<select id="selectCategoryAndMenuAndOptions" resultMap="mainCategoryResultMap">
+	<!-- 1차 작업 -->
+	<!-- SELECT * FROM (SELECT 
+	    CATEGORY_NO,
+	    CATEGORY_NAME,
+	    PR_CATEGORY_NO
+	FROM CATEGORY 
+	START WITH PR_CATEGORY_NO IS NULL
+	CONNECT BY PRIOR CATEGORY_NO = PR_CATEGORY_NO) C
+	LEFT JOIN MENU M ON C.CATEGORY_NO = M.CATEGORY_NO
+	LEFT JOIN (
+	    SELECT 
+	        *
+	    FROM OPT 
+	    START WITH PR_OPTION_NO IS NULL
+	    CONNECT BY PRIOR OPTION_NO = PR_OPTION_NO
+	) O ON M.MENU_NO = O.MENU_NO
+	ORDER BY C.CATEGORY_NO , OPTION_NO ASC -->
+	<!-- 2차수정 : 쿼리문 2개로 나눠서 , 카테고리 계층구조 생성-->
+<!-- 	SELECT * FROM CATEGORY C
+	LEFT JOIN MENU M ON C.CATEGORY_NO = M.CATEGORY_NO
+	LEFT JOIN (
+	    SELECT 
+	        *
+	    FROM OPT 
+	    START WITH PR_OPTION_NO IS NULL
+	    CONNECT BY PRIOR OPTION_NO = PR_OPTION_NO
+	) O ON M.MENU_NO = O.MENU_NO
+	WHERE PR_CATEGORY_NO = #{categoryNo}
+	ORDER BY C.CATEGORY_NO , OPTION_NO ASC -->
+	
+	<!-- 3차 수정본 : 쿼리문 통합, 옵션 계층 추가 필요 -->
+	<!-- SELECT 
+		CM.CATEGORY_NO ,
+		CM.CATEGORY_NAME,
+		CM.PR_CATEGORY_NO,
+		CS.CATEGORY_NO AS SUB_CATEGORY_NO ,
+		CS.CATEGORY_NAME AS  SUB_CATEGORY_NAME,
+		CS.PR_CATEGORY_NO AS  SUB_PR_CATEGORY_NO,
+		M.*,O.* 
+	FROM CATEGORY CM
+	JOIN CATEGORY CS ON CM.CATEGORY_NO = CS.PR_CATEGORY_NO
+	LEFT JOIN MENU M ON CS.CATEGORY_NO = M.CATEGORY_NO
+	LEFT JOIN (
+	    SELECT 
+	        *
+	    FROM OPT 
+	    START WITH PR_OPTION_NO IS NULL
+	    CONNECT BY PRIOR OPTION_NO = PR_OPTION_NO
+	) O ON M.MENU_NO = O.MENU_NO
+	ORDER BY CM.CATEGORY_NO , OPTION_NO ASC -->
+	
+	<!-- 4차 수정본 -->
+	SELECT 
+		CM.CATEGORY_NO ,
+		CM.CATEGORY_NAME,
+		CM.PR_CATEGORY_NO,
+		CS.CATEGORY_NO AS SUB_CATEGORY_NO ,
+		CS.CATEGORY_NAME AS  SUB_CATEGORY_NAME,
+		CS.PR_CATEGORY_NO AS  SUB_PR_CATEGORY_NO,
+		M.*,O.* 
+	FROM CATEGORY CM
+	JOIN CATEGORY CS ON CM.CATEGORY_NO = CS.PR_CATEGORY_NO
+	LEFT JOIN MENU M ON CS.CATEGORY_NO = M.CATEGORY_NO
+	LEFT JOIN (
+	    SELECT 
+	      OM.OPTION_NO ,
+	      OM.OPTION_NAME,
+	      OM.PRICE,
+	      OM.PR_OPTION_NO,
+          OM.MENU_NO,
+	      OS.OPTION_NO AS SUB_OPTION_NO ,
+	      OS.OPTION_NAME AS  SUB_OPTION_NAME,
+	      OS.PRICE AS  SUB_PRICE,
+	      OS.PR_OPTION_NO AS  SUB_PR_OPTION_NO,
+	      OS.MENU_NO AS  SUB_MENU_NO
+	    FROM OPT OM
+	    JOIN OPT OS ON OM.OPTION_NO = OS.PR_OPTION_NO
+	) O ON M.MENU_NO = O.MENU_NO
+	ORDER BY CM.CATEGORY_NO , OPTION_NO ASC
+</select>
+
 </mapper>

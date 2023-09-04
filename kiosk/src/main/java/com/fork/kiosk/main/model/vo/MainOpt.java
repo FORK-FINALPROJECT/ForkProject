@@ -9,10 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Category{
-
-	private int categoryNo;
-	private String categoryName;
-	private int prCategoryNo;
+public class MainOpt extends Opt{
+	List<Opt> optList;
+	
 }
-
