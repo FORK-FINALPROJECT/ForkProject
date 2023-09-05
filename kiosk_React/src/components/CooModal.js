@@ -1,8 +1,16 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Table from 'react-bootstrap/Table';
+import useCooStore from '../store/cooStore';
+import React, { useEffect } from 'react';
 
 function CooModal(props) {
+
+  const {cooList, getCoo} = useCooStore();
+
+  useEffect(() => {
+    getCoo();
+  },[]);
 
   return (
     <Modal
@@ -25,58 +33,17 @@ function CooModal(props) {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>양파</td>
-              <td>국산</td>
-            </tr>
-            <tr>
-              <td>양파</td>
-              <td>국산</td>
-            </tr>
-            <tr>
-              <td>양파</td>
-              <td>국산</td>
-            </tr>
-            <tr>
-              <td>양파</td>
-              <td>국산</td>
-            </tr>
-            <tr>
-              <td>양파</td>
-              <td>국산</td>
-            </tr>
-            <tr>
-              <td>양파</td>
-              <td>국산</td>
-            </tr>
-            <tr>
-              <td>양파</td>
-              <td>국산</td>
-            </tr>
-            <tr>
-              <td>양파</td>
-              <td>국산</td>
-            </tr>
-            <tr>
-              <td>양파</td>
-              <td>국산</td>
-            </tr>
-            <tr>
-              <td>양파</td>
-              <td>국산</td>
-            </tr>
-            <tr>
-              <td>양파</td>
-              <td>국산</td>
-            </tr>
-            <tr>
-              <td>양파</td>
-              <td>국산</td>
-            </tr>
-            <tr>
-              <td>양파</td>
-              <td>국산</td>
-            </tr>
+
+            {
+              cooList.map(coo => {
+                return(
+                  <tr>
+                    <td>{coo.cooName}</td>
+                    <td>{coo.cooCountry}</td>
+                  </tr>
+                )
+              })
+            }
           </tbody>
         </Table>
       </Modal.Body>

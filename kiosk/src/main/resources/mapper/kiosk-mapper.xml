@@ -50,6 +50,13 @@
 	<result column="SUB_MENU_NO" property="menuNo"/>
 </resultMap>
 
+<!-- 원산지 -->
+<resultMap type="coo" id="cooResultMap">
+	<id column="COO_NO" property="cooNo" />
+	<result column="COO_NAME" property="cooName"/>
+	<result column="COO_COUNTRY" property="cooCountry"/>
+</resultMap>
+
 <!-- 2차 수정본 추가 -->
 <!-- <select id="selectCategoryAndMenuAndOptions" resultMap="mainCategoryResultMap">
 	SELECT 
@@ -140,7 +147,14 @@
 	    FROM OPT OM
 	    JOIN OPT OS ON OM.OPTION_NO = OS.PR_OPTION_NO
 	) O ON M.MENU_NO = O.MENU_NO
-	ORDER BY CM.CATEGORY_NO , OPTION_NO ASC
+	ORDER BY CM.CATEGORY_NO , OPTION_NO ASC,  SUB_OPTION_NAME
+	<!-- 마지막 오더바이 한개 추가했어요 -->
+</select>
+
+<select id="selectCoo" resultMap="cooResultMap">
+	SELECT COO_NO, COO_NAME, COO_COUNTRY
+	FROM COO
+	ORDER BY COO_NO
 </select>
 
 </mapper>
