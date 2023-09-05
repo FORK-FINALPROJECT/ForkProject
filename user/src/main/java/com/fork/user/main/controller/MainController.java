@@ -72,4 +72,9 @@ public class MainController {
 
         return "sales/setting";
     }
+    
+    @GetMapping("/statistics")
+    public String toStatistics(Model model) {
+        return "chart/statistics";
+    }
 }
