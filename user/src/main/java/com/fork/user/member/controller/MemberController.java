@@ -51,6 +51,7 @@ public class MemberController {
 		Member loginUser = mService.login(m);
 		
 		if(loginUser != null) {
+			session.setAttribute("loginUser", loginUser);
 			return "redirect:main"; // 바꿀 예정
 		} else {
 			return "forward:index.jsp"; 
@@ -169,8 +170,9 @@ public class MemberController {
 		Member member = mService.selectPwd(m);
 		
 		if(member != null) {
-			checkNumber(member);
-			return "member/searchPwd";
+			sendEmail(member);
+			session.setAttribute("m", m);
+			return "member/checkNumber";
 		} else {
 			session.setAttribute("alertMsg", "아이디 또는 이메일을 잘못입력하셨습니다.");
 			return "member/searchPwd";
@@ -182,8 +184,72 @@ public class MemberController {
 	 * 이메일 전송
 	 * @param m
 	 */
-	public void checkNumber(Member m) {
-		mService.checkNumber(m);
+	public void sendEmail(Member m) {
+		mService.sendEmail(m);
+	}
+	
+	/**
+	 * 인증번호 인증
+	 * @param m
+	 * @param session
+	 * @return
+	 */
+	@PostMapping("checkNumber")
+	public String checkNumber(
+				Member m,
+				HttpSession session
+			) {
+		
+		Member member = mService.checkNumber(m);
+		
+		if(member != null) {
+			session.setAttribute("m", member);
+			return "member/changePwd";
+		} else {
+			session.setAttribute("alertMsg", "인증번호를 잘못 입력하셨습니다.");
+			return "member/checkNumber";
+		}
+		
+	}
+	
+	/**
+	 * 비밀번호 변경
+	 * @param m
+	 * @param session
+	 * @return
+	 */
+	@PostMapping("changePwd")
+	public String changePwd(
+				Member m,
+				HttpSession session
+			) {
+		
+		log.info(m.getMemberId());
+		log.info(m.getMemberPwd());
+		
+		int result = mService.changePwd(m);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "비밀번호가 변경되었습니다.");
+			session.removeAttribute("m");
+			return "forward:index.jsp";
+		} else {
+			session.setAttribute("alertMsg", "다시 입력해주세요.");
+			return "member/changePwd";
+		}
+		
+	}
+	
+	/**
+	 * 아이디 중복 체크
+	 * @param memberId
+	 * @return
+	 */
+	@PostMapping("idcheck")
+	@ResponseBody
+	public String idCheck(String memberId) {
+		int result = mService.idcheck(memberId);
+		return result + "";
 	}
 	
 }

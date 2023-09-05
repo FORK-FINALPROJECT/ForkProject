@@ -141,12 +141,12 @@
                     <tr>
                         <td>2년 이용권</td>
                         <td>900,000 원</td>
-                        <td style="width:300px"><button value="결제" class="pay" onclick="requestPay()">결제<div id="amount" style="display:none;">900000</div></button></td>
+                        <td style="width:300px"><button value="결제" class="pay" onclick="requestPay(900000)">결제</button></td>
                     </tr>
                     <tr>
                         <td>1년 이용권</td>
                         <td>550,000 원</td>
-                        <td style="width:300px"><button value="결제" class="pay" onclick="requestPay()">결제<div id="amount" style="display:none;">550000</div></button></td>
+                        <td style="width:300px"><button value="결제" class="pay" onclick="requestPay(550000)">결제</button></td>
                     </tr>
                 </tbody>
             </table>
@@ -161,17 +161,17 @@
                     <tr>
                         <td>9개월 이용권</td>
                         <td>450,000 원</td>
-                        <td style="width:300px"><button value="결제" class="pay" onclick="requestPay()">결제<div id="amount" style="display:none;">450000</div></button></td>
+                        <td style="width:300px"><button value="결제" class="pay" onclick="requestPay(450000)">결제</button></td>
                     </tr>
                     <tr>
                         <td>6개월 이용권</td>
                         <td>300,000 원</td>
-                        <td style="width:300px"><button value="결제" class="pay" onclick="requestPay()">결제<div id="amount" style="display:none;">300000</div></button></td>
+                        <td style="width:300px"><button value="결제" class="pay" onclick="requestPay(300000)">결제</button></td>
                     </tr>
                     <tr>
                         <td>3개월 이용권</td>
                         <td>150,000 원</td>
-                        <td style="width:300px"><button value="결제" class="pay" onclick="requestPay()">결제<div id="amount" style="display:none;">150000</div></button></td>
+                        <td style="width:300px"><button value="결제" class="pay" onclick="requestPay(150000)">결제</button></td>
                     </tr>
                 </tbody>
             </table>
@@ -187,42 +187,50 @@
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
     
     <script>
-    var IMP = window.IMP; 
-    IMP.init("imp06580330"); 
-  
-    var today = new Date();   
-    var hours = today.getHours(); // 시
-    var minutes = today.getMinutes();  // 분
-    var seconds = today.getSeconds();  // 초
-    var milliseconds = today.getMilliseconds() * 3;
-    var makeMerchantUid = hours +  minutes + seconds + milliseconds;
-    
-
-    function requestPay() {   
-        IMP.request_pay({
-            pg : "html5_inicis",
-            pay_method : 'card',
-            merchant_uid: "IMP"+hours+minutes+seconds+makeMerchantUid+makeMerchantUid*2+makeMerchantUid*3, 
-            name : '이용', // 상품명
-            amount : document.getElementById("amount").innerHTML,
-            buyer_email : 'Iamport@chai.finance',
-            buyer_name : '아임포트 기술지원팀',
-            buyer_tel : '010-1234-5678',
-            buyer_addr : '서울특별시 강남구 삼성동',
-            buyer_postcode : '123-456',
-            custom_data: today,
-            display: {
-                card_quota: [3]  // 할부개월 3개월까지 활성화
-            }
-        }, function (rsp) { // callback
-            if (rsp.success) {
-                
-			console.log("야호");       	
-              
-        };
-    })}
-    
-    $("#header-menu").addClass("header_btn_on").removeClass("header_btn");
+		var IMP = window.IMP; 
+		IMP.init("imp06580330"); 
+		  
+		var today = new Date();   
+		var hours = today.getHours(); // 시
+		var minutes = today.getMinutes();  // 분
+		var seconds = today.getSeconds();  // 초
+		var milliseconds = today.getMilliseconds() * 3;
+		var makeMerchantUid = hours +  minutes + seconds + milliseconds;
+		    
+		function requestPay(amount) {   
+		    IMP.request_pay({
+		        pg : "html5_inicis",
+		        pay_method : 'card',
+		        merchant_uid: "IMP"+hours+minutes+seconds+makeMerchantUid+makeMerchantUid*2+makeMerchantUid*3, 
+		        name : '이용권', // 상품명
+		        amount : amount, // 수정된 부분
+		        buyer_email : 'Iamport@chai.finance',
+		        buyer_name : '아임포트 기술지원팀',
+		        buyer_tel : '010-1234-5678',
+		        buyer_addr : '서울특별시 강남구 삼성동',
+		        buyer_postcode : '123-456',
+		        custom_data: today,
+		        display: {
+		            card_quota: [3]  // 할부개월 3개월까지 활성화
+		        }
+		    }, function (rsp) { // callback
+		        if (rsp.success) {
+		        	$.ajax({
+		        		url : "${contextPath}/insertLicense",
+		        		method : "post",
+		        		data : {
+		        			memberNo : ${loginUser.getMemberNo()},
+		        			licensePrice : amount
+		        		},
+		        		success : function() {
+		        			console.log("성공");
+		        		}
+		        	})
+		        } else {
+		            console.log("결제 실패: " + rsp.error_msg);
+		        }
+		    });
+		}
 </script>
 
 </body>

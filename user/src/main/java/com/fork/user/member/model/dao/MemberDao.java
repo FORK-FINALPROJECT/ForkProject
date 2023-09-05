@@ -7,7 +7,9 @@ import org.springframework.stereotype.Repository;
 import com.fork.user.member.model.vo.Member;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class MemberDao {
@@ -33,6 +35,23 @@ public class MemberDao {
 
 	public void updateNumber(Member m) {
 		sqlSession.update("memberMapper.updateNumber", m);
+	}
+
+	public int idcheck(String memberId) {
+		try {
+	        Integer result = sqlSession.selectOne("memberMapper.idcheck", memberId);
+	        return (result != null) ? result : 0;
+	    } catch (NullPointerException e) {
+	        return 0;
+	    }
+	}
+
+	public Member checkNumber(Member m) {
+		return sqlSession.selectOne("memberMapper.checkNumber", m);
+	}
+
+	public int changePwd(Member m) {
+		return sqlSession.update("memberMapper.changePwd", m);
 	}
 
 }

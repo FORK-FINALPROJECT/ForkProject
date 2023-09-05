@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fork.user.notice.model.service.NoticeService;
@@ -23,8 +24,8 @@ public class NoticeController {
 	private NoticeService noticeService;
 
 	@GetMapping("/choice")
-	public String choice(Model model) {
-		List<Notice> list = noticeService.selectNoticeList();
+	public String choice(Model model, @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
+		List<Notice> list = noticeService.selectNoticeList(currentPage);
 		model.addAttribute("list", list);
 		return "choice";
 	}

@@ -46,7 +46,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public void checkNumber(Member m) {
+	public void sendEmail(Member m) {
 		
 		createNumber();
 		
@@ -65,4 +65,19 @@ public class MemberServiceImpl implements MemberService {
 		
 	}
 
+	@Override
+	public Member checkNumber(Member m) {
+		return memberDao.checkNumber(m);
+	}
+
+	@Override
+	public int changePwd(Member m) {
+		return memberDao.changePwd(m);
+	}
+
+	@Override
+	public int idcheck(String memberId) {
+		return memberDao.idcheck(memberId);
+	}
+	
 }

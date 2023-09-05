@@ -99,7 +99,7 @@
         <div class="h2 text-center">회원가입 동의서</div>
         <form class="pt-3" action="${contextPath }/enrollForm2">
             <div class="form-group">
-                <input type="checkbox" class="btn"><label>이용약관 동의</label><span class="essential"> (필수)</span>
+                <input type="checkbox" class="btn" required><label>이용약관 동의</label><span class="essential"> (필수)</span>
                 <textarea readonly>
  제1장총칙 
  제1조(목적)
@@ -163,7 +163,7 @@
                 </textarea>
             </div>
             <div class="form-group">
-                <input type="checkbox" class="btn"><label>개인정보 수집 및 이용</label><span class="essential"> (필수)</span>
+                <input type="checkbox" class="btn" required><label>개인정보 수집 및 이용</label><span class="essential"> (필수)</span>
                 <textarea readonly>
 본인은 귀사에 이력서를 제출함에 따라 [개인정보 보호법] 제15조 및 제17조에 따라 아래의 내용으로 개인정보를 수집, 이용 및 제공하는데 동의합니다.
  □ 개인정보의 수집 및 이용에 관한 사항 - 수집하는 개인정보 항목 (이력서 양식 내용 일체) : 성명, 주민등록번호, 전화번호, 주소, 이메일, 가족관계, 학력사항, 경력사항, 자격사항 등과 그 외 이력서 기재 내용 일체
@@ -173,7 +173,7 @@
                 </textarea>
             </div>
             <div class="form-group">
-                <input type="checkbox" class="btn"><label>개인정보 제3자 제공 동의</label><span class="essential"> (필수)</span>
+                <input type="checkbox" class="btn" required><label>개인정보 제3자 제공 동의</label><span class="essential"> (필수)</span>
                 <textarea readonly>
 FORK는 개인정보보호법 등 관련 법령상의 개인정보 보호 규정을 준수하며 학생의 개인정보 보호에 최선을 다하고 있습니다.  FORK는  개인정보보호법 제15조 및 같은 법 제22조에 근거하여, 다음과 같이 수집 및 이용을(를) 위하여 개인정보를 수집․이용하는데 동의를 받고자 합니다. 
                 </textarea>
@@ -186,7 +186,46 @@ FORK는 개인정보보호법 등 관련 법령상의 개인정보 보호 규정
             </div>
         </form>
     </div>
-    <script type='text/javascript'></script>
+    <script>
+    	// HTML에서 모두 동의하는 체크박스와 하위 체크박스들의 클래스를 설정
+	    var masterCheckbox = document.querySelector('.btn.btn-all');
+	    var childCheckboxes = document.querySelectorAll('.btn:not(.btn-all)'); // "모두 동의합니다." 체크박스 제외
+	
+	    // "모두 동의합니다." 체크박스를 클릭했을 때 실행되는 함수
+	    masterCheckbox.addEventListener('click', function () {
+	        // 모두 동의합니다. 체크박스의 상태를 가져옴
+	        var isChecked = masterCheckbox.checked;
+	
+	        // 하위 체크박스들의 상태를 모두 동일하게 설정
+	        for (var i = 0; i < childCheckboxes.length; i++) {
+	            childCheckboxes[i].checked = isChecked;
+	        }
+	    });
+	
+	    // 하위 체크박스 중 하나라도 체크가 해제되면 "모두 동의합니다." 체크박스도 체크 해제
+	    for (var i = 0; i < childCheckboxes.length; i++) {
+	        childCheckboxes[i].addEventListener('click', function () {
+	            // 하위 체크박스 중 하나라도 체크 해제된 경우
+	            if (!this.checked) {
+	                masterCheckbox.checked = false;
+	            } else {
+	                // 모든 하위 체크박스가 선택되었을 때 "모두 동의합니다." 체크박스도 체크
+	                var allChecked = true;
+	                for (var j = 0; j < childCheckboxes.length; j++) {
+	                    if (!childCheckboxes[j].checked) {
+	                        allChecked = false;
+	                        break;
+	                    }
+	                }
+	                if (allChecked) {
+	                    masterCheckbox.checked = true;
+	                }
+	            }
+	        });
+	    }
+	</script>
+
+
 </body>
 
 </html>

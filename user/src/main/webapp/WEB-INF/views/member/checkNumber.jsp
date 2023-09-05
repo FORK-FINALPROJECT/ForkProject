@@ -102,6 +102,30 @@
         	color: black;
         	background-color: black;
         }
+        
+        /* 모달 창 */
+        .modal {
+            background-color: white;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        /* 모달 내용 */
+        .modal-content {
+            margin-bottom: 20px;
+        }
+
+        /* 모달 확인 버튼 */
+        .modal-button {
+            background-color: #FF8B3D;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -116,36 +140,28 @@
 
     <div class="wrapper bg-white">
 	    <div class="h2 text-center">
-	        <h2>비밀번호 찾기</h2>
+	        <h2>인증번호 입력</h2>
 	    </div>
 	    <hr>
-	    <form class="pt-3" action="${contextPath}/selectPwd" method="post">
+	    <form class="pt-3" method="post" action="${contextPath}/checkNumber">
 	        <table>
 	            <tbody>
 	                <tr>
 	                    <th>
-	                        <h3>아이디</h3>
+	                        <h3>인증번호</h3>
 	                    </th>
 	                </tr>
 	                <tr>
-	                    <td><input type="text" class="userId" name="memberId" placeholder=" 아이디를 입력해주세요"></td>
-	                </tr>
-	                <tr>
-	                    <th>
-	                        <h3>이메일</h3>
-	                    </th>
-	                </tr>
-	                <tr>
-	                    <td><input type="text" class="email" name="email" placeholder=" 이메일을 입력해주세요"></td>
+	                    <td><input type="text" class="extraNumber" name="extraNumber" placeholder=" 인증번호를 입력해주세요"></td>
+	                    <td><input type="hidden" class="memberId" name="memberId" value="${m.getMemberId() }"></td>
 	                </tr>
 	            </tbody>
 	        </table>
 	        <div class="nextpage">
-	            <button type="submit">인증번호 보내기</button>
+	            <button type="submit" id="openModalButton">인증번호 인증</button>
 	        </div>
 	    </form>
 	</div>
-	
 
 </body>
 

@@ -72,4 +72,22 @@
 		WHERE MEMBER_NAME = #{memberName}
 	</update>
 
+	<select id="checkNumber" parameterType="member" resultMap="memberResultSet">
+		SELECT * 
+		FROM MEMBER
+		WHERE MEMBER_ID = #{memberId} AND EXTRA_NUMBER = #{extraNumber}
+	</select>
+	
+	<update id="changePwd" parameterType="member">
+		UPDATE MEMBER
+		SET MEMBER_PWD = #{memberPwd}
+		WHERE MEMBER_ID = #{memberId}
+	</update>
+	
+	<select id="idcheck" parameterType="string" resultType="int">
+		SELECT *
+		FROM MEMBER
+		WHERE MEMBER_ID = #{memberId}
+	</select>
+	
 </mapper>

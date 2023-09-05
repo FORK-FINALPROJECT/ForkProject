@@ -12,6 +12,12 @@ public interface MemberService {
 
 	Member selectPwd(Member m);
 
-	void checkNumber(Member m);
+	void sendEmail(Member m);
+
+	int idcheck(String memberId);
+
+	Member checkNumber(Member m);
+
+	int changePwd(Member m);
 
 }
