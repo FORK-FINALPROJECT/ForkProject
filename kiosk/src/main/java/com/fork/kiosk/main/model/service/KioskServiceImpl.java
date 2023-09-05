@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.fork.kiosk.main.model.dao.KioskDao;
 import com.fork.kiosk.main.model.vo.Category;
+import com.fork.kiosk.main.model.vo.Coo;
 
 @Service
 public class KioskServiceImpl implements KioskService {
@@ -17,6 +18,11 @@ public class KioskServiceImpl implements KioskService {
 	@Override
 	public List<Category> selectCategoryAndMenuAndOptions() {
 		return kioskDao.selectCategoryAndMenuAndOptions();
+	}
+
+	@Override
+	public List<Coo> selectCoo() {
+		return kioskDao.selectCoo();
 	}
 	
 }

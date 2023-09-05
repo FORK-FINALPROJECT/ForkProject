@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.fork.kiosk.main.model.vo.Category;
+import com.fork.kiosk.main.model.vo.Coo;
 
 @Repository
 public class KioskDao {
@@ -16,6 +17,10 @@ public class KioskDao {
 
 	public List<Category> selectCategoryAndMenuAndOptions() {
 		return session.selectList("kiosk.selectCategoryAndMenuAndOptions");
+	}
+
+	public List<Coo> selectCoo() {
+		return session.selectList("kiosk.selectCoo");
 	}
 	
 }

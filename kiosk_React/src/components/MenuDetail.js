@@ -3,7 +3,7 @@ import CooModal from './CooModal';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 
 const MenuDetail = (props) => {
@@ -17,10 +17,14 @@ const MenuDetail = (props) => {
         navigate(-1);
     }
 
+    const location = useLocation();
+    const menu = location.state;
+    const springUrl = 'http://localhost:8083/kiosk';
+
+    // console.log(menu);
+
     // 선택된 아이템 드롭다운 버튼에 보이게하기
-    const [selectedOption1, setSelectedOption1] = useState(null); // 상위 드롭다운 버튼에 표시할 값
-    const [selectedOption2, setSelectedOption2] = useState(null);
-    const [selectedOption3, setSelectedOption3] = useState(null);
+    const [selectedOption, setSelectedOption] = useState({});
 
     return (
         <div className="content-wrap">
@@ -38,18 +42,18 @@ const MenuDetail = (props) => {
                     </div>
                     <div className="detailmenu-content">
                         <div className="detailmenu-content-left">
-                            <img src={require('../resources/image/menuTest.jpg')} alt="메뉴사진" onError={(e) => {e.target.src = require('../resources/image/defaultimg.jpg')}}/>
+                            <img src={springUrl + menu.filePath + menu.originName} alt="메뉴사진" onError={(e) => { e.target.src = require('../resources/image/defaultimg.jpg') }} />
                             <ul>
                                 <li>
-                                    맛있는거ㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓ
+                                    {menu.menuDetail}
                                 </li>
                             </ul>
                         </div>
                         <div className="detailmenu-content-right">
                             <div className="detailmenu-menuname">
                                 <ul>
-                                    <li>메뉴명</li>
-                                    <li>1150,000원</li>
+                                    <li>{menu.menuName}</li>
+                                    <li>{menu.price.toLocaleString('ko-KR')} 원</li>
                                 </ul>
                             </div>
                             <div className="detailmenu-option">
@@ -61,36 +65,36 @@ const MenuDetail = (props) => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>옵션123123</td>
-                                                <td id='dropdownbtn'>
-                                                    <DropdownButton as={ButtonGroup} key={"옵션명"} id={`dropdown-variants-"옵션명"`} title={selectedOption1 || "옵션명"} variant='secondary'>
-                                                        <DropdownItem onClick={() => setSelectedOption1("1단계")}>1단계</DropdownItem>
-                                                        <DropdownItem onClick={() => setSelectedOption1("2단계")}>2단계</DropdownItem>
-                                                        <DropdownItem onClick={() => setSelectedOption1("3단계")}>3단계</DropdownItem>
-                                                    </DropdownButton>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>옵션123123</td>
-                                                <td id='dropdownbtn'>
-                                                    <DropdownButton as={ButtonGroup} key={"옵션명"} id={`dropdown-variants-"옵션명"`} title={selectedOption2 || "옵션명"} variant='secondary'>
-                                                        <DropdownItem onClick={() => setSelectedOption2("1단계")}>1단계</DropdownItem>
-                                                        <DropdownItem onClick={() => setSelectedOption2("2단계")}>2단계</DropdownItem>
-                                                        <DropdownItem onClick={() => setSelectedOption2("3단계")}>3단계</DropdownItem>
-                                                    </DropdownButton>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>옵션123123</td>
-                                                <td id='dropdownbtn'>
-                                                    <DropdownButton as={ButtonGroup} key={"옵션명"} id={`dropdown-variants-"옵션명"`} title={selectedOption3 || "옵션명"} variant='secondary'>
-                                                        <DropdownItem onClick={() => setSelectedOption3("1단계")}>1단계</DropdownItem>
-                                                        <DropdownItem onClick={() => setSelectedOption3("2단계")}>2단계</DropdownItem>
-                                                        <DropdownItem onClick={() => setSelectedOption3("3단계")}>3단계</DropdownItem>
-                                                    </DropdownButton>
-                                                </td>
-                                            </tr>
+                                            {menu.optList[0].optList.length>0 ? (menu.optList.map((options) => {
+                                                return (
+                                                    <tr>
+                                                        <td>{options.optionName}</td>
+                                                        <td id='dropdownbtn'>
+                                                            <DropdownButton as={ButtonGroup} key={options.optionName} id={'dropdown-variants-' + options.optionName} title={selectedOption[options.optionName] || options.optionName} variant='secondary'>
+                                                                {options && options.optList.map(opt => {
+                                                                    return (
+                                                                        <DropdownItem onClick={() => {
+                                                                            setSelectedOption(prevSelectedOption => ({
+                                                                                ...prevSelectedOption,
+                                                                                [options.optionName]: opt.optionName,
+                                                                            }));
+                                                                        }}>
+                                                                            {opt.optionName}
+                                                                        </DropdownItem>
+                                                                    );
+                                                                })}
+                                                            </DropdownButton>
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            })) : (
+                                                <tr>
+                                                    <td colSpan="2">
+                                                        해당 메뉴는 옵션이 없습니다.
+                                                    </td>
+                                                </tr>
+                                            )
+                                            }
                                         </tbody>
                                     </table>
                                 </div>

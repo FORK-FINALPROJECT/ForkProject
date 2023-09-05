@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fork.kiosk.main.model.service.KioskService;
 import com.fork.kiosk.main.model.vo.Category;
+import com.fork.kiosk.main.model.vo.Coo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,6 +31,15 @@ public class KioskController {
 		}catch(Exception e) {
 			throw e;
 		}
+		
+	}
+	
+	@GetMapping("/coo")
+	public List<Coo> coo(HttpServletResponse response){
+		
+		List<Coo> cooList = kioskService.selectCoo();
+		log.info("cooLisg : {} ", cooList);
+		return cooList;
 		
 	}
 	
