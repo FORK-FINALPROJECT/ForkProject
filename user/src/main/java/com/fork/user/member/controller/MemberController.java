@@ -1,6 +1,7 @@
 package com.fork.user.member.controller;
 
 import java.io.File;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -17,8 +18,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fork.user.common.Utils;
+import com.fork.user.common.template.Pagenation;
+import com.fork.user.common.vo.PageInfo;
 import com.fork.user.member.model.service.MemberService;
 import com.fork.user.member.model.vo.Member;
+import com.fork.user.notice.model.service.NoticeService;
+import com.fork.user.notice.model.vo.Notice;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +41,7 @@ public class MemberController {
 	
 	@Autowired
 	private ResourceLoader resourceLoader;
+	
 
 	/**
 	 * 로그인 기능
@@ -51,16 +57,18 @@ public class MemberController {
 		Member loginUser = mService.login(m);
 		
 		if(loginUser != null) {
+			
 			session.setAttribute("loginUser", loginUser);
-			// return "redirect:main"; // 바꿀 예정
-			System.out.println(loginUser);
-			return "redirect:/index.jsp"; 
+			
+			return "redirect:/main"; 
+			
 		} else {
 			return "forward:index.jsp"; 
 		}
 		
 	}
-	
+
+    
 	/**
 	 * 회원가입 동의서 페이지로 이동
 	 * @return

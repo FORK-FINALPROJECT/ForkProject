@@ -124,8 +124,6 @@
 </style>
 </head>
 <body>
-
-
     <div class="back">
         <div>
             <div class="logo">
@@ -273,7 +271,6 @@
         		}
         	})
         }
-
         
     </script>
     
