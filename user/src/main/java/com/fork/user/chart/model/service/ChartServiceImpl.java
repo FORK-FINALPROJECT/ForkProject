@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.fork.user.chart.model.dao.ChartDao;
 import com.fork.user.chart.model.vo.Chart;
+import com.fork.user.management.model.vo.Category;
 
 @Service
 public class ChartServiceImpl implements ChartService {
@@ -19,6 +20,16 @@ public class ChartServiceImpl implements ChartService {
 	@Override
 	public List<Chart> loadChart(Map<String, Date> day) {
 		return chartDao.loadChart(day);
+	}
+
+	@Override
+	public List<Chart> loadMenuChart(Map<String, Object> day) {
+		return chartDao.loadMenuChart(day);
+	}
+
+	@Override
+	public List<Category> selectCategory() {
+		return chartDao.selectCategory();
 	}
 
 }
