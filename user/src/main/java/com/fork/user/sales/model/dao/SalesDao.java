@@ -23,8 +23,18 @@ public class SalesDao {
         return sqlSession.delete("salesMapper.deleteStructure");
     }
 
-    public int saveStructure(Structure struc) {
-        return sqlSession.insert("salesMapper.saveStructure", struc);
+    public int saveStructure(List<Structure> strucList) {
+    	int result = 0;
+    	
+    	for (Structure struc : strucList) {
+    		result = result + sqlSession.insert("salesMapper.saveStructure", struc);
+    	}
+    	
+    	if ( result != strucList.size()  ) {
+    		result = 0;
+    	}
+    	
+        return result;
     }
 
     public List<Receipt> selectOrderList() {

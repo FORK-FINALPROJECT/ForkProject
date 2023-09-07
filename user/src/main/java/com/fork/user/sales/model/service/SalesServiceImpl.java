@@ -27,8 +27,8 @@ public class SalesServiceImpl implements SalesService {
     }
 
     @Override
-    public int saveStructure(Structure struc) {
-        return salesDao.saveStructure(struc);
+    public int saveStructure(List<Structure> strucList) {
+        return salesDao.saveStructure(strucList);
     }
 
     @Override

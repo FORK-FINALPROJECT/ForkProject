@@ -61,7 +61,6 @@ public class MainController {
         model.addAttribute("structureList", structureList);
         model.addAttribute("orderList", orderList);
 
-
         return "sales/ready";
     }
 
@@ -77,4 +76,5 @@ public class MainController {
     public String toStatistics(Model model) {
         return "chart/statistics";
     }
+    
 }
