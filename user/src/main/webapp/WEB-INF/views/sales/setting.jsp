@@ -43,7 +43,6 @@
                 </c:forEach>
             </c:if>
             
-            <!-- <div class="setting" onclick="location.href='salesReady'"> -->
             <div class="setting" onclick="saveStructure();">
                 <img src="resources/img/change_save.png"><br>저장
             </div>

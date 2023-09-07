@@ -11,7 +11,7 @@ public interface SalesService {
 
     int deleteStructure();
 
-    int saveStructure(Structure struc);
+    int saveStructure(List<Structure> strucList);
 
     List<Receipt> selectOrderList();
 

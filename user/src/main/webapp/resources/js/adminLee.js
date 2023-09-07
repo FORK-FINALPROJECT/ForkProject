@@ -15,7 +15,7 @@ function detail_order(title, no){
                 for( i in order ) {
                     menu += `
                     <div class="detail_menu">
-                        <div class="menu detail_menu_title">${order[i].menuName}</div>
+                   	     <div class="menu detail_menu_title">${order[i].menuName}</div>
                         <div class="menu detail_menu_cnt">${order[i].cnt}</div>
                         <div class="menu detail_menu_price">${order[i].price.toLocaleString()}</div>
                     </div>`;
@@ -48,6 +48,7 @@ function saveStructure(){
     
 function insertStructure(){
     const structure = document.querySelectorAll(".struc");
+    let strucList = [];
     
     structure.forEach((struc) => {
         strucTitle = $(struc).find("#struc_name").val();
@@ -65,11 +66,15 @@ function insertStructure(){
         const yend = positionY.indexOf('px');
         positionY = positionY.substr(0, yend);
         
-        $.ajax({
-            url : 'saveStructure',
-            data : { strucTitle, kioskNo, strucType, positionX, positionY }
-        })
-        
+        strucList.push({strucTitle, kioskNo, strucType, positionX, positionY});
+    })
+    
+    $.ajax({
+        url : "saveStructure",
+        type : "POST",
+        data : JSON.stringify(strucList),
+        dataType: "json",
+        contentType : 'application/json; charset=UTF-8'
     })
 }
 

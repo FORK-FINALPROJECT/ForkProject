@@ -41,7 +41,7 @@ public class MemberController {
 	 * 로그인 기능
 	 * @return
 	 */
-	@PostMapping("/login")
+	@PostMapping("/member/login")
 	public String login(
 			Member m,
 			HttpSession session, 
@@ -52,7 +52,9 @@ public class MemberController {
 		
 		if(loginUser != null) {
 			session.setAttribute("loginUser", loginUser);
-			return "redirect:main"; // 바꿀 예정
+			// return "redirect:main"; // 바꿀 예정
+			System.out.println(loginUser);
+			return "redirect:/index.jsp"; 
 		} else {
 			return "forward:index.jsp"; 
 		}

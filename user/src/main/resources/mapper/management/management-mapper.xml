@@ -46,7 +46,7 @@
 		<result column="CATEGORY_NAME" property="categoryName"/>
 	</resultMap>
 	
-	<resultMap type="optionList" id="optionListResultSet">
+	<resultMap type="OptionList" id="optionListResultSet">
 		<id column="OPTION_NO" property="optionNo"/>
 		<result column="OPTION_NAME" property="optionName"/>
 		<result column="PRICE" property="price"/>
