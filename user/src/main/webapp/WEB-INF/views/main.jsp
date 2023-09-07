@@ -124,8 +124,7 @@
 </style>
 </head>
 <body>
-
-
+list: ${list}
     <div class="back">
         <div>
             <div class="logo">
@@ -273,8 +272,9 @@
         		}
         	})
         }
-
         
     </script>
+    
+ 
 </body>
 </html>

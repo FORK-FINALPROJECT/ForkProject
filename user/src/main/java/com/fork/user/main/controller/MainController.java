@@ -2,6 +2,9 @@ package com.fork.user.main.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,14 +25,17 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MainController {
 
-    @Autowired
-    private NoticeService noticeService;
 
+	@Autowired
+    private NoticeService noticeService;
+	
     @Autowired
     private SalesService salesService;
-
+    
     @GetMapping("/main")
-    public String goMain(Model model) {
+    public String goMain(Model model, HttpServletRequest req) {
+    	HttpSession session = req.getSession();
+    	
     	int currentPage = 1;
         List<Notice> list = selectNoticeList(1);
         
@@ -42,7 +48,10 @@ public class MainController {
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		
-        return "main";
+		session.setAttribute("list", list);
+		session.setAttribute("pi", pi);
+		
+		return "redirect:/index.jsp";
     }
     
     @GetMapping("/selectNotice")
