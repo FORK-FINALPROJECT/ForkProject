@@ -72,4 +72,23 @@
 .statistics-content{
 	margin-top: 40px;
 }
-.statistics-content>div{margin:0 auto;}
+
+.menu-chart {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+}
+.menu-chart>div{
+	margin-bottom: 30px;
+}
+
+.chart-category-title{
+	font-size: 50px;
+	position: absolute;
+      top: 50%; left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      -moz-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      -o-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%); }
+}

@@ -5,7 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 <link rel="stylesheet" href="resources/css/chart/statistics.css">
@@ -43,9 +45,7 @@
             </div>
         
         <div class="statistics-content">
-         	<div id="chart-outer">
-				<canvas id="chart-area" />
-			</div>
+         	<!-- 차트 들어갈 영역 -->
         </div>
             
         </div>
@@ -53,7 +53,10 @@
 
     </div>
 
-<script type="text/javascript" src="resources/js/chart/statistics.js"></script>
+	<script type="text/javascript" src="resources/js/chart/statistics.js"></script>
+	<script>
+	    $("#statistics").addClass("header_btn_on").removeClass("header_btn");
+	</script>
 
 </body>
 </html>

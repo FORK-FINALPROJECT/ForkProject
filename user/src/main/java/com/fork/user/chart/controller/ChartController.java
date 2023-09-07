@@ -1,7 +1,6 @@
 package com.fork.user.chart.controller;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fork.user.chart.model.service.ChartService;
 import com.fork.user.chart.model.vo.Chart;
+import com.fork.user.management.model.vo.Category;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,7 +25,7 @@ public class ChartController {
 	
 	@GetMapping("/chart")
 	@ResponseBody
-    public List<Chart> goMain(Date startDay, Date endDay) {
+    public List<Chart> loadChart(Date startDay, Date endDay) {
 		
 		Map<String, Date> day = new HashMap<String ,Date>();
 		day.put("startDay", startDay);
@@ -35,5 +35,28 @@ public class ChartController {
 		
         return list;
     }
-
+	
+	@GetMapping("/menuChart")
+	@ResponseBody
+    public List<Chart> loadMenuChart(Date startDay, Date endDay, int prCateNo) {
+		
+		Map<String, Object> day = new HashMap<String ,Object>();
+		day.put("startDay", startDay);
+		day.put("endDay", endDay);
+		day.put("prCateNo", prCateNo);
+		
+		List<Chart> list = chartService.loadMenuChart(day);
+		
+        return list;
+    }
+	
+	@GetMapping("/selectPrCategory")
+	@ResponseBody
+    public List<Category> selectCategory() {
+		
+		List<Category> list = chartService.selectCategory();
+		
+        return list;
+    }
+	
 }
