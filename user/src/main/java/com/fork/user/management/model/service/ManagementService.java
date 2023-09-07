@@ -75,4 +75,10 @@ public interface ManagementService {
 
 	int updateLicenseHistory(int memberNo);
 
+	List<Option> selectMenuOptionList(int menuNo);
+
+	void updateLhStatus();
+
+	int checkLicense(int memberNo);
+	
 }

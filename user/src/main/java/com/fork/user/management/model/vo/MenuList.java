@@ -13,7 +13,6 @@ public class MenuList extends Menu {
 	private String changeName;
 	private int categoryNo;
 	private String filePath;
-	private String optionName;
 	private String categoryName;
 	
 }

@@ -24,7 +24,7 @@
             <div class="header_btn" onclick="location.href='salesReady'" id="sales-ready">영업준비</div>
             <div class="header_btn" onclick="location.href='statistics'" id="statistics">판매집계</div>
             <div class="header_btn" onclick="location.href='menu'" id="header-menu">메뉴</div>
-            <div class="header_btn">관리</div>
+            <div class="header_btn" onclick="location.href='license'">결제</div>
             <div class="header_btn">문의</div>
             <div id="time"></div>
             <div class="forklogo">

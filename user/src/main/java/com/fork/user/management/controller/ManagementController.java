@@ -42,9 +42,6 @@ public class ManagementController {
 	
 	@Autowired
 	private ServletContext application;
-	
-	@Autowired
-	private ResourceLoader resourceLoader;
 
 	/**
 	 * 이용권 페이지로 이동
@@ -544,6 +541,18 @@ public class ManagementController {
 	public ResponseEntity<Menu> selectDetailMenu(int menuNo) {
 		Menu menu = mService.selectDetailMenu(menuNo);
 		return ResponseEntity.ok(menu);
+	}
+	
+	/**
+	 * 특정 메뉴 옵션 조회
+	 * @param menuNo
+	 * @return
+	 */
+	@PostMapping("selectMenuOptionList")
+	@ResponseBody
+	public ResponseEntity<List<Option>> selectMenuOptionList(int menuNo) {
+		List<Option> options = mService.selectMenuOptionList(menuNo);
+		return ResponseEntity.ok(options);
 	}
 	
 	/**

@@ -10,9 +10,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class WebConfig implements WebMvcConfigurer {
 	private final LoginInterceptor loginInterceptor;
+	private final LicenseInterceptor licenseInterceptor;
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(loginInterceptor).addPathPatterns("/**").excludePathPatterns("/resources/**/**", "/member/**");	
+		registry.addInterceptor(loginInterceptor).addPathPatterns("/**").excludePathPatterns("/resources/**/**", "/member/**");
+		
+		registry.addInterceptor(licenseInterceptor).addPathPatterns("/**").excludePathPatterns("/resources/**/**", "/common/**","/member/**", "/management/license/**");	
 	}
 }

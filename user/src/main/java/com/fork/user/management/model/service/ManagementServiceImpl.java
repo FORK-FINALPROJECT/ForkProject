@@ -176,5 +176,20 @@ public class ManagementServiceImpl implements ManagementService {
 		return managementDao.updateLicenseHistory(memberNo);
 	}
 
+	@Override
+	public List<Option> selectMenuOptionList(int menuNo) {
+		return managementDao.selectMenuOptionList(menuNo);
+	}
+
+	@Override
+	public void updateLhStatus() {
+		managementDao.updateLhStatus();
+	}
+
+	@Override
+	public int checkLicense(int memberNo) {
+		return managementDao.checkLicense(memberNo);
+	}
+
 
 }

@@ -9,6 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>옵션 관리</title>
     <link rel="stylesheet" href="css/header.css">
+    <!-- alertify -->
+	<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+	<!-- alertify css -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
     <style>
         * {
             /* border: 1px solid red; */
@@ -118,6 +122,13 @@
 </head>
 
 <body>
+	
+	<c:if test="${not empty alertMsg }">
+		<script>
+			alertify.alert("서비스 요청 성공", '${alertMsg}');
+		</script>
+		<c:remove var="alertMsg"/>
+	</c:if>
 
     <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
@@ -125,10 +136,6 @@
     <div class="content_outer">
         <div class="content_nav">
             <div class="content_title">이용권 결제</div>
-            <div class="btn1"><button onClick="location.href='${contextPath}/coo'">원산지 관리</button></div>
-            <div class="btn1"><button onClick="location.href='${contextPath}/option'">옵션 관리</button></div>
-            <div class="btn1"><button onClick="location.href='${contextPath}/category'">카테고리 관리</button></div>
-            <div class="btn1"><button onClick="location.href='${contextPath}/menu'">메뉴 관리</button></div>
         </div>
         <div class="content">
             <table class="license_table">

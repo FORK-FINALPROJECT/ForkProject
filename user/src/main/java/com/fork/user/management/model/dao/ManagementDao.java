@@ -16,6 +16,9 @@ import com.fork.user.management.model.vo.Menu;
 import com.fork.user.management.model.vo.Option;
 import com.fork.user.management.model.vo.OptionList;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Repository
 public class ManagementDao {
 
@@ -162,6 +165,27 @@ public class ManagementDao {
 
 	public int updateLicenseHistory(int memberNo) {
 		return session.update("managementMapper.updateLicenseHistory", memberNo);
+	}
+
+	public List<Option> selectMenuOptionList(int menuNo) {
+		return session.selectList("managementMapper.selectMenuOptionList", menuNo);
+	}
+
+	public void updateLhStatus() {
+		session.update("managementMapper.updateLhStatus");
+	}
+
+	public int checkLicense(int memberNo) {
+		
+		int result = 1;
+		
+		Integer check = session.selectOne("managementMapper.checkLicense", memberNo);
+		
+		if(check == null) {
+			result = 0;
+		}
+		
+		return result; 
 	}
 	
 }

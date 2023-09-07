@@ -10,6 +10,10 @@
     <title>카테고리 관리</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- alertify -->
+	<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+	<!-- alertify css -->
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
     <style>
         * {
             /* border: 1px solid red; */
@@ -37,7 +41,7 @@
         }
 
         .content_title {
-            width: 900px;
+            width: 1100px;
             font-size: 40px;
             font-family: Arial, Helvetica, sans-serif;
             font-weight: bolder;
@@ -214,7 +218,6 @@
     <div class="content_outer">
         <div class="content_nav">
             <div class="content_title">카테고리 관리</div>
-            <div class="btn1"><button type=button onClick="location.href='${contextPath}/license'">결제</button></div>
             <div class="btn1"><button type=button onClick="location.href='${contextPath}/coo'">원산지 관리</button></div>
             <div class="btn1"><button type=button onClick="location.href='${contextPath}/option'">옵션 관리</button></div>
             <div class="btn1"><button type=button onClick="location.href='${contextPath}/menu'">메뉴 관리</button></div>

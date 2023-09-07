@@ -316,7 +316,6 @@ textarea {
 		<div class="content_nav">
 			<div class="content_title">메뉴 관리</div>
 			<div class="btn1">
-				<button onClick="location.href='${contextPath}/license'">결제</button>
 			</div>
 			<div class="btn1">
 				<button onClick="location.href='${contextPath}/coo'">원산지 관리</button>
@@ -681,11 +680,32 @@ textarea {
             		$("#modalmenuName").html(data.menuName);
             		$("#modalprice").html(data.price);
             		$("#modalcategory").html(data.categoryName);
-            		$("#modaloption").html(data.optionName);
             		$("#modalDetail").html(data.menuDetail);
             		$(".menu_detail_img_tol").html("<img class='menu_detail_img' src='" + "${contextPath}" + "/" + data.filePath + "/" + data.changeName + "'>");
             	}
-            }); 
+            });
+            
+            $.ajax({
+                url: "${contextPath}/selectMenuOptionList",
+                method: "post",
+                data: { menuNo: menuNo },
+                success: function (options) {
+                    let html = "";
+
+                    if (options.length === 0) {
+                        html += "-";
+                    } else {
+                        for (var i = 0; i < options.length; i++) {
+                            html += options[i].optionName;
+                            if (i < options.length - 1) {
+                                html += ", "; // 마지막 옵션 이름 뒤에는 쉼표를 추가하지 않음
+                            }
+                        }
+                    }
+
+                    $("#modaloption").html(html);
+                },
+            });
         }
 
         function closeModal3() {

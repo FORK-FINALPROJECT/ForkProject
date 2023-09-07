@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.fork.user.management.model.service.ManagementService;
@@ -15,27 +16,29 @@ import com.fork.user.member.model.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Component
 @Slf4j
-public class LoginInterceptor extends HandlerInterceptorAdapter {
+@Component
+public class LicenseInterceptor extends HandlerInterceptorAdapter {
 	
 	@Autowired
 	private ManagementService mService;
 	
 	@Override
-	public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler) throws IOException {
+	public void postHandle(HttpServletRequest req, HttpServletResponse res, Object handler, ModelAndView modelAndView) throws IOException {
 
 		HttpSession session = req.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
-//		session.removeAttribute("loginUser"); 
-//		session.removeAttribute("flag"); 
+			
+		int result = mService.checkLicense(loginUser.getMemberNo());
 		
-		if ( loginUser != null ) {
-			return true;
-		} else {
-			session.setAttribute("alertMsg", "로그인 후 이용해주세요.");
-			res.sendRedirect(req.getContextPath()+"/login.jsp");
-			return false;
+		log.info("리절트 : " + result);
+		log.info("session : " + session.getAttribute("flag"));
+		
+		if(result == 0 && session.getAttribute("flag") == null) { 
+			res.sendRedirect(req.getContextPath()+"/license");
+			session.setAttribute("flag", "flag");
+			session.setAttribute("alertMsg", "이용권 구매 후 이용해주세요.");
+			log.info("실패");
 		}
 		
 	}

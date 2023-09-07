@@ -42,7 +42,6 @@
 		<result column="CHANGE_NAME" property="changeName"/>
 		<result column="CATEGORY_NO" property="categoryNo"/>
 		<result column="FILE_PATH" property="filePath"/>
-		<result column="OPTION_NAME" property="optionName"/>
 		<result column="CATEGORY_NAME" property="categoryName"/>
 	</resultMap>
 	
@@ -208,9 +207,8 @@
 	</select>
 	
 	<select id="selectDetailMenu" parameterType="int" resultMap="menuListResultSet">
-		SELECT M.*, O.OPTION_NAME, C.CATEGORY_NAME
+		SELECT M.*, C.CATEGORY_NAME
 		FROM MENU M
-		LEFT JOIN OPT O ON (O.MENU_NO = M.MENU_NO)
 		JOIN CATEGORY C ON (C.CATEGORY_NO = M.CATEGORY_NO)
 		WHERE M.MENU_NO = #{menuNo}
 	</select>
@@ -283,5 +281,23 @@
 			LH_DAY = ADD_MONTHS(LH_DAY, (SELECT LICENSE_DATE FROM LICENSE WHERE LICENSE_NO = #{memberNo}))
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
+	
+	<select id="selectMenuOptionList" parameterType="int" resultMap="optionResultSet">
+		SELECT *
+		FROM OPT
+		WHERE MENU_NO = #{menuNo}
+	</select>
+	
+	<update id="updateLhStatus">
+		UPDATE LICENSE_HISTORY
+		SET LH_STATUS = 'N'
+		WHERE TO_DATE(LH_DAY, 'YY/MM/DD') &lt; SYSDATE
+	</update>
+
+	<select id="checkLicense" parameterType="int" resultType="int">
+		SELECT *
+		FROM LICENSE_HISTORY
+		WHERE LH_STATUS = 'Y' AND MEMBER_NO = #{memberNo}
+	</select>
 
 </mapper>
