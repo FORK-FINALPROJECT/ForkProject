@@ -3,7 +3,7 @@
 <mapper namespace="memberMapper">
 
 	<resultMap type="member" id="memberResultSet">
-		<id column="MEMER_NO" property="memberNo"/>
+		<id column="MEMBER_NO" property="memberNo"/>
 		<result column="MEMBER_ID" property="memberId"/>
 		<result column="MEMBER_PWD" property="memberPwd"/>
 		<result column="MEMBER_NAME" property="memberName"/>

@@ -5,8 +5,11 @@ import java.util.Map;
 
 import com.fork.user.management.model.vo.Category;
 import com.fork.user.management.model.vo.Coo;
+import com.fork.user.management.model.vo.License;
+import com.fork.user.management.model.vo.LicenseHistory;
 import com.fork.user.management.model.vo.Menu;
 import com.fork.user.management.model.vo.Option;
+import com.fork.user.management.model.vo.OptionList;
 
 public interface ManagementService {
 
@@ -38,7 +41,7 @@ public interface ManagementService {
 
 	int deleteCategory(int categoryNo);
 
-	List<Option> selectOption(int currentPage, Map<String, Object> paramMap);
+	List<OptionList> selectOption(int currentPage, Map<String, Object> paramMap);
 
 	int selectOptionCount(Map<String, Object> paramMap);
 
@@ -51,5 +54,25 @@ public interface ManagementService {
 	List<Menu> selectMenu();
 
 	List<Category> selectCategory();
+
+	Menu selectDetailMenu(int menuNo);
+
+	int deleteMenu(Menu m);
+
+	int updateMenu(Menu menu);
+
+	Menu selectMenuOne(int menuNo);
+
+	List<Menu> selectMenuList();
+
+	int updateOption(Option option);
+
+	License selectLicenseNo(int licensePrice);
+
+	int insertLicenseHistory(LicenseHistory lh);
+
+	int checkLicenseHistory(int memberNo);
+
+	int updateLicenseHistory(int memberNo);
 
 }

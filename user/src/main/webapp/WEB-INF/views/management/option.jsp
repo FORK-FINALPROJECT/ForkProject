@@ -10,6 +10,7 @@
     <title>옵션 관리</title>
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <style>
         * {
             /* border: 1px solid red; */
@@ -105,7 +106,20 @@
             padding: 20px;
             border: 1px solid #888;
             width: 400px;
-            height: 460px;
+            height: 530px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        .modal-content2 {
+            background-color: white;
+            margin: 14% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 400px;
+            height: 440px;
             border-radius: 5px;
             text-align: center;
             font-size: 20px;
@@ -154,13 +168,19 @@
             padding-left: 5px;
         }
 
-        .closeModal {
+        .closeModal{
             position: absolute;
             right: 10%;
             color:#FF8B3D
         }
+        
+        .closeModal2{
+        	position: absolute;
+            right: 41%;
+            color:#FF8B3D
+        }
 
-        .closeModal:hover {
+        .closeModal:hover, .closeModal2:hover{
             cursor: pointer;
         }
 
@@ -213,10 +233,11 @@
                 <table class="option_table">
                     <thead>
                         <tr>
-                            <th style="width:8%;">옵션 번호</th>
-                            <th style="width:20%;">옵션 이름</th>
-                            <th style="width:10%;">가격</th>
-                            <th style="width:10%;">상위 옵션 번호</th>
+                            <th style="width:5%;">옵션 번호</th>
+                            <th style="width:15%;">옵션 이름</th>
+                            <th style="width:8%;">가격</th>
+                            <th style="width:5%;">상위 옵션 번호</th>
+                            <th style="width:15%;">메뉴 이름</th>
                             <th style="width:10%;">수정</th>
                             <th style="width:10%;">삭제</th>
                         </tr>
@@ -231,6 +252,12 @@
 							<td>${option.optionName }</td>
 							<td>${option.price }원</td>
 							<td>${option.prOptionNo }</td>
+							<c:if test="${option.menuName eq null}">
+								<td>-</td>
+							</c:if>
+							<c:if test="${option.menuName ne null }">
+								<td>${option.menuName }</td>
+							</c:if>
 							<td><button class="update-btn updateOption" type="button" onClick="openModal2(${option.optionNo})">수정</button></td>
 							<td>
 								<form method="post" action="${contextPath}/deleteOption/${option.optionNo}">
@@ -283,8 +310,10 @@
 
     <!-- 옵션 수정 모달 -->
     <div id="updateOptionModal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <div class="modal_header">옵션 수정 <span class="closeModal" onclick="closeModal2();">X</span></div>
+    <form action="${contextPath}/updateOption" method="post">
+    <input type="hidden" name="optionNo" id="updateOptionNo" value="">
+        <div class="modal-content2">
+            <div class="modal_header">옵션 수정 <span class="closeModal2" onclick="closeModal2();">X</span></div>
             <hr>
             <div class="modal_content">
                 <div class="coo_name">옵션 이름</div>
@@ -297,8 +326,9 @@
                     </select>
                 </div>
             </div>
-            <button class="updatebtn" onclick="closeModal()">수정</button>
+            <button class="updatebtn" type="submit">수정</button>
         </div>
+        </form>
     </div>
 
     <!-- 옵션 등록 모달 -->
@@ -308,6 +338,11 @@
             <div class="modal_header">옵션 등록 <span class="closeModal" onclick="closeModal();">X</span></div>
             <hr>
             <div class="modal_content">
+            	<div>메뉴</div>
+                <div>
+                	<select name="menuNo" id="menuNo">
+                    </select>
+                </div>
                 <div class="coo_name">옵션 이름</div>
                 <div><input type="text" name="optionName" placeholder="옵션 이름을 입력하세요"></div>
                 <div>가격</div>
@@ -324,13 +359,29 @@
     </div>
 
     <script>
+    	console.log(${alertMsg});
+    
         const updateOption = document.querySelector('.updateOption');
         const insertOption = document.querySelector('.insertOption');
         const insertOptionModal = document.getElementById('insertOptionModal');
         const updateOptionModal = document.getElementById('updateOptionModal');
 
+        // 옵션 등록
         function openModal() {
             insertOptionModal.style.display = 'block';
+            
+            const selectMenuList = () => $.ajax({
+		            	url : "${contextPath}/selectMenuList",
+		            	method : "post",
+		            	success : function(data) {
+		            		console.log(data);
+		            		let str1 = "<option value=" + 0 + ">없음</option>";
+		            		for(let i = 0; i < data.length; i++) {
+			    				str1 += "<option value=" + data[i].menuNo + ">" + data[i].menuName + "</option>";
+		    				}
+		            		$("#menuNo").html(str1);
+		            	}
+		            })	
             
             $.ajax({
     			url : "${contextPath}/selectOptionList",
@@ -343,6 +394,8 @@
     					}
     				}
     				$("#menuOption").html(str1);
+    				
+    				selectMenuList();
     			}
     		})
         }
@@ -350,7 +403,8 @@
         function closeModal() {
             insertOptionModal.style.display = 'none';
         }
-
+		
+        // 옵션 수정
         function openModal2(optionNo) {
             updateOptionModal.style.display = 'block';
             
@@ -367,10 +421,23 @@
                     $("#prOptionNo").html(str1);
                     
                     $.ajax({
+		            	url : "${contextPath}/selectMenuList",
+		            	method : "post",
+		            	success : function(data) {
+		            		let str1 = "<option value=" + 0 + ">없음</option>";
+		            		for(let i = 0; i < data.length; i++) {
+			    				str1 += "<option value=" + data[i].menuNo + ">" + data[i].menuName + "</option>";
+		    				}
+		            		$("#menuNo").html(str1);
+		            	}
+		            })
+		            
+                    $.ajax({
                         url: "${contextPath}/selectOption",
                         method: "post",
                         data: { optionNo: optionNo },
                         success: function(result) {
+                        	$("#updateOptionNo").val(result.optionNo)
                             $("#optionName").val(result.optionName);
                             $("#price").val(result.price);
                             
@@ -378,6 +445,15 @@
                             let prOptionNo = parseInt(result.prOptionNo); // 문자열을 숫자로 변환
                             $("#prOptionNo option").each(function() {
                                 if (parseInt($(this).val()) === prOptionNo) {
+                                    $(this).prop("selected", true);
+                                } else {
+                                    $(this).prop("selected", false);
+                                }
+                            });
+                            
+                            let menuNo = parseInt(result.menuNo);
+                            $("#menuNo option").each(function() {
+                                if (parseInt($(this).val()) === menuNo) {
                                     $(this).prop("selected", true);
                                 } else {
                                     $(this).prop("selected", false);

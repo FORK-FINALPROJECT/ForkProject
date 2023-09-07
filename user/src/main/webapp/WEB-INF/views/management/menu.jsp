@@ -121,7 +121,7 @@ td {
 	padding: 20px;
 	border: 1px solid #888;
 	width: 450px;
-	height: 730px;
+	height: 680px;
 	border-radius: 5px;
 	text-align: center;
 	font-size: 20px;
@@ -223,7 +223,7 @@ textarea {
 
 .updatebutton, .deletebutton {
 	width: 150px;
-	margin-right: 30px;
+	margin-left: 20px;
 	margin-top: 20px;
 }
 
@@ -262,6 +262,7 @@ textarea {
 .menu_detail_img {
 	width: 300px;
 	height: 300px;
+	border: 1px solid black;
 }
 .top-menu{
 	height: 50px;
@@ -276,14 +277,36 @@ textarea {
 	line-height: 50px;
 }
 .menu_img>img{
-	width: 100%;
-	
-
+	width: 300px;
+	height: 300px;
 }
 
+#fileName{
+	font-size: 15px;
+	font-weight: normal;
+}
+
+#lowOptionName , #lowOptionPrice{
+	width: 170px;
+}
+
+#highOptionName {
+	width: 345px;
+}
+
+#addHighOptionButton, #addLowOptionButton{
+	width: 40px;
+	height: 30px;
+}
+
+#insertOptionButton {
+	width: 350px;
+	height: 30px;
+	margin-left: 30px;
+	margin-top: 10px;
+}
 </style>
 </head>
-
 <body>
 
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
@@ -299,12 +322,10 @@ textarea {
 				<button onClick="location.href='${contextPath}/coo'">원산지 관리</button>
 			</div>
 			<div class="btn1">
-				<button onClick="location.href='${contextPath}/category'">카테고리
-					관리</button>
+				<button onClick="location.href='${contextPath}/category'">카테고리 관리</button>
 			</div>
 			<div class="btn1">
-				<button onClick="location.href='${contextPath}/option'">옵션
-					관리</button>
+				<button onClick="location.href='${contextPath}/option'">옵션 관리</button>
 			</div>
 			<div class="btn1">
 				<button onclick="insertMenu1()" class="insertMenu">메뉴 등록</button>
@@ -317,55 +338,47 @@ textarea {
 		<!-- 메뉴가 들어가는 곳 -->
 	</div>
 
-
-
-
 	<!-- 메뉴 등록 모달 -->
 	<div id="insertMenuModal" class="modal" style="display: none">
-		<div class="modal-content">
-			<form action="${contextPath }/insertMenu" method="post"
-				enctype="multipart/form-data">
-				<div class="modal_header">
-					메뉴 등록 <span class="closeModal" onclick="closeModal();">X</span>
-				</div>
-				<hr>
-				<div class="modal_content">
-					<div class="menu_name">메뉴 이름</div>
-					<div>
-						<input type="text" name="menuName" placeholder="메뉴 이름을 입력하세요">
-					</div>
-					<div>가격</div>
-					<div>
-						<input type="text" name="price" placeholder="가격을 입력하세요">
-					</div>
-					<div>옵션</div>
-					<div>
-						<select name="menuOption" id="menuOption">
-						</select>
-					</div>
-					<div>카테고리</div>
-					<div>
-						<select name="categoryNo" id="categoryNo">
-						</select>
-					</div>
-					<div>메뉴 이미지</div>
-					<div>
-						<label>파일 선택<input type="file" name="file"
-							style="display: none;"></label>
-					</div>
-					<div>메뉴 상세정보</div>
-					<div>
-						<textarea name="menuDetail" placeholder="메뉴 상세정보를 입력하세요"></textarea>
-					</div>
-				</div>
-				<button class="checkbutton" onclick="closeModal()">등록</button>
-			</form>
-		</div>
+	    <div class="modal-content">
+	        <form action="${contextPath}/insertMenu" method="post" enctype="multipart/form-data">
+	            <div class="modal_header">
+	                메뉴 등록 <span class="closeModal" id="closeModalButton" onClick="closeModal()">X</span>
+	            </div>
+	            <hr>
+	            <div class="modal_content">
+	                <div class="menu_name">메뉴 이름</div>
+	                <div>
+	                    <input type="text" name="menuName" placeholder="메뉴 이름을 입력하세요">
+	                </div>
+	                <div>가격</div>
+	                <div>
+	                    <input type="text" name="price" placeholder="가격을 입력하세요">
+	                </div>
+	                <div>카테고리</div>
+	                <div>
+	                    <select name="categoryNo" id="categoryNo">
+	                    </select>
+	                </div>
+	                <div>메뉴 이미지</div>
+	                <div>
+	                    <label>파일 선택<input type="file" name="file" style="display: none;" class="fileInput"></label>
+	                    <span id="fileName"></span>
+	                </div>
+	                <div>메뉴 상세정보</div>
+	                <div>
+	                    <textarea name="menuDetail" placeholder="메뉴 상세정보를 입력하세요"></textarea>
+	                </div>
+	            </div>
+	            <button class="checkbutton" id="closeModalButton" type="submit">등록</button>
+	        </form>
+	    </div>
 	</div>
 
 	<!-- 메뉴 수정 모달 -->
 	<div id="updateMenuModal" class="modal" style="display: none">
-		<form action="${contextPath }/updateMenu" method="post">
+		<form action="${contextPath }/updateMenu" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="menuNo" value="" id="updateMenuNo">
 			<div class="modal-content">
 				<div class="modal_header">
 					메뉴 수정<span class="closeModal" onclick="closeModal2();">X</span>
@@ -374,16 +387,11 @@ textarea {
 				<div class="modal_content">
 					<div class="menu_name">메뉴 이름</div>
 					<div>
-						<input type="text" placeholder="메뉴 이름을 입력하세요">
+						<input type="text" id="updateMenuName" name="menuName" placeholder="메뉴 이름을 입력하세요">
 					</div>
 					<div>가격</div>
 					<div>
-						<input type="text" placeholder="가격을 입력하세요">
-					</div>
-					<div>옵션</div>
-					<div>
-						<select name="menuOption" id="menuOption2">
-						</select>
+						<input type="text" id="updatePrice" name="price" placeholder="가격을 입력하세요">
 					</div>
 					<div>카테고리</div>
 					<div>
@@ -391,67 +399,89 @@ textarea {
 						</select>
 					</div>
 					<div>메뉴 이미지</div>
-					<div>
-						<label>파일 선택<input type="file" style="display: none;"></label>
+					<div style="width: 100px;">
+						<label>파일 선택<input type="file" name="file" style="display: none;" class="fileInput"></label>
+	                    <span id="fileName"></span>
 					</div>
 					<div>메뉴 상세정보</div>
 					<div>
-						<textarea placeholder="메뉴 상세정보를 입력하세요"></textarea>
+						<textarea id="updateMenuDetail" name="menuDetail" placeholder="메뉴 상세정보를 입력하세요"></textarea>
 					</div>
 				</div>
-				<button class="checkbutton" onclick="closeModal3()">확인</button>
+				<button class="checkbutton" type="submit">수정</button>
 			</div>
 		</form>
 	</div>
 
 	<!-- 메뉴 상세정보 모달 -->
 	<div id="menuDetailModal" class="modal" style="display: none">
+	<form action="deleteMenu" method="post">
+		<input type="hidden" name="menuNo" id="deleteMenuNo" value="">
 		<div class="modal-content-detail">
 			<div class="modal_content menu-detail">
-				<div>
+				<div class="menu_detail_img_tol">
 					<img class="menu_detail_img">
 				</div>
 				<table class="menu_detail_table">
 					<thead>
 						<tr>
-							<th colspan="2">메뉴 이름</th>
+							<th colspan="2" id="modalmenuName"></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
 							<td style="font-weight: bolder; width: 100px;">가격</td>
-							<td>10,000원</td>
+							<td id="modalprice"></td>
 						</tr>
 						<tr>
 							<td style="font-weight: bolder;">카테고리</td>
-							<td>카테고리</td>
+							<td id="modalcategory"></td>
 						</tr>
 						<tr>
 							<td style="font-weight: bolder;">옵션</td>
-							<td>옵션1, 옵션2, 옵션3</td>
+							<td id="modaloption"></td>
 						</tr>
 						<tr>
 							<td colspan="2" style="font-weight: bolder;">상세정보</td>
 						</tr>
 						<tr>
-							<td colspan="2">상세정보상세정보상세정보상세정보상세정보상세정보상세정보상세정보상세정보상세정보상세정보상세정보상세정보상세정보상세정보상세정보상세정보상세정보
-							</td>
+							<td colspan="2" id="modalDetail"></td>
 						</tr>
 					</tbody>
 				</table>
 				<div class="closeModal2" onclick="closeModal3();">X</div>
 			</div>
-			<button class="updatebutton" onclick="openModal2()">수정</button>
-			<button class="deletebutton" onclick="closeModal3()">삭제</button>
+			<button class="updatebutton" onclick="openModal2()" type="button">수정</button>
+			<button class="deletebutton" type="submit">삭제</button>
 		</div>
+		</form>
 	</div>
 
-	
+	<br><br><br><br><br><br>
 	
 	
 	<script>
+	// 파일 입력(input type="file) 요소의 변경 이벤트 감지
+	$(".fileInput").change(function () {
+	    // 선택한 파일의 이름 가져오기
+	    var fileName = $(this).val().split("\\").pop(); // 파일 경로에서 파일 이름 추출
+
+	    // 파일 이름을 <span>에 표시
+	    $(this).closest(".modal-content").find("#fileName").text(fileName);
+
+	    // .modal-content 요소의 높이를 700px로 설정
+	    $(this).closest(".modal-content").css("height", "700px");
+	});
+
+	// 등록 또는 수정 버튼 클릭 이벤트
+	$(".checkbutton[type='submit']").click(function () {
+	    // .modal-content 요소의 높이를 680px로 설정
+	    $(this).closest(".modal-content").css("height", "680px");
+	});
 
 
+	/* ------------------------------------------------------------------------------------ */
+	
 	// 메뉴 리스트 불러오기
 	const content = document.querySelector(".content");
 	
@@ -509,7 +539,7 @@ textarea {
 			 							for ( i=0; i<(Math.floor(menu.length/5)); i++) {
 			 								table += `<tr>`;
 			 								for ( j=0; j<5; j++ ) {
-			 									table += `<td class="footer-text menu_img" onclick="openModal3(\${menu[index].menuNo})"><img src='http://localhost:8083/kiosk\${menu[index].filePath}\${menu[index].changeName}' /><br>\${menu[index].menuName}</td>`;
+			 									table += `<td class="footer-text menu_img" onclick="openModal3(\${menu[index].menuNo})"><img src='http://localhost:8082/user\${menu[index].filePath}\${menu[index].changeName}' /><br>\${menu[index].menuName}</td>`;
 			 									index++;
 			 								}
 											table += `</tr>`;
@@ -520,7 +550,7 @@ textarea {
 			 							if ( (Math.round(menu.length%5)) > 0 ) {
 			 								table += `<tr>`;
 			 								for ( i=0; i<(Math.round(menu.length%5)); i++ ) {
-			 									table += `<td class="footer-text menu_img" onclick="openModal3(\${menu[index].menuNo})	"><img src='http://localhost:8083/kiosk\${menu[index].filePath}\${menu[index].changeName}' /><br>\${menu[index].menuName}</td>`;
+			 									table += `<td class="footer-text menu_img" onclick="openModal3(\${menu[index].menuNo})	"><img src='http://localhost:8082/user\${menu[index].filePath}\${menu[index].changeName}' /><br>\${menu[index].menuName}</td>`;
 			 									index++;
 			 								}
 			 	 							for ( i=0; i<5-(Math.floor(menu.length%5)); i++ ) {
@@ -561,25 +591,14 @@ textarea {
     			success : function(result) {
     				let str = "<option value=" + 0 + ">없음</option>";
     				for(let i = 0; i < result.length; i++) {
-    					str += "<option value=" + result[i].categoryNo + ">" + result[i].categoryName + "</option>";
+    					if(!result[i].prCategoryNo == 0) {
+	    					str += "<option value=" + result[i].categoryNo + ">" + result[i].categoryName + "</option>";
+    					}
     				}	
     				$("#categoryNo").html(str);
     			}
     		});
     		
-    		$.ajax({
-    			url : "${contextPath}/selectOptionList",
-    			method : "GET",
-    			success : function(data) {
-    				let str1 = "<option value=" + 0 + ">없음</option>";
-    				for(let i = 0; i < data.length; i++) {
-    					if(data[i].prOptionNo != 0) {
-	    					str1 += "<option value=" + data[i].optionNo + ">" + data[i].optionName + "</option>";
-    					}
-    				}
-    				$("#menuOption").html(str1);
-    			}
-    		})
     	};
     
         const insertMenu = document.querySelector('.insertMenu');
@@ -607,6 +626,25 @@ textarea {
             updateMenuModal.style.display = 'block';
             menuDetailModal.style.display = 'none';
             
+            const loadData = () => $.ajax({
+    			url : "${contextPath}/selectDetailMenu",
+    			method : "post",
+    			data : {menuNo : $("#deleteMenuNo").val()},
+    			success : function(data) {
+    				$("#updateMenuNo").val(data.menuNo);
+    				$("#updateMenuName").val(data.menuName);
+    				$("#updatePrice").val(data.price);
+    				$("#categoryNo2 option").each(function() {
+                        if ($(this).val() == data.categoryNo) {
+                            $(this).prop("selected", true);
+                        } else {
+                            $(this).prop("selected", false);
+                        }
+                    });
+    				$("#updateMenuDetail").val(data.menuDetail);
+    			}
+    		})
+    		
             $.ajax({
     			url : "${contextPath}/selectCategoryList",
     			method : "GET",
@@ -616,22 +654,11 @@ textarea {
     					str += "<option value=" + result[i].categoryNo + ">" + result[i].categoryName + "</option>";
     				}	
     				$("#categoryNo2").html(str);
+    				loadData();
     			}
     		});
     		
-    		$.ajax({
-    			url : "${contextPath}/selectOptionList",
-    			method : "GET",
-    			success : function(data) {
-    				let str1 = "<option value=" + 0 + ">없음</option>";
-    				for(let i = 0; i < data.length; i++) {
-    					if(data[i].prOptionNo != 0) {
-	    					str1 += "<option value=" + data[i].optionNo + ">" + data[i].optionName + "</option>";
-    					}
-    				}
-    				$("#menuOption2").html(str1);
-    			}
-    		})
+    		
             
         }
 
@@ -645,14 +672,20 @@ textarea {
         function openModal3(menuNo) {
             menuDetailModal.style.display = 'block';
             
-            /* $.ajax({
-            	url : "${contextPath}/selectMenu",
-            	method : 'GET',
-            	data : {menuNo : ${menuNo}},
+            $.ajax({
+            	url : "${contextPath}/selectDetailMenu",
+            	method : 'post',
+            	data : {menuNo : menuNo},
             	success : function(data) {
-            		
+            		$("#deleteMenuNo").val(data.menuNo);
+            		$("#modalmenuName").html(data.menuName);
+            		$("#modalprice").html(data.price);
+            		$("#modalcategory").html(data.categoryName);
+            		$("#modaloption").html(data.optionName);
+            		$("#modalDetail").html(data.menuDetail);
+            		$(".menu_detail_img_tol").html("<img class='menu_detail_img' src='" + "${contextPath}" + "/" + data.filePath + "/" + data.changeName + "'>");
             	}
-            }); */
+            }); 
         }
 
         function closeModal3() {

@@ -171,7 +171,7 @@
                     <tr>
                         <td>3개월 이용권</td>
                         <td>150,000 원</td>
-                        <td style="width:300px"><button value="결제" class="pay" onclick="requestPay(150000)">결제</button></td>
+                        <td style="width:300px"><button value="결제" class="pay" onclick="requestPay(100)">결제</button></td>
                     </tr>
                 </tbody>
             </table>
@@ -222,8 +222,8 @@
 		        			memberNo : ${loginUser.getMemberNo()},
 		        			licensePrice : amount
 		        		},
-		        		success : function() {
-		        			console.log("성공");
+		        		success : function(data) {
+		        			console.log("결제 성공");
 		        		}
 		        	})
 		        } else {

@@ -32,6 +32,43 @@
 		<result column="CATEGORY_NO" property="categoryNo"/>
 		<result column="FILE_PATH" property="filePath"/>
 	</resultMap>
+	
+	<resultMap type="menuList" id="menuListResultSet">
+		<id column="MENU_NO" property="menuNo"/>
+		<result column="MENU_NAME" property="menuName"/>
+		<result column="MENU_DETAIL" property="menuDetail"/>
+		<result column="PRICE" property="price"/>
+		<result column="ORIGIN_NAME" property="originName"/>
+		<result column="CHANGE_NAME" property="changeName"/>
+		<result column="CATEGORY_NO" property="categoryNo"/>
+		<result column="FILE_PATH" property="filePath"/>
+		<result column="OPTION_NAME" property="optionName"/>
+		<result column="CATEGORY_NAME" property="categoryName"/>
+	</resultMap>
+	
+	<resultMap type="optionList" id="optionListResultSet">
+		<id column="OPTION_NO" property="optionNo"/>
+		<result column="OPTION_NAME" property="optionName"/>
+		<result column="PRICE" property="price"/>
+		<result column="PR_OPTION_NO" property="prOptionNo"/>
+		<result column="MENU_NO" property="menuNo"/>
+		<result column="MENU_NAME" property="menuName"/>
+	</resultMap>
+	
+	<resultMap type="license" id="licenseResultSet">
+		<id column="LICENSE_NO" property="licenseNo"/>
+		<result column="LICENSE_DATE" property="licenseDate"/>
+		<result column="LICENSE_PRICE" property="licensePrice"/>
+	</resultMap>
+	
+	<resultMap type="licenseHistory" id="licenseHistoryResultSet">
+		<id column="LH_NO" property="lhNo"/>
+		<result column="LICENSE_NO" property="licenseNo"/>
+		<result column="MEMBER_NO" property="memberNo"/>
+		<result column="LH_DATE" property="lhDate"/>
+		<result column="LH_DAY" property="lhDay"/>
+		<result column="LH_STATUS" property="lhStatus"/>
+	</resultMap>
 
 	<insert id="insertCategory">
 		INSERT INTO CATEGORY VALUES (
@@ -60,16 +97,13 @@
 	</select>
 	
 	<insert id="insertOption">
-		INSERT INTO OPT (
-			OPTION_NO,
-			OPTION_NAME,
-			PRICE,
-			PR_OPTION_NO
-		) VALUES (
+		INSERT INTO OPT 
+		VALUES (
 			SEQ_OPTION.NEXTVAL,
 			#{optionName},
 			#{price},
-			#{prOptionNo}
+			#{prOptionNo},
+			#{menuNo}
 		)
 	</insert>
 	
@@ -132,9 +166,10 @@
 		WHERE CATEGORY_NO = #{categoryNo}
 	</delete>
 	
-	<select id="selectOption" parameterType="string" resultMap="optionResultSet">
-		SELECT *
-		FROM OPT
+	<select id="selectOption" parameterType="string" resultMap="optionListResultSet">
+		SELECT 	O.OPTION_NO, O.OPTION_NAME, O.PRICE, NVL(PR_OPTION_NO, 0), O.MENU_NO, M.MENU_NAME
+		FROM OPT O
+		LEFT JOIN MENU M ON (O.MENU_NO = M.MENU_NO)
 		ORDER BY OPTION_NO ASC
 	</select>
 	
@@ -171,5 +206,82 @@
 		FROM CATEGORY
 		ORDER BY CATEGORY_NO ASC
 	</select>
+	
+	<select id="selectDetailMenu" parameterType="int" resultMap="menuListResultSet">
+		SELECT M.*, O.OPTION_NAME, C.CATEGORY_NAME
+		FROM MENU M
+		LEFT JOIN OPT O ON (O.MENU_NO = M.MENU_NO)
+		JOIN CATEGORY C ON (C.CATEGORY_NO = M.CATEGORY_NO)
+		WHERE M.MENU_NO = #{menuNo}
+	</select>
+	
+	<delete id="deleteMenu" parameterType="menu">
+		DELETE FROM MENU
+		WHERE MENU_NO = #{menuNo}
+	</delete>
+	
+	<update id="updateMenu" parameterType="menu">
+		UPDATE MENU 
+		SET MENU_NAME = #{menuName},
+			MENU_DETAIL = #{menuDetail},
+			PRICE = #{price},
+			ORIGIN_NAME = #{originName},
+			CHANGE_NAME = #{changeName},
+			CATEGORY_NO = #{categoryNo},
+			FILE_PATH = #{filePath}
+		WHERE MENU_NO = #{menuNo}
+	</update>
+	
+	<select id="selectMenuOne" parameterType="int" resultMap="menuResultSet">
+		SELECT *
+		FROM MENU
+		WHERE MENU_NO = #{menuNo}
+	</select>
+	
+	<select id="selectMenuList" resultMap="menuResultSet">
+		SELECT *
+		FROM MENU
+		ORDER BY MENU_NO ASC
+	</select>
+	
+	<update id="updateOption" parameterType="option">
+		UPDATE OPT
+		SET 
+			OPTION_NAME = #{optionName},
+			PRICE = #{price},
+			PR_OPTION_NO = #{prOptionNo}
+		WHERE OPTION_NO = #{optionNo}
+	</update>
+	
+	<select id="selectLicenseNo" parameterType="int" resultMap="licenseResultSet">
+		SELECT *
+		FROM LICENSE
+		WHERE LICENSE_PRICE = #{licensePrice}
+	</select>
+	
+	<insert id="insertLicenseHistory">
+		INSERT INTO LICENSE_HISTORY
+		VALUES(
+		    SEQ_LHNO.NEXTVAL,
+		    #{licenseNo},
+		    #{memberNo},
+		    SYSDATE,
+		    ADD_MONTHS(SYSDATE, (SELECT LICENSE_DATE FROM LICENSE WHERE LICENSE_NO = #{memberNo})),
+		    'Y'
+		)
+	</insert>
+	
+	<select id="checkLicenseHistory" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		FROM LICENSE_HISTORY
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<update id="updateLicenseHistory" parameterType="int">
+		UPDATE LICENSE_HISTORY
+		SET LH_DATE = SYSDATE,
+			LH_DAY = ADD_MONTHS(LH_DAY, (SELECT LICENSE_DATE FROM LICENSE WHERE LICENSE_NO = #{memberNo}))
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
 
 </mapper>

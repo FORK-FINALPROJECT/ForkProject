@@ -231,7 +231,6 @@ public class MemberController {
 		
 		if(result > 0) {
 			session.setAttribute("alertMsg", "비밀번호가 변경되었습니다.");
-			session.removeAttribute("m");
 			return "forward:index.jsp";
 		} else {
 			session.setAttribute("alertMsg", "다시 입력해주세요.");

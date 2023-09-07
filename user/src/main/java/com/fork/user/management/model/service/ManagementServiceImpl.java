@@ -9,8 +9,11 @@ import org.springframework.stereotype.Service;
 import com.fork.user.management.model.dao.ManagementDao;
 import com.fork.user.management.model.vo.Category;
 import com.fork.user.management.model.vo.Coo;
+import com.fork.user.management.model.vo.License;
+import com.fork.user.management.model.vo.LicenseHistory;
 import com.fork.user.management.model.vo.Menu;
 import com.fork.user.management.model.vo.Option;
+import com.fork.user.management.model.vo.OptionList;
 
 @Service
 public class ManagementServiceImpl implements ManagementService {
@@ -89,7 +92,7 @@ public class ManagementServiceImpl implements ManagementService {
 	}
 
 	@Override
-	public List<Option> selectOption(int currentPage, Map<String, Object> paramMap) {
+	public List<OptionList> selectOption(int currentPage, Map<String, Object> paramMap) {
 		return managementDao.selectOption(currentPage, paramMap);
 	}
 
@@ -121,6 +124,56 @@ public class ManagementServiceImpl implements ManagementService {
 	@Override
 	public List<Category> selectCategory() {
 		return managementDao.selectCategory();
+	}
+
+	@Override
+	public Menu selectDetailMenu(int menuNo) {
+		return managementDao.selectDetailMenu(menuNo);
+	}
+
+	@Override
+	public int deleteMenu(Menu m) {
+		return managementDao.deleteMene(m);
+	}
+
+	@Override
+	public int updateMenu(Menu menu) {
+		return managementDao.updateMenu(menu);
+	}
+
+	@Override
+	public Menu selectMenuOne(int menuNo) {
+		return managementDao.selectMenuOne(menuNo);
+	}
+
+	@Override
+	public List<Menu> selectMenuList() {
+		return managementDao.selectMenuList();
+	}
+
+	@Override
+	public int updateOption(Option option) {
+		return managementDao.updateOption(option);
+	}
+
+	@Override
+	public License selectLicenseNo(int licensePrice) {
+		return managementDao.selectLicenseNo(licensePrice);
+	}
+
+	@Override
+	public int insertLicenseHistory(LicenseHistory lh) {
+		return managementDao.insertLicenseHistory(lh);
+	}
+
+	@Override
+	public int checkLicenseHistory(int memberNo) {
+		return managementDao.checkLicenseHistory(memberNo);
+	}
+
+	@Override
+	public int updateLicenseHistory(int memberNo) {
+		return managementDao.updateLicenseHistory(memberNo);
 	}
 
 

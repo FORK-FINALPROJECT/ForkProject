@@ -10,8 +10,11 @@ import org.springframework.stereotype.Repository;
 
 import com.fork.user.management.model.vo.Category;
 import com.fork.user.management.model.vo.Coo;
+import com.fork.user.management.model.vo.License;
+import com.fork.user.management.model.vo.LicenseHistory;
 import com.fork.user.management.model.vo.Menu;
 import com.fork.user.management.model.vo.Option;
+import com.fork.user.management.model.vo.OptionList;
 
 @Repository
 public class ManagementDao {
@@ -87,7 +90,7 @@ public class ManagementDao {
 		return session.delete("managementMapper.deleteCategory", categoryNo);
 	}
 
-	public List<Option> selectOption(int currentPage, Map<String, Object> paramMap) {
+	public List<OptionList> selectOption(int currentPage, Map<String, Object> paramMap) {
 		
 		int offset = (currentPage - 1) * 10;
 		int limit = 10;
@@ -119,6 +122,46 @@ public class ManagementDao {
 
 	public List<Category> selectCategory() {
 		return session.selectList("managementMapper.selectAllCategory");
+	}
+
+	public Menu selectDetailMenu(int menuNo) {
+		return session.selectOne("managementMapper.selectDetailMenu", menuNo);
+	}
+
+	public int deleteMene(Menu m) {
+		return session.delete("managementMapper.deleteMenu", m);
+	}
+
+	public int updateMenu(Menu menu) {
+		return session.update("managementMapper.updateMenu", menu);
+	}
+
+	public Menu selectMenuOne(int menuNo) {
+		return session.selectOne("managementMapper.selectMenuOne", menuNo);
+	}
+
+	public List<Menu> selectMenuList() {
+		return session.selectList("managementMapper.selectMenuList");
+	}
+
+	public int updateOption(Option option) {
+		return session.update("managementMapper.updateOption", option);
+	}
+
+	public License selectLicenseNo(int licensePrice) {
+		return session.selectOne("managementMapper.selectLicenseNo", licensePrice);
+	}
+
+	public int insertLicenseHistory(LicenseHistory lh) {
+		return session.insert("managementMapper.insertLicenseHistory", lh);
+	}
+
+	public int checkLicenseHistory(int memberNo) {
+		return session.selectOne("managementMapper.checkLicenseHistory", memberNo);
+	}
+
+	public int updateLicenseHistory(int memberNo) {
+		return session.update("managementMapper.updateLicenseHistory", memberNo);
 	}
 	
 }

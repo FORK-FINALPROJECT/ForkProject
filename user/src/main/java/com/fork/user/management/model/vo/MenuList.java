@@ -1,11 +1,9 @@
 package com.fork.user.management.model.vo;
 
-import java.util.List;
-
 import lombok.Data;
 
 @Data
-public class Menu {
+public class MenuList extends Menu {
 
 	private int menuNo;
 	private String menuName;
@@ -15,7 +13,7 @@ public class Menu {
 	private String changeName;
 	private int categoryNo;
 	private String filePath;
-	
-	List<Menu> menuList;
+	private String optionName;
+	private String categoryName;
 	
 }

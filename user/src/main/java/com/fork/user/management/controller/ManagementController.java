@@ -25,8 +25,11 @@ import com.fork.user.common.vo.PageInfo;
 import com.fork.user.management.model.service.ManagementService;
 import com.fork.user.management.model.vo.Category;
 import com.fork.user.management.model.vo.Coo;
+import com.fork.user.management.model.vo.License;
+import com.fork.user.management.model.vo.LicenseHistory;
 import com.fork.user.management.model.vo.Menu;
 import com.fork.user.management.model.vo.Option;
+import com.fork.user.management.model.vo.OptionList;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -107,7 +110,6 @@ public class ManagementController {
 	@ResponseBody
 	public List<Category> category(){
 		List<Category> categoryList = mService.selectCategory();
-		log.info("Category = {}", categoryList);
 		return categoryList;
 	}
 	
@@ -115,7 +117,6 @@ public class ManagementController {
 	@ResponseBody
 	public List<Menu> menu(){
 		List<Menu> menuList = mService.selectMenu();
-		log.info("menu = {}", menuList);
 
 		return menuList;
 	}
@@ -163,7 +164,7 @@ public class ManagementController {
 				@RequestParam Map<String, Object> paramMap
 			) {
 		
-		List<Option> list = mService.selectOption(currentPage, paramMap);
+		List<OptionList> list = mService.selectOption(currentPage, paramMap);
 		
 		int total = mService.selectOptionCount(paramMap);
 		
@@ -189,36 +190,115 @@ public class ManagementController {
 	 */
 	@PostMapping("/insertMenu")
 	public String insertMenu(
-				Menu menu,
-				@RequestParam("file") MultipartFile file,
-				HttpSession session, 
-				Model model
+	    Menu menu,
+	    @RequestParam("file") MultipartFile file,
+	    HttpSession session,
+	    Model model
+	) {
+	    String webPath = "/resources/img/";
+	    String severFolderPath = application.getRealPath(webPath);
+	    
+	    File dir = new File(severFolderPath);
+	    
+	    if (!dir.exists()) {
+	        dir.mkdirs();
+	    }
+
+	    String changeName = Utils.saveFile(file, severFolderPath);
+	    menu.setOriginName(file.getOriginalFilename());
+	    menu.setChangeName(changeName);
+	    menu.setFilePath(webPath);
+	    
+	    int result = mService.insertMenu(menu);
+
+	    if (result > 0) {
+	        session.setAttribute("alertMsg", "메뉴 등록에 성공했습니다.");
+	    } else {
+	        session.setAttribute("alertMsg", "메뉴 등록에 실패했습니다.");
+	    }
+	    
+	    return "redirect:/menu";
+	}
+	
+	/**
+	 * 메뉴 삭제
+	 * @param m
+	 * @param session
+	 * @return
+	 */
+	@PostMapping("/deleteMenu")
+	public String deleteMenu(
+				Menu m,
+				HttpSession session
 			) {
 		
-		String webPath = "/resources/img/";
-		String severFolderPath = application.getRealPath(webPath);
+		log.info(m.getMenuNo() + "");
 		
-		File dir = new File(severFolderPath);
-		
-		if(!dir.exists()) {
-			dir.mkdirs();
-		}
-
-		String changeName = Utils.saveFile(file, severFolderPath);
-		menu.setOriginName(file.getOriginalFilename());
-		menu.setChangeName(changeName);
-		menu.setFilePath(webPath);
-		
-		int result = mService.insertMenu(menu);
+		int result = mService.deleteMenu(m);
 		
 		if(result > 0) {
-			session.setAttribute("alertMsg", "메뉴 등록에 성공했습니다.");
+			session.setAttribute("alertMsg", "삭제되었습니다.");
 		} else {
-			session.setAttribute("alertMsg", "메뉴 등록에 실패했습니다.");
+			session.setAttribute("alertMsg", "삭제에 실패했습니다.");
 		}
-		
+	
 		return "redirect:/menu";
+		
 	}
+	
+	/**
+	 * 메뉴 수정
+	 * @param menu
+	 * @param file
+	 * @param session
+	 * @param model
+	 * @return
+	 */
+	@PostMapping("/updateMenu")
+	public String updateMenu(
+				Menu menu,
+				@RequestParam("file") MultipartFile file,
+			    HttpSession session,
+			    Model model
+			) {
+		String webPath = "/resources/img/";
+	    String severFolderPath = application.getRealPath(webPath);
+	    
+	    File dir = new File(severFolderPath);
+	    
+	    if (!dir.exists()) {
+	        dir.mkdirs();
+	    }
+
+	    if(file.isEmpty()) {
+	    	Menu m = mService.selectMenuOne(menu.getMenuNo());
+	    	menu.setChangeName(m.getChangeName());
+	    	menu.setOriginName(m.getOriginName());
+	    } else {
+	    	String changeName = Utils.saveFile(file, severFolderPath);
+	    	menu.setOriginName(file.getOriginalFilename());
+	    	menu.setChangeName(changeName);
+	    }
+	    
+	    menu.setFilePath(webPath);
+	    
+	    int result = mService.updateMenu(menu);
+
+	    if (result > 0) {
+	        session.setAttribute("alertMsg", "메뉴 수정에 성공했습니다.");
+	    } else {
+	        session.setAttribute("alertMsg", "메뉴 수정에 실패했습니다.");
+	    }
+	    
+	    return "redirect:/menu";
+	}
+	
+	@PostMapping("/selectMenuList")
+	@ResponseBody
+	public List<Menu> selectMenuList(){
+		return mService.selectMenuList();
+	}
+
 	
 	/**
 	 * 카테고리 조회
@@ -379,6 +459,31 @@ public class ManagementController {
 		
 	}
 	
+	/**
+	 * 옵션 수정
+	 * @param optionList
+	 * @param session
+	 * @return
+	 */
+	@PostMapping("/updateOption")
+	public String updateOption(
+				Option option,
+				HttpSession session
+			) {
+		
+		log.info(option.getOptionNo() + "");
+		
+		int result = mService.updateOption(option);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "성공적으로 수정되었습니다.");
+		} else {
+			session.setAttribute("alertMsg", "수정에 실패했습니다.");
+		}
+		
+		return "redirect:/option";
+		
+	}
 	
 	/**
 	 * 원산지 등록
@@ -426,6 +531,70 @@ public class ManagementController {
 		}
 		
 		return "redirect:/coo";
+		
+	}
+	
+	/**
+	 * 특정 메뉴 조회
+	 * @param menuNo
+	 * @return
+	 */
+	@PostMapping("/selectDetailMenu")
+	@ResponseBody
+	public ResponseEntity<Menu> selectDetailMenu(int menuNo) {
+		Menu menu = mService.selectDetailMenu(menuNo);
+		return ResponseEntity.ok(menu);
+	}
+	
+	/**
+	 * 결제 시 이용기간 저장
+	 * @param memberNo
+	 * @param licensePrice
+	 * @param session
+	 * @return
+	 */
+	@PostMapping("/insertLicense")
+	@ResponseBody
+	public String insertLicense(
+				int memberNo,
+				int licensePrice,
+				HttpSession session
+			) {
+		
+		License license = mService.selectLicenseNo(licensePrice);
+		
+		LicenseHistory lh = new LicenseHistory();
+		
+		lh.setMemberNo(memberNo);
+		lh.setLicenseNo(license.getLicenseNo());
+		
+		int result = mService.checkLicenseHistory(memberNo);
+		
+		log.info("result = " + result);
+		
+		if(result > 0) {
+			int result1 = mService.updateLicenseHistory(memberNo);
+			
+			log.info("result1 = " + result1);
+			
+			if(result1 > 0) {
+				session.setAttribute("alertMsg", "성공적으로 구매되었습니다.");
+			} else {
+				session.setAttribute("alertMsg", "구매에 실패했습니다.");
+			}
+			
+			return "redirect:/license";
+		} else {
+			int result2 = mService.insertLicenseHistory(lh);
+			
+			if(result2 > 0) {
+				session.setAttribute("alertMsg", "성공적으로 구매되었습니다.");
+			} else {
+				session.setAttribute("alertMsg", "구매에 실패했습니다.");
+			}
+			
+			return "redirect:/license";
+		}
 		
 	}
 	
