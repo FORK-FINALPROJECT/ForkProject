@@ -7,7 +7,7 @@ import { useReceiptStore } from "../store/receiptViewStore";
 const transformData = (receiptItems) => {
     const updatedItems = receiptItems.map(receiptItem => {
         //debugger;
-        const updateMenuItems = (receiptItem.rmList || []).map(menu => 
+        const updateMenuItems = receiptItem.rmList.map(menu => 
         {
             const menuPrice = menu.menu?.price || 0;
             const menuCnt = menu.cnt || 0;
@@ -16,11 +16,11 @@ const transformData = (receiptItems) => {
                 menuAddPrice: menuPrice * menuCnt,
             }
         });
-        const totalPrice = updateMenuItems.reduce((total, menu) => {
+        const totalPrice = (updateMenuItems.reduce((total, menu) => {
             const menuTotal = menu.menuAddPrice + menu.roList.reduce((optionTotal, opt) => optionTotal + ( !(opt?.opt?.price) ? 0 : opt?.opt?.price * menu.cnt), 0); 
             return total + menuTotal;
             
-          }, 0);
+          }, 0) ) || receiptItem?.pay?.price;
           
         return {
             ...receiptItem, menuItems: updateMenuItems, totalPrice: parseInt(totalPrice),
@@ -48,7 +48,7 @@ const ReceiptView = () => {
         const selectedReceipt = groupedReceipts.find(receiptItem => receiptItem.receiptNo === receiptNo);
         setSelectedReceipt(selectedReceipt);
     };
-    // console.log("이거이거 확인 확인",groupedReceipts)
+    console.log("이거이거 확인 확인",groupedReceipts)
     return (
         <div>
             <div className="receipt-wrap scrollable">
