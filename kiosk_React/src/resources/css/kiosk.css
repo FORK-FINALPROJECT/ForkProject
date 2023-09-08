@@ -272,6 +272,7 @@ a {
 .pay-list ul li td {
     line-height: 10%;
     text-align: right;
+    padding-right: 8%;
 }
 
 .pay-list input {
@@ -419,4 +420,34 @@ a {
 
 .slide-out {
     animation-name: slideOut;
+}
+
+.userAddLi {
+    height: 100% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.userAddBtn{
+    height: auto !important;
+    width: auto !important;
+    background-color: transparent;
+}
+
+.userAddBtn {
+    border-radius: 5px;
+    cursor: pointer;
+    border:none;
+    box-shadow: 1px 3px 4px rgb(0, 0, 0, 0.3);
+}
+.userAddBtn:active {
+    box-shadow: 1px 1px 0 rgb(0, 0, 0, 0.1);
+    position: relative;
+    top: 2px;
+}
+
+.closeBtn{
+    width: 20% !important;
+    height: fit-content !important;
 }

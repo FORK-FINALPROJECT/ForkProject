@@ -33,6 +33,7 @@ body {
     /* background-color: #eee; */
     cursor: pointer;
     border:none;
+    width: 10%;
     box-shadow: 1px 3px 4px rgb(0, 0, 0, 0.3);
 }
 
@@ -262,7 +263,7 @@ a:hover{
 .receipt-view-head-controll button {
     margin-left: 74%;
     height: 70%;
-    width: fit-content;
+    width: 20%;
     font-size: 1vw;
     color:black;
 }
@@ -686,4 +687,8 @@ a:hover{
 .receipt-detail-last-3 :nth-child(2) {
     flex: 1;
     text-align: right;
+}
+
+.information{
+    text-align:center !important;
 }
