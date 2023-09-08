@@ -5,7 +5,9 @@ import lombok.Data;
 @Data
 public class ReceiptOption{
 
-	private int RcmNo;
+	private int rcmNo;
 	private int optionNo;
+	
+	private Opt opt;
 	
 }

@@ -14,13 +14,15 @@ import DutchpayByPrice from './components/DutchpayByPrice';
 import useFullscreen from './components/useFullscreen';
 import React, { useEffect, useState } from 'react';
 import { useCategoryStore } from './store/mainViewStore';
-
+import { useReceiptStore } from './store/receiptViewStore';
 // 터치 / 터치스크롤로 수정하기
 // 화면보호기 화면
 const standByScreen1 = () => <div id='standByScreen'><img src={require('./resources/image/standByScreen1.png')} /></div>
 const standByScreen2 = () => <div id='standByScreen'><img src={require('./resources/image/standByScreen2.png')} /></div>
 const standByScreen3 = () => <div id='standByScreen'><img src={require('./resources/image/standByScreen3.png')} /></div>
 const standByScreen4 = () => <div id='standByScreen'><img src={require('./resources/image/standByScreen4.png')} /></div>
+
+
 
 function App() {
   // 동연 시작  
@@ -109,6 +111,7 @@ function App() {
   
   const getCategory = useCategoryStore((state) => state.getCategory);
   const setSubCategory = useCategoryStore((state) => state.setSubCategory);
+  
   useEffect(async () => {
 
     await getCategory();
