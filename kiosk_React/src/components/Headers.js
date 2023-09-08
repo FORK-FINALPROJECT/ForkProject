@@ -1,11 +1,15 @@
 import React, { useState } from 'react'
 import { useCategoryStore } from '../store/mainViewStore';
+import useScrollToSubCategoryStore from '../store/scrollListStore';
+import { Link } from 'react-router-dom';
 
 const Headers = () => {
   const [content, setContent] = useState();
 
   const subCategorys = useCategoryStore((state) => state.subCategorys);
   const setSubCategory = useCategoryStore((state) => state.setSubCategory);
+
+  const { scrollToSubCategory } = useScrollToSubCategoryStore();
 
   return (
     // <div className="header-wrap">
@@ -44,7 +48,7 @@ const Headers = () => {
 
 
           {subCategorys && subCategorys.map(subCategory => {
-             return <div className="detail-category"><a>{subCategory.categoryName}</a></div>
+             return <div className="detail-category" key={subCategory.categoryName}><Link to="/" onClick={() => scrollToSubCategory(subCategory.categoryName)}>{subCategory.categoryName}</Link></div>
           })}
          
         

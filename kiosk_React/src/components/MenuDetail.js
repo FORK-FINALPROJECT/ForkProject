@@ -5,6 +5,7 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import { useLocation, useNavigate } from 'react-router-dom';
 import DropdownItem from 'react-bootstrap/esm/DropdownItem';
+import useCartStore from '../store/cartStore';
 
 const MenuDetail = (props) => {
 
@@ -17,14 +18,20 @@ const MenuDetail = (props) => {
         navigate(-1);
     }
 
+    // 메뉴리스트에서 값을 받아옴
     const location = useLocation();
     const menu = location.state;
     const springUrl = 'http://localhost:8083/kiosk';
 
-    // console.log(menu);
-
     // 선택된 아이템 드롭다운 버튼에 보이게하기
     const [selectedOption, setSelectedOption] = useState({});
+
+    // 담기하면 카트스토어에 담기
+    const menuItem = {
+        menu : menu,
+        selectedOption : selectedOption
+    };
+    const addToCart = useCartStore((state) => state.addToCart);
 
     return (
         <div className="content-wrap">
@@ -70,7 +77,7 @@ const MenuDetail = (props) => {
                                                     <tr>
                                                         <td>{options.optionName}</td>
                                                         <td id='dropdownbtn'>
-                                                            <DropdownButton as={ButtonGroup} key={options.optionName} id={'dropdown-variants-' + options.optionName} title={selectedOption[options.optionName] || options.optionName} variant='secondary'>
+                                                            <DropdownButton as={ButtonGroup} key={options.optionNo} id={'dropdown-variants-' + options.optionName} title={selectedOption[options.optionName] || options.optionName} variant='secondary'>
                                                                 {options && options.optList.map(opt => {
                                                                     return (
                                                                         <DropdownItem onClick={() => {
@@ -99,7 +106,7 @@ const MenuDetail = (props) => {
                                     </table>
                                 </div>
                                 <div className="detailmenu-option-button">
-                                    <Button id="button-prev" variant="secondary"> 담기 </Button>
+                                    <Button id="button-prev" variant="secondary" onClick={addToCart(menuItem)}> 담기 </Button>
                                 </div>
                             </div>
                         </div>
