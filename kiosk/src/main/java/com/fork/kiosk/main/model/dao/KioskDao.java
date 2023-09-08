@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import com.fork.kiosk.main.model.vo.Category;
 import com.fork.kiosk.main.model.vo.Coo;
+import com.fork.kiosk.main.model.vo.TotalReceipt;
+import com.fork.kiosk.main.model.vo.TotalReceiptTest;
 
 @Repository
 public class KioskDao {
@@ -21,6 +23,10 @@ public class KioskDao {
 
 	public List<Coo> selectCoo() {
 		return session.selectList("kiosk.selectCoo");
+	}
+
+	public TotalReceipt selectTotalReceipt(Integer kioskNo) {
+		return session.selectOne("kiosk.selectTotalReceipt",kioskNo);
 	}
 	
 }

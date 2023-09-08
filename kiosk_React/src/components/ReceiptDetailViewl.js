@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
-
-const ReceiptDetailViewl = (props) => {
-
+import { useReceiptStore } from "../store/receiptViewStore";
+const ReceiptDetailViewl = () => {
+    const receiptItem = useReceiptStore((store) => store.selectedReceipt);
+    // console.log(receiptItem);
     // 영수증 목록들
     /*
     필요 연결 테이블 옵션OPT, 메뉴MENU, 결제PAY, 영수증RECEIPT. 영수증+메뉴(영수증별 메뉴 상세)RECEIPT_MENU
     영수증 메뉴+옵션(메뉴별 옵션 상세)RECEIPT_OPTION
     */
-    const { receiptItem } = props;
+   // const { receiptItem } = props;
 
     // 통화단위 콤마찍기
     function formatCurrencyToKRW(number) {
@@ -44,13 +45,12 @@ const ReceiptDetailViewl = (props) => {
                             <div colSpan="4">사업장 이름</div>
                         </div>
                         <div>
-                            <div colSpan="4">{receiptItem?.storeName}</div>
+                            <div colSpan="4">동동포차</div>
                         </div>
                         <div>
-                            <div colSpan="4">사업자 번호 : <span className="">{receiptItem?.fileNo}</span></div>
+                            <div colSpan="4">사업자 번호 : <span className="">123-45-67890</span></div>
                         </div>
                         <div>
-                            <div colSpan="2">대표 : <span>{receiptItem?.memberName}</span></div>
                             <div colSpan="2" className="receipt-detail-top-2-1">{receiptItem?.payDate}</div>
                         </div>
                     </div>
@@ -62,31 +62,32 @@ const ReceiptDetailViewl = (props) => {
                         <div>수량</div>
                         <div>금액</div>
                     </div>
-                    {receiptItem?.menuItems?.map((menu, menuIndex) => (
-                        <div key={menuIndex} className="menu-item">
+                    {(receiptItem?.menuItems || [])?.map((receiptItem, index) => ( 
+
+                        <div key={index} className="menu-item">
                             <div className="receipt-detail-mid-2">
                                 <div className="receipt-deail-mid-2-1">
-                                    <div>{menu.menuName}</div>
-                                    <div>{menu?.price?.toLocaleString()}</div>
-                                    <div>{menu.cnt}</div>
-                                    <div>{menu?.menuAddPrice?.toLocaleString()}원</div>
+                                    <div>{receiptItem?.menu?.menuName}</div>
+                                    <div>{receiptItem?.menu?.price?.toLocaleString()}</div>
+                                    <div>{receiptItem?.cnt}</div>
+                                    <div>{receiptItem?.menuAddPrice?.toLocaleString()}원</div>
                                 </div>
-                                {menu.optionItems.map((option, optionIndex) => (
-                                    <div key={optionIndex} className="receipt-deail-mid-2-1 receipt-deail-mid-2-2">
-                                        {option.optionName === null ? null :
-                                            <div>{option.optionName}</div>
-                                        }
-                                        {/* <div>+{option.optionName}</div> */}
-                                        <div>{option?.optPrice?.toLocaleString()}</div>
-                                        <div>{option.optCnt}</div>
-                                        {option.optionAddPrice !== 0 ? (
-                                            <div>{option?.optionAddPrice?.toLocaleString()}</div>
+                                { (receiptItem?.roList || [])?.map((option, index) => (
+                                    <div key={index} className="receipt-deail-mid-2-1 receipt-deail-mid-2-2">
+                                        {option?.opt?.optionName === null ? <div></div> :
+                                            <div>{option?.opt?.optionName}</div>
+                                        } 
+                                        <div>{option?.opt?.price?.toLocaleString()}</div>
+                                        <div></div> 
+                                        {/* 수량 입력하는곳 생각해보니까 메뉴와 옵션이 모두 같을 때 옵션 개수를? 굳이... 굳이.... */}
+                                         {(option?.opt?.price) ? (
+                                            <div>{(option?.opt?.price * receiptItem?.cnt)?.toLocaleString()}</div>
                                         ) : <div></div>}
                                     </div>
                                 ))}
                             </div>
                         </div>
-                    ))}
+                    ))} 
                 </div>
                 <div className="receipt-detail-last">
                     <div className="receipt-detail-last-1">
