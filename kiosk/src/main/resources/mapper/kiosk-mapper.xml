@@ -105,8 +105,8 @@
 </resultMap>
 
 <resultMap type="receiptOption" id="ReceiptOptionResultMap">
-	<id column="RCM_NO" property="rcmNo"/>
 	<result column="OPTION_NO" property="optionNo"/>
+	<result column="RCM_NO" property="rcmNo"/>
 	<association property="opt" resultMap="optionResultSet"/>
 </resultMap>
 
@@ -241,8 +241,9 @@ JOIN (
     ) USING (RECEIPT_NO)
 ) USING (TR_NO)
 WHERE TR.KIOSK_NO = 2 AND ORDER_STATUS='Y' -->
-
-SELECT TR.*, R.*, RM.*, RO.*,P.*, M.MENU_NAME, M.PRICE MPRICE, O.OPTION_NAME SUB_OPTION_NAME, O.PRICE SUB_PRICE
+	
+	SELECT TR.*, R.*, RM.*, RO.*,P.*, M.MENU_NAME, M.PRICE MPRICE,
+	 O.OPTION_NAME SUB_OPTION_NAME, O.PRICE SUB_PRICE, O.OPTION_NO SUB_OPTION_NO, O.PR_OPTION_NO SUB_PR_OPTION_NO , O.MENU_NO SUB_MENU_NO
 FROM TOTAL_RECEIPT TR
 LEFT JOIN RECEIPT R ON R.TR_NO = TR.TR_NO
 LEFT JOIN RECEIPT_MENU RM ON RM.RECEIPT_NO = R.RECEIPT_NO
@@ -251,8 +252,73 @@ LEFT JOIN RECEIPT_OPTION RO ON RO.RCM_NO = RM.RCM_NO
 LEFT JOIN OPT O ON O.OPTION_NO = RO.OPTION_NO
 JOIN PAY P ON R.PAY_NO=P.PAY_NO
 WHERE TR.KIOSK_NO = #{kioskNo} AND TR.ORDER_STATUS = 'Y'
-ORDER BY R.RECEIPT_NO ASC
+ORDER BY R.RECEIPT_NO , RM.RCM_NO
 
 </select>
+
+<select id="selectTotalReceiptNo" resultType="int">
+	SELECT TR_NO
+	FROM TOTAL_RECEIPT
+	WHERE KIOSK_NO = #{kioskNo} AND ORDER_STATUS = 'Y'
+</select>
+
+<insert id="insertTotalReceiptNo" parameterType="hashmap">
+	
+	<selectKey keyProperty="totalReceiptNo" order="BEFORE" resultType="int" >
+		SELECT SEQ_TTRC.NEXTVAL FROM DUAL
+	</selectKey>
+	
+	INSERT INTO TOTAL_RECEIPT 
+	VALUES
+	(
+		#{totalReceiptNo},#{kioskNo}, DEFAULT
+	)
+</insert>
+
+<insert id="insertPay" parameterType="hashmap">
+	
+	<selectKey keyProperty="payNo" order="BEFORE" resultType="int" >
+		SELECT SEQ_PAY.NEXTVAL FROM DUAL
+	</selectKey>
+	
+	INSERT INTO PAY 
+	VALUES
+	(
+		#{payNo},DEFAULT , #{cartTotalPrice}
+	)
+</insert>
+
+<insert id="insertReceipt" parameterType="hashmap">
+	
+	<selectKey keyProperty="receiptNo" order="BEFORE" resultType="int" >
+		SELECT SEQ_RC.NEXTVAL FROM DUAL
+	</selectKey>
+	
+	INSERT INTO RECEIPT 
+	VALUES
+	(
+		#{receiptNo},#{payNo} , #{totalReceiptNo}
+	)
+</insert>
+
+<insert id="insertReceiptMenus" parameterType="hashmap">
+	<selectKey keyProperty="receiptMenuNo" order="BEFORE" resultType="int" >
+		SELECT SEQ_RCM.NEXTVAL FROM DUAL
+	</selectKey>
+	
+	INSERT INTO RECEIPT_MENU
+	VALUES
+	(
+		#{receiptMenuNo}, #{receiptNo} , #{menuNo} , #{count}
+	)
+</insert>
+
+<insert id="insertReceiptOptions" parameterType="hashMap">
+	INSERT INTO RECEIPT_OPTION
+	VALUES
+    (
+	   	#{receiptMenuNo},#{optionNo}
+   	)    
+</insert>
 
 </mapper>

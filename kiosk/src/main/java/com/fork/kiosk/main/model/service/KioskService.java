@@ -1,5 +1,6 @@
 package com.fork.kiosk.main.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.fork.kiosk.main.model.vo.Category;
@@ -13,5 +14,13 @@ public interface KioskService {
 	List<Coo> selectCoo();
 
 	TotalReceipt selectTotalReceipt(Integer kioskNo);
+
+	int selectTotalReceiptNo(HashMap<String, Object> param);
+
+	int insertPay(HashMap<String, Object> param);
+
+	int insertReceipt(HashMap<String, Object> param);
+
+	int insertReceiptMenus(HashMap<String, Object> param);
 
 }

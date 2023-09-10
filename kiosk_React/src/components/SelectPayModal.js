@@ -2,6 +2,9 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import axios from 'axios';
+import useCartStore from '../store/cartStore';
+import {useReceiptStore} from '../store/receiptViewStore';
 
 function SelectPayModal(props) {
 
@@ -9,12 +12,28 @@ function SelectPayModal(props) {
     const [modalTimer, setModalTimer] = useState(10); // 초 단위로 설정
     const [timer, setTimer] = useState(null);
 
+    const {cartItems, setCartItems ,cartTotalPrice } = useCartStore();
+    const kioskNo = useReceiptStore((state) => state.kioskNo);
+
+
     // 결제방법이 선택되면 다음화면으로
     const handlePaymentMethodClick = (method) => {
         // 타이머가 이미 실행 중이면 리셋
         if (timer) {
             clearInterval(timer);
         }
+        //카드던 , 현금이던, 분할이던 실행
+        axios.post("http://localhost:3000/kiosk/payment/"+kioskNo , {cartItems , cartTotalPrice} )
+        .then( (response) => {
+
+            console.log(response.data);
+
+        }).catch( (error) => {
+
+            console.log(error);
+
+        });
+
         setPayMethod(method);
         setModalTimer(10); // 타이머 리셋
     };
@@ -71,7 +90,17 @@ function SelectPayModal(props) {
                 <div>
                     {payMethod ? (
                         <div className='selectPayModal2'>
-                            {payMethod === "카드결제" && <p>카드 결제 정보 입력란이 표시됩니다.</p>}
+                            {/* 카드결제 클릭시 */}
+                            {payMethod === "카드결제" && 
+                            <div className='cardPayWrap'>
+                            <h3 className="cardPay">ic 카드를 리더기에 넣어주세요</h3>
+                            <p className="cardPay">
+                                <img src={require('../resources/image/insert-card2.png')} />
+                            </p>
+                            </div>
+                            }
+
+                            {/* 현금결제 클릭시 */}
                             {payMethod === "현금결제" && <>
                                 <div>
                                     <h1>직원이 현금을 받으러 갑니다.</h1> <br />

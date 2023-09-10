@@ -24,7 +24,7 @@ const LoginView = () => {
         // 로그인할 때 데이터 넘기게
         axios.post(`/kiosk/receipt/${kioskNo}`).then((response) => {
             // 여기에 데이터?를? 담아줘?
-            console.log(response.data);
+            console.log(11,response.data);
             //setIsLoggedIn('true');
             sessionStorage.setItem('receiptList',JSON.stringify(response.data));
             setReceiptItems(response.data);

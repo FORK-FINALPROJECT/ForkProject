@@ -22,37 +22,32 @@ const MenuDetail = (props) => {
     const location = useLocation();
     const menu = location.state;
     const springUrl = 'http://localhost:8083/kiosk';
-    
     // 선택된 옵션 담아주기
-    const [selectedOption, setSelectedOption] = useState({});
-
-    // 선택된 옵션 선택버튼에 넣어주기
-    const [selectedOptionName, setSelectedOptionName] = useState([]);
-
-    useEffect(() => {
-        for (const optionKey in selectedOption){
-            if(selectedOption.hasOwnProperty(optionKey)){
-                const optionName = selectedOption[optionKey].optionName;
-                console.log(`옵션 키: ${optionKey}, 옵션 이름: ${optionName}`);
-                setSelectedOptionName((prevSelectedOptionName) => [...prevSelectedOptionName, optionName]);
-                // console.log(selectedOptionName);
-            }
-        }
-    }, [selectedOption]);
+    const [selectedOption, setSelectedOption] = useState([]);
+    const [totalPrice , setTotalPrice] = useState(menu.price);
     
-    // selectedOptionName 잘 담겼는지 테스트
-    useEffect(() => {
-        console.log(selectedOptionName);
-    },[selectedOptionName]);
-
-
     // 담기하면 카트스토어에 담기
     const menuItem = {
-        menu : menu,
-        selectedOption : selectedOption
+        ...menu,
+        selectedOption,
+        totalPrice,
+        count : 1,
     };
     const addToCart = useCartStore((state) => state.addToCart);
+    useEffect( () =>{
+        const totalPrice = menu.price + selectedOption.reduce((optionTotal, opt) => optionTotal + ( !(opt.price) ? 0 : opt.price), 0); 
+        setTotalPrice(totalPrice);
+    })
 
+    const handleSelectedOption = (opt , options) => {
+        const updateSelectedOption = selectedOption.filter( (_opt) => _opt.prOptionNo !== opt.prOptionNo );
+        opt.prOptionName =  options.optionName;
+        setSelectedOption([...updateSelectedOption , opt]);
+    }
+
+    function findSubOption(opt){
+        return selectedOption.find((_opt) => _opt.prOptionNo === opt.optionNo)
+    }
     return (
         <div className="content-wrap">
             <div className="main-content">
@@ -88,7 +83,7 @@ const MenuDetail = (props) => {
                                     <table>
                                         <thead>
                                             <tr>
-                                                <th colSpan="2">옵션선택</th>
+                                                <th colSpan="3">옵션선택</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -96,35 +91,15 @@ const MenuDetail = (props) => {
                                                 return (
                                                     <tr>
                                                         <td>{options.optionName}</td>
+                                                        <td>{findSubOption(options) ? "+" + findSubOption(options).price : ""}</td>
                                                         <td id='dropdownbtn'>
                                                             {/* <DropdownButton as={ButtonGroup} key={options.optionNo} id={'dropdown-variants-' + options.optionName} title={prOptionName[options.optList.optionName] || options.optionName} variant='secondary'> */}
                                                             {/* <DropdownButton as={ButtonGroup} key={options.optionNo} id={'dropdown-variants-' + options.optionName} title={selectedOptionName[options.optList.optionName]?.optionName || options.optionName} variant='secondary'> */}
-                                                            <DropdownButton as={ButtonGroup} key={options.optionNo} id={'dropdown-variants-' + options.optionName} title={
-                                                                (() => {
-                                                                    // console.log('1'+options.optionaName);
-                                                                    // console.log('optList : '+options.optList.optionName);
-                                                                    let test = [];
-                                                                    test = options.optList;
-                                                                    // console.log(test);
-                                                                    test.map(opt => {
-                                                                        if(selectedOptionName[opt.optionName]){
-                                                                            return opt.optionName;
-                                                                            console.log('2'+opt.optionaName);
-                                                                        }
-                                                                    })
-                                                                    return options.optionName;
-                                                                    console.log('3'+options.optionaName);
-                                                                })()
-                                                            } variant='secondary'>
-
+                                                            <DropdownButton as={ButtonGroup} key={options.optionNo} id={'dropdown-variants-' + options.optionName}
+                                                             title={findSubOption(options) ? findSubOption(options).optionName : ""} variant='secondary'>
                                                                 {options && options.optList.map(opt => {
                                                                     return (
-                                                                        <DropdownItem onClick={() => {
-                                                                            setSelectedOption(prevSelectedOption => ({
-                                                                                ...prevSelectedOption,
-                                                                                [options.optionName]: opt,
-                                                                            }));
-                                                                        }}>
+                                                                        <DropdownItem onClick={() => {handleSelectedOption(opt , options)}}>
                                                                             {opt.optionName}
                                                                         </DropdownItem>
                                                                     );
@@ -142,6 +117,11 @@ const MenuDetail = (props) => {
                                             )
                                             }
                                         </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colSpan={3}>{totalPrice}원</td>
+                                            </tr>
+                                        </tfoot>
                                     </table>
                                 </div>
                                 <div className="detailmenu-option-button">

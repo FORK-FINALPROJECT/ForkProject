@@ -1,51 +1,24 @@
 import React, { useEffect, useRef, useState } from "react";
 import SelectPayModal from './SelectPayModal';
 import Button from 'react-bootstrap/Button';
+import useCartStore from '../store/cartStore';
 
 const CartView = () => {
 
+    const springUrl = 'http://localhost:8083/kiosk';
+
     // 결제 모달
     const [modalShow, setModalShow] = useState(false);
-
+    const {cartItems, setCartItems , cartTotalPrice } = useCartStore();
+    // {
+    //얻어온 데이터를 바탕으로 메뉴정보 보여주기 
+    // 메뉴정보 : 메뉴 이미지, 메뉴이름, total가격 , 옵션리슽, 개수
+    //동일한 메뉴, 옵션들 인 경우 개수 증가
+  
     const min = 1;
     const max = 10;
     const [count, setCount] = useState(1);
-    const [cartItems, setCartItems] = useState([
-
-        {
-            id: 1,
-            imagePath: require('../resources/image/menuSample.png'),
-            name: '메뉴이름 1',
-            price: '가격 1',
-            option: '옵션 어쩌구 저쩌구 메뉴랑 이것저것 많이 들어갈 예정이니까 일단 길게 써보자',
-            count: 3
-        },
-        {
-            id: 2,
-            imagePath: require('../resources/image/menuTest.jpg'),
-            name: '메뉴이름 2',
-            price: '가격 2',
-            option: '다른 옵션 내용...',
-            count: 2
-        },
-        {
-            id: 3,
-            imagePath: require('../resources/image/menuTest.jpg'),
-            name: '메뉴',
-            price: '가격 2',
-            option: '다른 옵션 내용.옵션션션션션션ㅅ..',
-            count: 1
-        },
-        {
-            id: 4,
-            imagePath: require('../resources/image/menuTest.jpg'),
-            name: '메뉴',
-            price: '가격 2',
-            option: '다른 옵션 내용.옵션션션션션션ㅅ..',
-            count: 1
-        }
-
-    ]);
+    // const [cartItems, setCartItems] = useState([
 
     const removeCartItem = (itemId) => {
         const cartItemsresult = cartItems.filter(item => item.id !== itemId)
@@ -60,20 +33,17 @@ const CartView = () => {
                 return item;
             }
         }).filter(item => item !== null);
-
         setCartItems(cartItemsresult);
     }
 
     const increaseCount = (itemId) => {
-
-        setCartItems(prevItems =>
-            prevItems.map(item => {
+        const cartItemsresult =  cartItems.map(item => {
                 if (item.id === itemId && item.count < max) {
                     return { ...item, count: item.count + 1 };
                 }
                 return item;
             })
-        );
+        setCartItems(cartItemsresult);
     }
 
     return (
@@ -90,18 +60,22 @@ const CartView = () => {
                                 {cartItems.map(item => (
                                     <div key={item.id} className="cart-order-wrap">
                                         <div className="cart-menu-pic">
-                                            <img src={item.imagePath} alt="메뉴사진" onError={(e) => {e.target.src = require('../resources/image/defaultimg.jpg')}}/>
+                                            <img src={springUrl + item.filePath + item.originName} alt="메뉴사진" onError={(e) => {e.target.src = require('../resources/image/defaultimg.jpg')}}/>
                                         </div>
                                         <div className="cart-menu-details">
                                             <div className="cart-menu-name">
-                                                <span className="cart-menu-name-1">{item.name}</span>
-                                                <span className="cart-menu-name-2"> {item.price} </span>
+                                                <span className="cart-menu-name-1">{item.menuName}</span>
+                                                <span className="cart-menu-name-2"> {item.totalPrice} </span>
                                                 <span onClick={() => removeCartItem(item.id)}>
                                                     <img className="close int" src={require('../resources/image/closeLogo6.png')} alt="닫기"/>
                                                 </span>
                                             </div>
                                             <div className="cart-menu-option">
-                                                {item.option}
+                                                {item.selectedOption.map((option) => (
+                                                    <p>
+                                                    {`${option.prOptionName} ${option.optionName} ${option.price}원`}
+                                                    </p>
+                                                ))}
                                             </div>
                                             <div className="count-wrap _count">
                                                 <button type="button" className="minus int" onClick={() => decreaseCount(item.id)}>-</button>
@@ -114,6 +88,7 @@ const CartView = () => {
                                 ))}
                             </div>
                         )}
+                        총합 : {cartTotalPrice}
                     </div>
                     <div className="cart-order">
                         <Button id="button-coo" variant="light" onClick={() => setModalShow(true)}> 결제하기 </Button>
