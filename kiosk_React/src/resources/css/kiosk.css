@@ -441,6 +441,7 @@ a {
     border:none;
     box-shadow: 1px 3px 4px rgb(0, 0, 0, 0.3);
 }
+
 .userAddBtn:active {
     box-shadow: 1px 1px 0 rgb(0, 0, 0, 0.1);
     position: relative;
@@ -450,4 +451,9 @@ a {
 .closeBtn{
     width: 20% !important;
     height: fit-content !important;
+}
+
+.cardPayWrap{
+    display: flex;
+    flex-direction: column;
 }
