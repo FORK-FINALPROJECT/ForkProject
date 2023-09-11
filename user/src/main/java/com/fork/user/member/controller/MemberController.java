@@ -1,7 +1,6 @@
 package com.fork.user.member.controller;
 
 import java.io.File;
-import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -18,12 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fork.user.common.Utils;
-import com.fork.user.common.template.Pagenation;
-import com.fork.user.common.vo.PageInfo;
 import com.fork.user.member.model.service.MemberService;
 import com.fork.user.member.model.vo.Member;
-import com.fork.user.notice.model.service.NoticeService;
-import com.fork.user.notice.model.vo.Notice;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,10 +33,6 @@ public class MemberController {
 	
 	@Autowired
 	private ServletContext application;
-	
-	@Autowired
-	private ResourceLoader resourceLoader;
-	
 
 	/**
 	 * 로그인 기능
@@ -241,7 +232,7 @@ public class MemberController {
 		
 		if(result > 0) {
 			session.setAttribute("alertMsg", "비밀번호가 변경되었습니다.");
-			return "forward:index.jsp";
+			return "forward:login.jsp";
 		} else {
 			session.setAttribute("alertMsg", "다시 입력해주세요.");
 			return "member/changePwd";

@@ -27,8 +27,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
 		HttpSession session = req.getSession();
 		Member loginUser = (Member)session.getAttribute("loginUser");
-//		session.removeAttribute("loginUser"); 
-//		session.removeAttribute("flag"); 
 		
 		if ( loginUser != null ) {
 			return true;

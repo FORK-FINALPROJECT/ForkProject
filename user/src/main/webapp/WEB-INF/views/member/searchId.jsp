@@ -189,7 +189,7 @@
 			            
 			            // '확인' 버튼 클릭 이벤트
 	                    document.getElementById('closeModalButton').addEventListener('click', function() {
-	                        location.href="${contextPath}";
+	                        location.href="${contextPath}/login.jsp";
 	                    });
 			            
 		        	} else {

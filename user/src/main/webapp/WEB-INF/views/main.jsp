@@ -124,7 +124,6 @@
 </style>
 </head>
 <body>
-list: ${list}
     <div class="back">
         <div>
             <div class="logo">
@@ -147,7 +146,7 @@ list: ${list}
                 <div class="con con1" onclick="location.href='salesReady'">영업준비<h6>Sales Ready</h6></div>
                 <div class="con con2" onclick="location.href='statistics'">판매집계<h6>Statistics</h6></div>
                 <div class="con con3" onclick="location.href='menu'">메뉴<h6>Menu</h6></div>
-                <div class="con con4" onclick="location.href='setting'">관리<h6>Setting</h6></div>
+                <div class="con con4" onclick="location.href='license'">결제<h6>License</h6></div>
                 <div class="con con5" onclick="location.href='qna'">상담<h6>QnA</h6></div>
             </div>
         </div>
