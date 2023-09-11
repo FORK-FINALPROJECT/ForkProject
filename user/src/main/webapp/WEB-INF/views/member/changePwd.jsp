@@ -119,7 +119,7 @@
 	        <h2>비밀번호 변경</h2>
 	    </div>
 	    <hr>
-	    <form class="pt-3" action="${contextPath}/changePwd" method="post">
+	    <form class="pt-3" action="${contextPath}/member/changePwd" method="post">
 	        <table>
 	            <tbody>
 	                <tr>

@@ -215,7 +215,7 @@
 <body class='snippet-body'>
     <div class="wrapper bg-white">
         <div class="h2 text-center"><h2>회원가입</h2></div>
-        <form class="pt-3" id="enroll-form" action="${contextPath }/enroll" method="POST" enctype="multipart/form-data">
+        <form class="pt-3" id="enroll-form" action="${contextPath }/member/enroll" method="POST" enctype="multipart/form-data">
             <table>
                 <tbody>
                     <tr>
@@ -375,7 +375,7 @@
         		memberId.focus();
         	} else {
 	        	$.ajax({
-	        		url : "${contextPath}/idcheck",
+	        		url : "${contextPath}/member/idcheck",
 	        		data : {memberId : memberId.val()},
 	        		method : "post",
 	        		success : function(result) {

@@ -40,22 +40,33 @@ public class MemberController {
 	 */
 	@PostMapping("/member/login")
 	public String login(
-			Member m,
-			HttpSession session, 
-			Model model
+				Member m,
+				HttpSession session
 			) {
 		
 		Member loginUser = mService.login(m);
 		
 		if(loginUser != null) {
-			
-			session.setAttribute("loginUser", loginUser);
-			
-			return "redirect:/main"; 
-			
+			if ("Y".equals(loginUser.getStatus())) {
+				session.setAttribute("loginUser", loginUser);
+				return "redirect:/main";
+			} else {
+				session.setAttribute("alertMsgMember", "가입 승인 대기중입니다.");
+				return "forward:index.jsp";
+			}
 		} else {
+			session.setAttribute("alertMsgMember", "가입된 회원이 아닙니다.");
 			return "forward:index.jsp"; 
 		}
+		
+	}
+	
+	@GetMapping("logout")
+	public String logout(HttpSession session) {
+		
+		session.invalidate();  
+		
+		return "forward:login.jsp";
 		
 	}
 
@@ -64,7 +75,7 @@ public class MemberController {
 	 * 회원가입 동의서 페이지로 이동
 	 * @return
 	 */
-	@GetMapping("/enrollForm1")
+	@GetMapping("member/enrollForm1")
 	public String enroll1() {
 		return "member/enrollPage2";
 	}
@@ -73,7 +84,7 @@ public class MemberController {
 	 * 회원가입 입력 페이지로 이동
 	 * @return
 	 */
-	@GetMapping("/enrollForm2")
+	@GetMapping("member/enrollForm2")
 	public String enroll2() {
 		return "member/enrollPage1";
 	}
@@ -88,7 +99,7 @@ public class MemberController {
 	 * @param model
 	 * @return
 	 */
-	@PostMapping("/enroll")
+	@PostMapping("member/enroll")
 	public String enrollMember(
 				Member m,
 				@RequestParam("addressOne") String addressOne,
@@ -130,7 +141,7 @@ public class MemberController {
 	 * 아이디 찾기 페이지로 이동 
 	 * @return
 	 */
-	@GetMapping("/searchId")
+	@GetMapping("member/searchId")
 	public String searchId() {
 		return "member/searchId";
 	}
@@ -139,7 +150,7 @@ public class MemberController {
 	 * 비밀번호 찾기 페이지로 이동
 	 * @return
 	 */
-	@GetMapping("/searchPwd")
+	@GetMapping("member/searchPwd")
 	public String searchPwd() {
 		return "member/searchPwd";
 	}
@@ -149,7 +160,7 @@ public class MemberController {
 	 * @param m
 	 * @return
 	 */
-	@PostMapping("/searchId")
+	@PostMapping("member/searchId")
 	@ResponseBody
 	public ResponseEntity<Member> selectId(Member m) {
 		Member member = mService.selectId(m);
@@ -162,7 +173,7 @@ public class MemberController {
 	 * @param session
 	 * @return
 	 */
-	@PostMapping("/selectPwd")
+	@PostMapping("member/selectPwd")
 	public String selectPwd(
 				Member m,
 				HttpSession session
@@ -195,7 +206,7 @@ public class MemberController {
 	 * @param session
 	 * @return
 	 */
-	@PostMapping("checkNumber")
+	@PostMapping("member/checkNumber")
 	public String checkNumber(
 				Member m,
 				HttpSession session
@@ -219,7 +230,7 @@ public class MemberController {
 	 * @param session
 	 * @return
 	 */
-	@PostMapping("changePwd")
+	@PostMapping("member/changePwd")
 	public String changePwd(
 				Member m,
 				HttpSession session
@@ -245,7 +256,7 @@ public class MemberController {
 	 * @param memberId
 	 * @return
 	 */
-	@PostMapping("idcheck")
+	@PostMapping("member/idcheck")
 	@ResponseBody
 	public String idCheck(String memberId) {
 		int result = mService.idcheck(memberId);

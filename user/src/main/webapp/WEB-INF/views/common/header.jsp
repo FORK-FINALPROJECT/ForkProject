@@ -11,7 +11,6 @@
 </head>
 <body>
 
-
    <div class="header_outer">
         <div class="header">
             <div class="header_btn" onclick="location.href='main'">HOME</div>
@@ -20,6 +19,7 @@
             <div class="header_btn" onclick="location.href='menu'" id="header-menu">메뉴</div>
             <div class="header_btn" onclick="location.href='license'" id="header-license">결제</div>
             <div class="header_btn">문의</div>
+            <div class="header_btn" onclick="location.href='logout'">로그아웃</div>
             <div id="time"></div>
             <div class="forklogo">
                 <img src="resources/img/fork2.png" width="100px" />

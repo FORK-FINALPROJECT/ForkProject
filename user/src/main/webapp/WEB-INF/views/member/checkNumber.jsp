@@ -143,7 +143,7 @@
 	        <h2>인증번호 입력</h2>
 	    </div>
 	    <hr>
-	    <form class="pt-3" method="post" action="${contextPath}/checkNumber">
+	    <form class="pt-3" method="post" action="${contextPath}/member/checkNumber">
 	        <table>
 	            <tbody>
 	                <tr>

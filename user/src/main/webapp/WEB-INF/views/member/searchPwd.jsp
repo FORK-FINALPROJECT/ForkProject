@@ -119,7 +119,7 @@
 	        <h2>비밀번호 찾기</h2>
 	    </div>
 	    <hr>
-	    <form class="pt-3" action="${contextPath}/selectPwd" method="post">
+	    <form class="pt-3" action="${contextPath}/member/selectPwd" method="post">
 	        <table>
 	            <tbody>
 	                <tr>

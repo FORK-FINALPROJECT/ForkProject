@@ -176,7 +176,7 @@
 		    var phone = document.querySelector('.phone').value;
 		    
 		    $.ajax({
-		        url: "${contextPath}/searchId",
+		        url: "${contextPath}/member/searchId",
 		        method: "post",
 		        data: {
 		            memberName: memberName,

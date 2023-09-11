@@ -38,6 +38,13 @@
 		</script>
 		<c:remove var="alertMsg"/>
 	</c:if>
+	
+	<c:if test="${not empty alertMsg }">
+		<script>
+			alertify.alert("서비스 요청 성공", '${alertMsgMember}');
+		</script>
+		<c:remove var="alertMsg"/>
+	</c:if>
 
     <div class="wrapper bg-white">
         <div class="h2 text-center"><img src="resources/img/로고누끼.png"></div>
@@ -55,13 +62,13 @@
                 </div>
             </div>
             <div class="d-flex align-items-start forgot-links">
-                <a href="${contextPath }/searchId" id="forgot">아이디 찾기</a>
+                <a href="${contextPath }/member/searchId" id="forgot">아이디 찾기</a>
                 |
-                <a href="${contextPath }/searchPwd" id="forgot">비밀번호 찾기</a>
+                <a href="${contextPath }/member/searchPwd" id="forgot">비밀번호 찾기</a>
             </div>
             <button type="submit" class="btn btn-block text-center my-3">로그인</button>
             <div class="text-center pt-3 text-muted">
-                <a href="${contextPath }/enrollForm1">회원가입</a>
+                <a href="${contextPath }/member/enrollForm1">회원가입</a>
             </div>
         </form>
     </div>

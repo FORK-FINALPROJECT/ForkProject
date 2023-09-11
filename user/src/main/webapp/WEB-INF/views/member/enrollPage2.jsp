@@ -97,7 +97,7 @@
 <body oncontextmenu='return false' class='snippet-body'>
     <div class="wrapper bg-white">
         <div class="h2 text-center">회원가입 동의서</div>
-        <form class="pt-3" action="${contextPath }/enrollForm2">
+        <form class="pt-3" action="${contextPath }/member/enrollForm2">
             <div class="form-group">
                 <input type="checkbox" class="btn" required><label>이용약관 동의</label><span class="essential"> (필수)</span>
                 <textarea readonly>
