@@ -22,7 +22,14 @@ public class ChartDao {
 	}
 
 	public List<Chart> loadMenuChart(Map<String, Object> day) {
-		return sqlSession.selectList("chartMapper.loadMenuChart", day);
+		List<Chart> c = sqlSession.selectList("chartMapper.loadMenuChart", day);
+		
+		for(Chart cc : c) {
+			int menuNo = cc.getMenuNo();
+			cc.setMenuName(sqlSession.selectOne("chartMapper.loadMenuNameChart", menuNo));
+		}
+		
+		return c; 
 	}
 
 	public List<Category> selectCategory() {

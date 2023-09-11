@@ -8,6 +8,7 @@ import lombok.Data;
 public class Chart {
 	private Date payDate;
 	private int price;
+	private int menuNo;
 	private String menuName;
 	private int count;
 }
