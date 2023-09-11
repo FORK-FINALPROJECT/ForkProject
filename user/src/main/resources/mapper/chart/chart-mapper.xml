@@ -5,6 +5,7 @@
     <resultMap id="chartResultSet" type="Chart">
         <result column="PAY_DATE" property="payDate" />
         <result column="PRICE" property="price" />
+        <result column="MENU_NO" property="menuNo" />
         <result column="MENU_NAME" property="menuName" />
         <result column="COUNT" property="count" />
     </resultMap>
@@ -18,14 +19,20 @@
     </select>
     
     <select id="loadMenuChart" resultMap="chartResultSet" parameterType="hashmap">
-        SELECT MENU_NAME, COUNT(MENU_NAME) COUNT
+        SELECT MENU_NO, COUNT(MENU_NO) COUNT
 		FROM RECEIPT_MENU
 		JOIN MENU USING(MENU_NO)
 		JOIN RECEIPT USING (RECEIPT_NO)
 		JOIN PAY USING(PAY_NO)
 		JOIN CATEGORY USING(CATEGORY_NO)
 		WHERE PAY_DATE BETWEEN #{startDay} AND #{endDay} AND PR_CATEGORY_NO = #{prCateNo}
-		GROUP BY MENU_NAME
+		GROUP BY MENU_NO
+    </select>
+    
+    <select id="loadMenuNameChart" resultType="string" parameterType="int">
+        SELECT MENU_NAME
+		FROM MENU
+		WHERE MENU_NO = #{menuNo}
     </select>
     
     <resultMap id="categoryResultMap" type="Category">
