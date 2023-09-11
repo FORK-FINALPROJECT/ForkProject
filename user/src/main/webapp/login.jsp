@@ -39,13 +39,6 @@
 		<c:remove var="alertMsg"/>
 	</c:if>
 	
-	<c:if test="${not empty alertMsg }">
-		<script>
-			alertify.alert("서비스 요청 성공", '${alertMsgMember}');
-		</script>
-		<c:remove var="alertMsg"/>
-	</c:if>
-
     <div class="wrapper bg-white">
         <div class="h2 text-center"><img src="resources/img/로고누끼.png"></div>
         <form class="pt-3" action="${contextPath }/member/login" method="post">

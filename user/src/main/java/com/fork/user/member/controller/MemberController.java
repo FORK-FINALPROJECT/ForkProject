@@ -51,11 +51,11 @@ public class MemberController {
 				session.setAttribute("loginUser", loginUser);
 				return "redirect:/main";
 			} else {
-				session.setAttribute("alertMsgMember", "가입 승인 대기중입니다.");
+				session.setAttribute("alertMsg", "가입 승인 대기중입니다.");
 				return "forward:index.jsp";
 			}
 		} else {
-			session.setAttribute("alertMsgMember", "가입된 회원이 아닙니다.");
+			session.setAttribute("alertMsg", "가입된 회원이 아닙니다.");
 			return "forward:index.jsp"; 
 		}
 		

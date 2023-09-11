@@ -31,7 +31,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		if ( loginUser != null ) {
 			return true;
 		} else {
-			session.setAttribute("alertMsg", "로그인 후 이용해주세요.");
 			res.sendRedirect(req.getContextPath()+"/login.jsp");
 			return false;
 		}
