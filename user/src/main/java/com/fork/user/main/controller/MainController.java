@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fork.user.common.template.Pagenation;
 import com.fork.user.common.vo.PageInfo;
+import com.fork.user.management.model.service.ManagementService;
+import com.fork.user.member.model.vo.Member;
 import com.fork.user.notice.model.service.NoticeService;
 import com.fork.user.notice.model.vo.Notice;
 import com.fork.user.sales.model.service.SalesService;
@@ -32,6 +34,9 @@ public class MainController {
     @Autowired
     private SalesService salesService;
     
+    @Autowired
+	private ManagementService mService;
+    
     @GetMapping("/main")
     public String goMain(Model model, HttpServletRequest req) {
     	HttpSession session = req.getSession();
@@ -45,11 +50,18 @@ public class MainController {
 		int boardLimit = 5;
 		PageInfo pi = Pagenation.getPageInfo(total, 1, pageLimit, boardLimit);
         
-		model.addAttribute("list", list);
-		model.addAttribute("pi", pi);
-		
 		session.setAttribute("list", list);
 		session.setAttribute("pi", pi);
+		
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		int result = mService.checkLicense(loginUser.getMemberNo());
+		
+		if( result == 0 ) { 
+			session.setAttribute("licenseYN", 0);
+		} else {
+			session.setAttribute("licenseYN", 1);
+		}
 		
 		return "redirect:/index.jsp";
     }

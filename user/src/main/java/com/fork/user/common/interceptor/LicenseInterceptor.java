@@ -23,7 +23,9 @@ public class LicenseInterceptor extends HandlerInterceptorAdapter {
 	@Autowired
 	private ManagementService mService;
 	
-	@Override
+	/*
+	 * @Override
+	 
 	public void postHandle(HttpServletRequest req, HttpServletResponse res, Object handler, ModelAndView modelAndView) throws IOException {
 
 		HttpSession session = req.getSession();
@@ -39,6 +41,25 @@ public class LicenseInterceptor extends HandlerInterceptorAdapter {
 			session.setAttribute("flag", "flag");
 			session.setAttribute("alertMsg", "이용권 구매 후 이용해주세요.");
 			log.info("실패");
+		}
+		
+	}
+	*/
+	
+	@Override
+	public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler) throws IOException {
+
+		HttpSession session = req.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		int result = mService.checkLicense(loginUser.getMemberNo());
+		
+		if( result == 0 ) { 
+			res.sendRedirect(req.getContextPath()+"/license");
+			session.setAttribute("alertMsg", "이용권 구매 후 이용해주세요.");
+			return false;
+		} else {
+			return true;
 		}
 		
 	}
