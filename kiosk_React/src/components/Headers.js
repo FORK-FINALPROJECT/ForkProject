@@ -1,15 +1,64 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { useCategoryStore } from '../store/mainViewStore';
 import useScrollToSubCategoryStore from '../store/scrollListStore';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import {useReceiptStore} from '../store/receiptViewStore';
+import SockJS from 'sockjs-client';
+import { Stomp } from '@stomp/stompjs';
 
 const Headers = () => {
   const [content, setContent] = useState();
+  const kioskNo = useReceiptStore((state) => state.kioskNo);
+  const {setReceiptItems} = useReceiptStore();
 
   const subCategorys = useCategoryStore((state) => state.subCategorys);
   const setSubCategory = useCategoryStore((state) => state.setSubCategory);
 
   const { scrollToSubCategory } = useScrollToSubCategoryStore();
+
+  const [websocket, setWebSocket] = useState(null);
+
+  useEffect(() => {
+      // 스프링 부트 서버의 SockJS 엔드포인트 URL
+      const createWebSocket = () => new SockJS('http://localhost:3000/kiosk/user'); // 스프링 부트 서버 주소로 변경
+      const stompClient = Stomp.over(createWebSocket); // 최적화 1) 연결종료시 재연결할수있는 웹소켓 생성 팩토리 전달
+      
+      stompClient.connect({}, (frame) => {
+          console.log("웹소켓 연결", frame);
+
+          stompClient.subscribe( `/kiosk/${kioskNo}` ,frame => {
+            console.log(frame.body);
+          });
+          stompClient.subscribe( `/kiosk/end/${kioskNo}` ,frame => {
+            console.log(frame.body);
+          });
+
+          stompClient.send(`/user/send/${kioskNo}`,{} ,'');
+      });
+      setWebSocket(stompClient);
+      
+
+
+      return () => {
+          console.log('연결해제')
+          stompClient.disconnect();
+      }
+  },[]);
+
+  const handleCallReceipt = () => {
+    axios.post(`/kiosk/receipt/${kioskNo}`).then((response) => {
+        sessionStorage.setItem('receiptList',JSON.stringify(response.data));
+        console.log("영수증 정보정보", response.data)
+        setReceiptItems(response.data);
+    }).catch((error) => {
+        console.error('오오오류류류류', error);
+    });
+  }
+
+
+
+
 
   return (
     // <div className="header-wrap">
@@ -60,7 +109,7 @@ const Headers = () => {
         <div className="header-utils" id="header-utils">
           <div className="receipt-header-wrap">
             <div className="receipt-header">
-              <a><img className="int-header" src={`${process.env.PUBLIC_URL}/file-invoice-dollar.svg`} alt='영수증로고'></img></a>
+              <a><img className="int-header" src={`${process.env.PUBLIC_URL}/file-invoice-dollar.svg`} alt='영수증로고' onClick={handleCallReceipt}></img></a>
             </div>
           </div>
           <div className="cart-header-wrap">
