@@ -44,7 +44,7 @@ public class KioskController {
 	public List<Coo> coo(HttpServletResponse response){
 		
 		List<Coo> cooList = kioskService.selectCoo();
-		log.info("cooLisg : {} ", cooList);
+		log.info("cooList : {} ", cooList);
 		return cooList;
 		
 	}
@@ -58,46 +58,37 @@ public class KioskController {
 		return totalReceipt;
 	}
 	
-	// 기존
-//	@PostMapping("/payment/{kioskNo}")
-//	public ResponseEntity<?> payment(@PathVariable("kioskNo") int kioskNo , @RequestBody HashMap<String ,Object> param){
-//		log.info("param : {}" , param);
-//		param.put("kioskNo", kioskNo);
-//		
-//		// 1) 결제 안된 총 영수증번호 얻어오기/ 없으면 추가후 얻어오기
-//		int totalReceiptNo = kioskService.selectTotalReceiptNo(param);
-//		// 페이테이블 정보 추가
-//		int payNo  = kioskService.insertPay(param);
-//		// 영수증 추가
-//		int ReceiptNo  = kioskService.insertReceipt(param);
-//		// 영수증 아래에  영수증별 메뉴 , 영수증메뉴아래에 옵션들 추가
-//		int result  = kioskService.insertReceiptMenus(param);
-//		
-//		return null;
-//	}
-	
-	// 동연 => 안되면 위에꺼 주석 풀기
-	@PostMapping("/payment/{kioskNo}")
-	public ResponseEntity<?> saveData(@PathVariable("kioskNo") int kioskNo , @RequestBody HashMap<String ,Object> param){
+	@PostMapping("/basicPay/{kioskNo}")
+	public int basicPay(@PathVariable("kioskNo") int kioskNo , @RequestBody HashMap<String ,Object> param){
 		
 		param.put("kioskNo", kioskNo);
 		
 		// 총영수증 번호 조회 및 없을 시 insert후 재조회
 		int totalReceiptNo = kioskService.selectTotalReceiptNo(param);
 		log.info("param : {}" , param);
+		log.info("totalReceiptNo : {}" , totalReceiptNo);
 		if(totalReceiptNo > 0) {
-			// 진행
+			// 결제테이블 insert
 			int payNo = kioskService.insertPay(param);
-			
-			
-			
-			
-		} else {
-			// 오류
+			log.info("payNo : {}" , payNo);
+			if(payNo > 0) {
+				// 영수증테이블 insert
+				int receiptNo = kioskService.insertReceipt(param);
+				log.info("receiptNo : {}" , receiptNo);
+				if(receiptNo > 0) {
+					// 영수증별메뉴, 옵션 insert
+					int result = kioskService.insertReceiptMenus(param);
+					log.info("result : {}" , result);
+					if(result > 0) {
+						log.info("param : {}" , param);
+						// 오직 이 경우에만 정상적으로 모든 데이터가 insert
+						return 1;
+					}
+				}
+			}
 		}
-		
-		
-		return null;
+		// 오류
+		return 0;
 	}
 	
 	/*

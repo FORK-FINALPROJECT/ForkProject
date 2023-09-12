@@ -15,15 +15,23 @@ function SelectPayModal(props) {
     const {cartItems, cartTotalPrice, resetCartStore } = useCartStore();
     const kioskNo = useReceiptStore((state) => state.kioskNo);
 
-    // 값 저장
-    const { basicPay } = useSaveData();
-    const handleBasicPay = () => {
-        basicPay(kioskNo, cartItems, cartTotalPrice);
-    }
-
     // 장바구니 비우기
     const handleResetCartStore = () => {
         resetCartStore();
+    }
+
+    // 값 저장
+    const { basicPay } = useSaveData();
+    const handleBasicPay = () => {
+        let result = basicPay(kioskNo, cartItems, cartTotalPrice);
+
+        if(result > 0){
+            // 성공
+            alert('결제성공');
+        } else {
+            // 실패
+            handleResetCartStore();
+        }
     }
 
     // 결제방법이 선택되면 다음화면으로
@@ -124,7 +132,7 @@ function SelectPayModal(props) {
                                 <li><img src={require('../resources/image/payCardLogo.PNG')} alt='카드결제로고'/></li>
                                 <li>카드결제</li>
                             </ul>
-                            <ul onClick={() => {handlePaymentMethodClick("현금결제"); handleBasicPay(); handleResetCartStore();}}>
+                            <ul onClick={() => {handlePaymentMethodClick("현금결제"); handleBasicPay();}}>
                                 <li><img src={require('../resources/image/payCashLogo.PNG')} alt='현금결제로고'/></li>
                                 <li>현금결제</li>
                             </ul>

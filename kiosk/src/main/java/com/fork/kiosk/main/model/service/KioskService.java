@@ -15,20 +15,14 @@ public interface KioskService {
 
 	TotalReceipt selectTotalReceipt(Integer kioskNo);
 
-	// 동연 => 안되면 아래꺼 주석 풀기
-	// 총영수증 번호 조회 및 없을 시 insert후 재조회
+	// basicPay
 	int selectTotalReceiptNo(HashMap<String, Object> param);
 
 	int insertPay(HashMap<String, Object> param);
 
-	// 기존
-//	int selectTotalReceiptNo(HashMap<String, Object> param);
-//
-//	int insertPay(HashMap<String, Object> param);
-//
-//	int insertReceipt(HashMap<String, Object> param);
-//
-//	int insertReceiptMenus(HashMap<String, Object> param);
+	int insertReceipt(HashMap<String, Object> param);
+
+	int insertReceiptMenus(HashMap<String, Object> param);
 	
 
 }
