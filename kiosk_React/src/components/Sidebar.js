@@ -35,7 +35,7 @@ const Sidebar = () => {
             {/* 여기만 반복 */}
             {/* {console.log(categorys)}  5초마다 실행됨 수정 필요 */}
             {categorys && categorys.map((category) => (
-                <div className="category" onClick={() => {setSubCategory(category.categoryNo); scrollToSubCategory(); } }><Link to="/">{category.categoryName}</Link></div>
+                <div className="category" onClick={() => {setSubCategory(category.categoryNo); scrollToSubCategory(); } }><Link to="/" >{category.categoryName}</Link></div>
             ))}
 
 

@@ -21,7 +21,6 @@ import com.fork.kiosk.main.model.vo.TotalReceipt;
 
 import lombok.extern.slf4j.Slf4j;
 
-// 테스트트
 @RestController
 @Slf4j
 public class KioskController {
@@ -59,23 +58,47 @@ public class KioskController {
 		return totalReceipt;
 	}
 	
+	// 기존
+//	@PostMapping("/payment/{kioskNo}")
+//	public ResponseEntity<?> payment(@PathVariable("kioskNo") int kioskNo , @RequestBody HashMap<String ,Object> param){
+//		log.info("param : {}" , param);
+//		param.put("kioskNo", kioskNo);
+//		
+//		// 1) 결제 안된 총 영수증번호 얻어오기/ 없으면 추가후 얻어오기
+//		int totalReceiptNo = kioskService.selectTotalReceiptNo(param);
+//		// 페이테이블 정보 추가
+//		int payNo  = kioskService.insertPay(param);
+//		// 영수증 추가
+//		int ReceiptNo  = kioskService.insertReceipt(param);
+//		// 영수증 아래에  영수증별 메뉴 , 영수증메뉴아래에 옵션들 추가
+//		int result  = kioskService.insertReceiptMenus(param);
+//		
+//		return null;
+//	}
+	
+	// 동연 => 안되면 위에꺼 주석 풀기
 	@PostMapping("/payment/{kioskNo}")
-	public ResponseEntity<?> payment(@PathVariable("kioskNo") int kioskNo , @RequestBody HashMap<String ,Object> param){
-		log.info("param : {}" , param);
+	public ResponseEntity<?> saveData(@PathVariable("kioskNo") int kioskNo , @RequestBody HashMap<String ,Object> param){
+		
 		param.put("kioskNo", kioskNo);
 		
-		// 1) 결제 안된 총 영수증번호 얻어오기/ 없으면 추가후 얻어오기
+		// 총영수증 번호 조회 및 없을 시 insert후 재조회
 		int totalReceiptNo = kioskService.selectTotalReceiptNo(param);
-		// 페이테이블 정보 추가
-		int payNo  = kioskService.insertPay(param);
-		// 영수증 추가
-		int ReceiptNo  = kioskService.insertReceipt(param);
-		// 영수증 아래에  영수증별 메뉴 , 영수증메뉴아래에 옵션들 추가
-		int result  = kioskService.insertReceiptMenus(param);
+		log.info("param : {}" , param);
+		if(totalReceiptNo > 0) {
+			// 진행
+			int payNo = kioskService.insertPay(param);
+			
+			
+			
+			
+		} else {
+			// 오류
+		}
+		
 		
 		return null;
 	}
-	
 	
 	/*
 	 * @GetMapping("/receipt") public ResponseEntity<?> getReceiptData(HttpServletRequest request) { 

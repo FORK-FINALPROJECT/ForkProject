@@ -256,7 +256,8 @@ ORDER BY R.RECEIPT_NO , RM.RCM_NO
 
 </select>
 
-<select id="selectTotalReceiptNo" resultType="int">
+<!-- 기존 -->
+<!-- <select id="selectTotalReceiptNo" resultType="int">
 	SELECT TR_NO
 	FROM TOTAL_RECEIPT
 	WHERE KIOSK_NO = #{kioskNo} AND ORDER_STATUS = 'Y'
@@ -320,5 +321,34 @@ ORDER BY R.RECEIPT_NO , RM.RCM_NO
 	   	#{receiptMenuNo},#{optionNo}
    	)    
 </insert>
-
+ -->
+ 
+ 	<!-- 동연 => 안되면 위에꺼 주석 풀기 -->
+ 	<!-- 총영수증 번호 조회 -->
+ 	<select id="selectTotalReceiptNo" resultType="int">
+	 	SELECT TR_NO
+		FROM TOTAL_RECEIPT
+		WHERE KIOSK_NO = #{kioskNo} AND ORDER_STATUS = 'Y'
+ 	</select>
+ 	
+ 	<insert id="insertTotalReceiptNo" parameterType="hashmap">
+ 		<selectKey keyProperty="totalReceiptNo" order="BEFORE" resultType="int" >
+		SELECT SEQ_TTRC.NEXTVAL
+		FROM DUAL
+		</selectKey>
+	
+		INSERT INTO TOTAL_RECEIPT 
+		VALUES ( #{totalReceiptNo}, #{kioskNo}, DEFAULT )
+ 	</insert>
+ 	
+ 	<insert id="insertPay">
+ 		<selectKey keyProperty="payNo" order="BEFORE" resultType="int" >
+		SELECT SEQ_PAY.NEXTVAL
+		FROM DUAL
+		</selectKey>
+		
+		INSERT INTO PAY 
+		VALUES ( #{payNo}, DEFAULT , #{cartTotalPrice} )
+ 	</insert>
+ 	
 </mapper>

@@ -3,7 +3,7 @@ import CooModal from './CooModal';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 import useCartStore from '../store/cartStore';
 
@@ -31,9 +31,11 @@ const MenuDetail = (props) => {
         ...menu,
         selectedOption,
         totalPrice,
+        addPrice : totalPrice,
         count : 1,
     };
     const addToCart = useCartStore((state) => state.addToCart);
+    
     useEffect( () =>{
         const totalPrice = menu.price + selectedOption.reduce((optionTotal, opt) => optionTotal + ( !(opt.price) ? 0 : opt.price), 0); 
         setTotalPrice(totalPrice);
@@ -91,12 +93,11 @@ const MenuDetail = (props) => {
                                                 return (
                                                     <tr>
                                                         <td>{options.optionName}</td>
-                                                        <td>{findSubOption(options) ? "+" + findSubOption(options).price : ""}</td>
                                                         <td id='dropdownbtn'>
                                                             {/* <DropdownButton as={ButtonGroup} key={options.optionNo} id={'dropdown-variants-' + options.optionName} title={prOptionName[options.optList.optionName] || options.optionName} variant='secondary'> */}
                                                             {/* <DropdownButton as={ButtonGroup} key={options.optionNo} id={'dropdown-variants-' + options.optionName} title={selectedOptionName[options.optList.optionName]?.optionName || options.optionName} variant='secondary'> */}
                                                             <DropdownButton as={ButtonGroup} key={options.optionNo} id={'dropdown-variants-' + options.optionName}
-                                                             title={findSubOption(options) ? findSubOption(options).optionName : ""} variant='secondary'>
+                                                             title={findSubOption(options) ? findSubOption(options).optionName : options.optionName} variant='secondary'>
                                                                 {options && options.optList.map(opt => {
                                                                     return (
                                                                         <DropdownItem onClick={() => {handleSelectedOption(opt , options)}}>
@@ -106,6 +107,7 @@ const MenuDetail = (props) => {
                                                                 })}
                                                             </DropdownButton>
                                                         </td>
+                                                        <td>{findSubOption(options) ? "+ " + findSubOption(options).price.toLocaleString('ko-KR')+'원' : ""}</td>
                                                     </tr>
                                                 )
                                             })) : (
@@ -119,13 +121,15 @@ const MenuDetail = (props) => {
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <td colSpan={3}>{totalPrice}원</td>
+                                                <td>총 금액 : </td>
+                                                <td></td>
+                                                <td>{totalPrice.toLocaleString('ko-KR')}원</td>
                                             </tr>
                                         </tfoot>
                                     </table>
                                 </div>
                                 <div className="detailmenu-option-button">
-                                    <Button id="button-prev" variant="secondary" onClick={() => addToCart(menuItem)}> 담기 </Button>
+                                    <Link to='/' ><Button id="button-prev" variant="secondary" onClick={() => addToCart(menuItem)}> 담기 </Button></Link>
                                 </div>
                             </div>
                         </div>

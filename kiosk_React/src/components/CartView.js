@@ -9,7 +9,7 @@ const CartView = () => {
 
     // 결제 모달
     const [modalShow, setModalShow] = useState(false);
-    const {cartItems, setCartItems , cartTotalPrice } = useCartStore();
+    const {cartItems, setCartItems , cartTotalPrice, setCartTotalPrice } = useCartStore();
     // {
     //얻어온 데이터를 바탕으로 메뉴정보 보여주기 
     // 메뉴정보 : 메뉴 이미지, 메뉴이름, total가격 , 옵션리슽, 개수
@@ -28,7 +28,9 @@ const CartView = () => {
     const decreaseCount = (itemId) => {
         const cartItemsresult = cartItems.map(item => {
             if (item.id === itemId) {
-                return item.count > min ? { ...item, count: item.count - 1 } : null;
+                const newTotalPrice = item.totalPrice - item.addPrice;
+                setCartTotalPrice(cartTotalPrice - item.addPrice);
+                return item.count > min ? { ...item, count: item.count - 1, totalPrice : newTotalPrice } : null;
             } else {
                 return item;
             }
@@ -39,7 +41,9 @@ const CartView = () => {
     const increaseCount = (itemId) => {
         const cartItemsresult =  cartItems.map(item => {
                 if (item.id === itemId && item.count < max) {
-                    return { ...item, count: item.count + 1 };
+                    const newTotalPrice = item.totalPrice + item.addPrice;
+                    setCartTotalPrice(cartTotalPrice + item.addPrice);
+                    return { ...item, count: item.count + 1, totalPrice : newTotalPrice };
                 }
                 return item;
             })
@@ -65,7 +69,7 @@ const CartView = () => {
                                         <div className="cart-menu-details">
                                             <div className="cart-menu-name">
                                                 <span className="cart-menu-name-1">{item.menuName}</span>
-                                                <span className="cart-menu-name-2"> {item.totalPrice} </span>
+                                                <span className="cart-menu-name-2"> {item.totalPrice.toLocaleString('ko-KR')}원 </span>
                                                 <span onClick={() => removeCartItem(item.id)}>
                                                     <img className="close int" src={require('../resources/image/closeLogo6.png')} alt="닫기"/>
                                                 </span>
@@ -73,7 +77,7 @@ const CartView = () => {
                                             <div className="cart-menu-option">
                                                 {item.selectedOption.map((option) => (
                                                     <p>
-                                                    {`${option.prOptionName} ${option.optionName} ${option.price}원`}
+                                                    {`${option.prOptionName} ${option.optionName} ${option.price.toLocaleString('ko-KR')}원`}
                                                     </p>
                                                 ))}
                                             </div>
@@ -88,7 +92,7 @@ const CartView = () => {
                                 ))}
                             </div>
                         )}
-                        총합 : {cartTotalPrice}
+                        총합 : {cartTotalPrice.toLocaleString('ko-KR')}원
                     </div>
                     <div className="cart-order">
                         <Button id="button-coo" variant="light" onClick={() => setModalShow(true)}> 결제하기 </Button>

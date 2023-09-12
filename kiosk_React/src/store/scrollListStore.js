@@ -7,7 +7,8 @@ const useScrollToSubCategoryStore = create((set) => ({
         if (element) {
             element.scrollIntoView({ behavior: 'smooth' });
         }else{
-            document.querySelector("#topSection").scrollTop = 0;
+            let top = document.querySelector("#topSection");
+            if(top) top.scrollTop = 0;
         }
     },
 }));
