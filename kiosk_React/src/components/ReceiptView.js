@@ -48,7 +48,7 @@ const ReceiptView = () => {
         const selectedReceipt = groupedReceipts.find(receiptItem => receiptItem.receiptNo === receiptNo);
         setSelectedReceipt(selectedReceipt);
     };
-    console.log("이거이거 확인 확인",groupedReceipts)
+    // console.log("이거이거 확인 확인",groupedReceipts)
     return (
         <div>
             <div className="receipt-wrap scrollable">

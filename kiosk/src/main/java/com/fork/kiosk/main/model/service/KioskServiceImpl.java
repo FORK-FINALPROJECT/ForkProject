@@ -32,15 +32,16 @@ public class KioskServiceImpl implements KioskService {
 		return kioskDao.selectTotalReceipt(kioskNo);
 	}
 
+	// 동연 => 안되면 아래꺼 주석 풀기
+	// 총영수증 번호 조회 및 없을 시 insert후 재조회
 	@Override
 	public int selectTotalReceiptNo(HashMap<String, Object> param) {
 		int result = kioskDao.selectTotalReceiptNo(param);
 		
-		if(result == 0) {
+		if (result == 0) {
 			result = kioskDao.insertTotalReceiptNo(param);
-		}else {
-			param.put("totalReceiptNo", result);
-		}
+		} 
+		param.put("totalReceiptNo", result);
 		return result;
 	}
 
@@ -49,14 +50,33 @@ public class KioskServiceImpl implements KioskService {
 		return kioskDao.insertPay(param);
 	}
 
-	@Override
-	public int insertReceipt(HashMap<String, Object> param) {
-		return kioskDao.insertReceipt(param);
-	}
-
-	@Override
-	public int insertReceiptMenus(HashMap<String, Object> param) {
-		return kioskDao.insertReceiptMenus(param);
-	}
+	// 기존
+//	@Override
+//	public int selectTotalReceiptNo(HashMap<String, Object> param) {
+//		int result = kioskDao.selectTotalReceiptNo(param);
+//		
+//		if(result == 0) {
+//			result = kioskDao.insertTotalReceiptNo(param);
+//		}else {
+//			param.put("totalReceiptNo", result);
+//		}
+//		return result;
+//	}
+//
+//	@Override
+//	public int insertPay(HashMap<String, Object> param) {
+//		return kioskDao.insertPay(param);
+//	}
+//
+//	@Override
+//	public int insertReceipt(HashMap<String, Object> param) {
+//		return kioskDao.insertReceipt(param);
+//	}
+//
+//	@Override
+//	public int insertReceiptMenus(HashMap<String, Object> param) {
+//		return kioskDao.insertReceiptMenus(param);
+//	}
+	
 	
 }

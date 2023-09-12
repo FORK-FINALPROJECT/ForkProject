@@ -11,7 +11,7 @@ const useCooStore = create((set, get) => ({
     set({ cooList });
 
     return cooList;
-}
+    }
 }))
 
 export default useCooStore;

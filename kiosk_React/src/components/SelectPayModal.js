@@ -2,9 +2,9 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import useCartStore from '../store/cartStore';
 import {useReceiptStore} from '../store/receiptViewStore';
+import useSaveData from '../store/saveData';
 
 function SelectPayModal(props) {
 
@@ -12,28 +12,22 @@ function SelectPayModal(props) {
     const [modalTimer, setModalTimer] = useState(10); // 초 단위로 설정
     const [timer, setTimer] = useState(null);
 
-    const {cartItems, setCartItems ,cartTotalPrice } = useCartStore();
+    const {cartItems, cartTotalPrice, resetCartStore } = useCartStore();
     const kioskNo = useReceiptStore((state) => state.kioskNo);
 
+    // 값 저장
+    const { basicPay } = useSaveData();
+    const handleBasicPay = () => {
+        basicPay(kioskNo, cartItems, cartTotalPrice);
+    }
+
+    // 장바구니 비우기
+    const handleResetCartStore = () => {
+        resetCartStore();
+    }
 
     // 결제방법이 선택되면 다음화면으로
     const handlePaymentMethodClick = (method) => {
-        // 타이머가 이미 실행 중이면 리셋
-        if (timer) {
-            clearInterval(timer);
-        }
-        //카드던 , 현금이던, 분할이던 실행
-        axios.post("http://localhost:3000/kiosk/payment/"+kioskNo , {cartItems , cartTotalPrice} )
-        .then( (response) => {
-
-            console.log(response.data);
-
-        }).catch( (error) => {
-
-            console.log(error);
-
-        });
-
         setPayMethod(method);
         setModalTimer(10); // 타이머 리셋
     };
@@ -130,7 +124,7 @@ function SelectPayModal(props) {
                                 <li><img src={require('../resources/image/payCardLogo.PNG')} alt='카드결제로고'/></li>
                                 <li>카드결제</li>
                             </ul>
-                            <ul onClick={() => handlePaymentMethodClick("현금결제")}>
+                            <ul onClick={() => {handlePaymentMethodClick("현금결제"); handleBasicPay(); handleResetCartStore();}}>
                                 <li><img src={require('../resources/image/payCashLogo.PNG')} alt='현금결제로고'/></li>
                                 <li>현금결제</li>
                             </ul>
