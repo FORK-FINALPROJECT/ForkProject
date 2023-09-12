@@ -76,9 +76,9 @@ const CartView = () => {
                                             </div>
                                             <div className="cart-menu-option">
                                                 {item.selectedOption.map((option) => (
-                                                    <p>
-                                                    {`${option.prOptionName} ${option.optionName} ${option.price.toLocaleString('ko-KR')}원`}
-                                                    </p>
+                                                    <div>
+                                                    {`-${option.prOptionName} ${option.optionName} ${option.price.toLocaleString('ko-KR')}원`}
+                                                    </div>
                                                 ))}
                                             </div>
                                             <div className="count-wrap _count">

@@ -362,14 +362,18 @@ a:hover{
 }
 
 .cart-menu-option {
-     white-space: normal;
-    line-height: 1.6;
-    max-height: 3.2em;
+    white-space: normal;
+    line-height: 1.0;
+    max-height: 3.em;
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
+}
+
+.cart-menu-option>div {
+    color: rgb(22, 22, 22);
 }
 
 .cart-menu-delete {
@@ -691,4 +695,12 @@ a:hover{
 
 .information{
     text-align:center !important;
+}
+
+.cart-menu-option{
+    flex-direction: column;
+}
+
+.count-wrap>input{
+    text-align:center;
 }
