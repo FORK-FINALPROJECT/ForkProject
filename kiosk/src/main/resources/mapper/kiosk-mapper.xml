@@ -256,99 +256,57 @@ ORDER BY R.RECEIPT_NO , RM.RCM_NO
 
 </select>
 
-<!-- 기존 -->
-<!-- <select id="selectTotalReceiptNo" resultType="int">
+<!-- basicPay -->
+<select id="selectTotalReceiptNo" resultType="int">
 	SELECT TR_NO
 	FROM TOTAL_RECEIPT
 	WHERE KIOSK_NO = #{kioskNo} AND ORDER_STATUS = 'Y'
 </select>
 
 <insert id="insertTotalReceiptNo" parameterType="hashmap">
-	
 	<selectKey keyProperty="totalReceiptNo" order="BEFORE" resultType="int" >
-		SELECT SEQ_TTRC.NEXTVAL FROM DUAL
+		SELECT SEQ_TTRC.NEXTVAL
+		FROM DUAL
 	</selectKey>
 	
 	INSERT INTO TOTAL_RECEIPT 
-	VALUES
-	(
-		#{totalReceiptNo},#{kioskNo}, DEFAULT
-	)
+	VALUES ( #{totalReceiptNo}, #{kioskNo}, DEFAULT )
 </insert>
 
 <insert id="insertPay" parameterType="hashmap">
-	
 	<selectKey keyProperty="payNo" order="BEFORE" resultType="int" >
-		SELECT SEQ_PAY.NEXTVAL FROM DUAL
+		SELECT SEQ_PAY.NEXTVAL
+		FROM DUAL
 	</selectKey>
 	
 	INSERT INTO PAY 
-	VALUES
-	(
-		#{payNo},DEFAULT , #{cartTotalPrice}
-	)
+	VALUES ( #{payNo}, DEFAULT , #{cartTotalPrice} )
 </insert>
 
 <insert id="insertReceipt" parameterType="hashmap">
-	
 	<selectKey keyProperty="receiptNo" order="BEFORE" resultType="int" >
-		SELECT SEQ_RC.NEXTVAL FROM DUAL
+		SELECT SEQ_RC.NEXTVAL
+		FROM DUAL
 	</selectKey>
 	
 	INSERT INTO RECEIPT 
-	VALUES
-	(
-		#{receiptNo},#{payNo} , #{totalReceiptNo}
-	)
+	VALUES ( #{receiptNo}, #{payNo} , #{totalReceiptNo} )
 </insert>
 
 <insert id="insertReceiptMenus" parameterType="hashmap">
 	<selectKey keyProperty="receiptMenuNo" order="BEFORE" resultType="int" >
-		SELECT SEQ_RCM.NEXTVAL FROM DUAL
+		SELECT SEQ_RCM.NEXTVAL
+		FROM DUAL
 	</selectKey>
 	
 	INSERT INTO RECEIPT_MENU
-	VALUES
-	(
-		#{receiptMenuNo}, #{receiptNo} , #{menuNo} , #{count}
-	)
+	VALUES ( #{receiptMenuNo}, #{receiptNo} , #{menuNo} , #{count} )
 </insert>
 
 <insert id="insertReceiptOptions" parameterType="hashMap">
 	INSERT INTO RECEIPT_OPTION
-	VALUES
-    (
-	   	#{receiptMenuNo},#{optionNo}
-   	)    
+	VALUES ( #{receiptMenuNo}, #{optionNo} )    
 </insert>
- -->
- 
- 	<!-- 동연 => 안되면 위에꺼 주석 풀기 -->
- 	<!-- 총영수증 번호 조회 -->
- 	<select id="selectTotalReceiptNo" resultType="int">
-	 	SELECT TR_NO
-		FROM TOTAL_RECEIPT
-		WHERE KIOSK_NO = #{kioskNo} AND ORDER_STATUS = 'Y'
- 	</select>
- 	
- 	<insert id="insertTotalReceiptNo" parameterType="hashmap">
- 		<selectKey keyProperty="totalReceiptNo" order="BEFORE" resultType="int" >
-		SELECT SEQ_TTRC.NEXTVAL
-		FROM DUAL
-		</selectKey>
-	
-		INSERT INTO TOTAL_RECEIPT 
-		VALUES ( #{totalReceiptNo}, #{kioskNo}, DEFAULT )
- 	</insert>
- 	
- 	<insert id="insertPay">
- 		<selectKey keyProperty="payNo" order="BEFORE" resultType="int" >
-		SELECT SEQ_PAY.NEXTVAL
-		FROM DUAL
-		</selectKey>
-		
-		INSERT INTO PAY 
-		VALUES ( #{payNo}, DEFAULT , #{cartTotalPrice} )
- 	</insert>
+
  	
 </mapper>
