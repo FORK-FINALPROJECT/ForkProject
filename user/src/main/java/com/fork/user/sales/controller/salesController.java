@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fork.user.sales.model.service.SalesService;
 import com.fork.user.sales.model.vo.Receipt;
 import com.fork.user.sales.model.vo.Structure;
+import com.fork.user.sales.model.vo.TotalMenuList;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,10 +42,9 @@ public class salesController {
     
     @GetMapping("/detailOrder")
     @ResponseBody
-    public List<Receipt> detailOrder(int kioskNo) {
-        List<Receipt> orderList = salesService.detailOrderList(kioskNo); 
-        
-        return orderList;
+    public List<TotalMenuList> detailOrder(int kioskNo) {
+        List<TotalMenuList> totalMenuList = salesService.detailOrderList(kioskNo); 
+        return totalMenuList;
     }
     
     @GetMapping("/clearTable")
@@ -52,6 +52,13 @@ public class salesController {
     public int clearTable(int kioskNo) {
         int result = salesService.clearTable(kioskNo);
         return result;
+    }
+    
+    @GetMapping("/selectDetailMenu")
+    @ResponseBody
+    public List<TotalMenuList> selectDetailMenu(int kioskNo) {
+    	List<TotalMenuList> totalMenuList = salesService.detailOrderList(kioskNo); 
+    	return totalMenuList;
     }
     
 

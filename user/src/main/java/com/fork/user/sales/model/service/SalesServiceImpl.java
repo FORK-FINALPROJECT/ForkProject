@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fork.user.notice.model.dao.NoticeDao;
 import com.fork.user.sales.model.dao.SalesDao;
 import com.fork.user.sales.model.vo.Receipt;
 import com.fork.user.sales.model.vo.Structure;
+import com.fork.user.sales.model.vo.TotalMenuList;
 
 @Service
 public class SalesServiceImpl implements SalesService {
@@ -37,7 +37,7 @@ public class SalesServiceImpl implements SalesService {
     }
 
     @Override
-    public List<Receipt> detailOrderList(int kioskNo) {
+    public List<TotalMenuList> detailOrderList(int kioskNo) {
         return salesDao.detailOrderList(kioskNo);
     }
 

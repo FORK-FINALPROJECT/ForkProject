@@ -6,8 +6,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +33,9 @@ public class MemberController {
 	
 	@Autowired
 	private ServletContext application;
+	
+	@Autowired
+	private BCryptPasswordEncoder bcryptPasswordEncoder;
 
 	/**
 	 * 로그인 기능
@@ -46,7 +49,7 @@ public class MemberController {
 		
 		Member loginUser = mService.login(m);
 		
-		if(loginUser != null) {
+		if(loginUser != null && bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd())) {
 			if ("Y".equals(loginUser.getStatus())) {
 				session.setAttribute("loginUser", loginUser);
 				return "redirect:/main";
@@ -124,6 +127,10 @@ public class MemberController {
 		
 		String address = addressOne + addressDetail;
 		m.setAddress(address);
+		
+		String encPwd = bcryptPasswordEncoder.encode(m.getMemberPwd());
+		
+		m.setMemberPwd(encPwd);
 		
 		int result = mService.insertMember(m);
 		

@@ -20,7 +20,7 @@
 	<select id="login" parameterType="member" resultMap="memberResultSet">
 		SELECT *
 		FROM MEMBER
-		WHERE MEMBER_ID = #{memberId} AND MEMBER_PWD = ${memberPwd}
+		WHERE MEMBER_ID = #{memberId}
 	</select>
 
 	<insert id="insertMember">

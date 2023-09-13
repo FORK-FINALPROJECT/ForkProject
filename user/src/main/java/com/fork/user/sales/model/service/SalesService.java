@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fork.user.sales.model.vo.Receipt;
 import com.fork.user.sales.model.vo.Structure;
+import com.fork.user.sales.model.vo.TotalMenuList;
 
 public interface SalesService {
 
@@ -15,7 +16,7 @@ public interface SalesService {
 
     List<Receipt> selectOrderList();
 
-    List<Receipt> detailOrderList(int kioskNo);
+    List<TotalMenuList> detailOrderList(int kioskNo);
 
     int clearTable(int kioskNo);
 

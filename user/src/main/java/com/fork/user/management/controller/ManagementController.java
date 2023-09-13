@@ -584,7 +584,6 @@ public class ManagementController {
 		if(result > 0) {
 			int result1 = mService.updateLicenseHistory(memberNo);
 			
-			log.info("result1 = " + result1);
 			
 			if(result1 > 0) {
 				session.setAttribute("alertMsg", "성공적으로 구매되었습니다.");

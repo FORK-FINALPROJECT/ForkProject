@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.fork.user.sales.model.vo.Receipt;
 import com.fork.user.sales.model.vo.Structure;
+import com.fork.user.sales.model.vo.TotalMenuList;
 
 @Repository
 public class SalesDao {
@@ -41,7 +42,7 @@ public class SalesDao {
         return sqlSession.selectList("salesMapper.selectOrderList");
     }
 
-    public List<Receipt> detailOrderList(int kioskNo) {
+    public List<TotalMenuList> detailOrderList(int kioskNo) {
         return sqlSession.selectList("salesMapper.detailOrderList", kioskNo);
     }
 

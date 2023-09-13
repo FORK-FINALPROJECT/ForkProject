@@ -44,12 +44,12 @@
                         </c:forEach> 
                     </c:if>
                     
-                    <div class="struc ${struc_class}${inMenu}" style="transform: translate3d(${struc.positionX}px, ${struc.positionY}px, 0);" onclick="detail_order('${struc.strucTitle}', ${struc.kioskNo})">
+                    <div class="struc ${struc_class}${inMenu}" id="kiosk${struc.kioskNo}" style="transform: translate3d(${struc.positionX}px, ${struc.positionY}px, 0);" onclick="detail_order('${struc.strucTitle}', ${struc.kioskNo})">
                         <span class="struc_title">${struc.strucTitle}</span>
                         <c:if test="${inMenu eq ' in_menu'}">
                             <c:set var="price" value="0" />
                             <c:forEach var="order" items="${orderList}">
-                                <c:if test="${struc.kioskNo eq order.kioskNo }">
+                                <c:if test="${struc.kioskNo eq order.kioskNo}">
                                     <div class="menu">
                                         <div class="menu_title">${order.menuName}</div>
                                         <div class="menu_cnt">${order.cnt}</div>

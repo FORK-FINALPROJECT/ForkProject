@@ -264,7 +264,7 @@
 		    #{licenseNo},
 		    #{memberNo},
 		    SYSDATE,
-		    ADD_MONTHS(SYSDATE, (SELECT LICENSE_DATE FROM LICENSE WHERE LICENSE_NO = #{memberNo})),
+		    ADD_MONTHS(SYSDATE, (SELECT LICENSE_DATE FROM LICENSE WHERE LICENSE_NO = #{licenseNo})),
 		    'Y'
 		)
 	</insert>
