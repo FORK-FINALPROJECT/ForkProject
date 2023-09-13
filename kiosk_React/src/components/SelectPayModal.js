@@ -20,17 +20,16 @@ function SelectPayModal(props) {
         resetCartStore();
     }
 
-    // 값 저장
+    // 결제
     const { basicPay } = useSaveData();
     const handleBasicPay = () => {
         let result = basicPay(kioskNo, cartItems, cartTotalPrice);
 
         if(result > 0){
             // 성공
-            alert('결제성공');
+            handleResetCartStore();
         } else {
             // 실패
-            handleResetCartStore();
         }
     }
 
