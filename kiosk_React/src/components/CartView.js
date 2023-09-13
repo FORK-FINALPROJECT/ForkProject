@@ -21,6 +21,13 @@ const CartView = () => {
     // const [cartItems, setCartItems] = useState([
 
     const removeCartItem = (itemId) => {
+        const removedItem = cartItems.find(item => item.id === itemId);
+        if(removedItem) {
+            const newTotalPrice = cartTotalPrice - removedItem.addPrice * removedItem.count;
+            console.log("removedItem", removedItem.addPrice*removedItem.count);
+            setCartTotalPrice(newTotalPrice);
+        }
+        
         const cartItemsresult = cartItems.filter(item => item.id !== itemId)
         setCartItems(cartItemsresult);
     };
@@ -92,7 +99,9 @@ const CartView = () => {
                                 ))}
                             </div>
                         )}
-                        총합 : {cartTotalPrice.toLocaleString('ko-KR')}원
+                        {cartTotalPrice ? (
+                        <div className="cartview-total-price">총합 : {cartTotalPrice.toLocaleString('ko-KR')}원</div>
+                        ) : null}
                     </div>
                     <div className="cart-order">
                         <Button id="button-coo" variant="light" onClick={() => setModalShow(true)}> 결제하기 </Button>

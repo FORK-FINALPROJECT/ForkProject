@@ -2,8 +2,16 @@
 
 body, table, th, td, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6,
    pre, form, fieldset, textarea, blockquote, span, * {
-   font-family: 'Noto Sans KR', sans-serif;
+    /* font-family: 'Noto Sans KR', sans-serif; */
+    font-family: 'TheJamsil5Bold';
     color:white;
+}
+
+@font-face {
+    font-family: 'TheJamsil5Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
 }
 
 * {
@@ -350,6 +358,11 @@ a:hover{
 
 .cart-menu-details *{
     color:black;
+}
+
+.cart-menu-name {
+    font-size: large;
+    font-weight: 500;
 }
 
 .cart-menu-name-1{
@@ -703,4 +716,9 @@ a:hover{
 
 .count-wrap>input{
     text-align:center;
+}
+
+.cartview-total-price{
+    font-size: x-large;
+    font-weight:600;
 }

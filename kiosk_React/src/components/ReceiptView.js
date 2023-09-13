@@ -3,7 +3,6 @@ import ReceiptDetailViewl from "./ReceiptDetailViewl";
 import { useReceiptStore } from "../store/receiptViewStore";
 
 
-
 const transformData = (receiptItems) => {
     const updatedItems = receiptItems.map(receiptItem => {
         //debugger;
@@ -28,7 +27,6 @@ const transformData = (receiptItems) => {
         }
     })
     return updatedItems;
-    
 }
 
 const ReceiptView = () => {
