@@ -4,6 +4,7 @@ import { useState } from 'react';
 import DutchpayByPriceModal from './DutchpayByPriceModal';
 import DutchpaySelectPayModal from './DutchpaySelectPayModal ';
 import { paymentModalStore } from '../store/paymentModalStore';
+import useCartStore from '../store/cartStore';
 
 const DutchpayByPrice = (props) => {
 
@@ -26,8 +27,10 @@ const DutchpayByPrice = (props) => {
     setModalShow(true);
   };
 
+  const {cartTotalPrice} = useCartStore();
+
     //최소하나 초기값 필요
-    const [pricePerPerson, setPricePerPerson] = useState(20000); // 샘플 가격만들만들 이거 저장소에서 가져올 것
+    const [pricePerPerson, setPricePerPerson] = useState(cartTotalPrice); // 샘플 가격만들만들 이거 저장소에서 가져올 것
     const [items, setItems] = useState([ // 최초 1개 결제창 뜨게 기본값 셋ㅅ팅
         {
             id: 0,

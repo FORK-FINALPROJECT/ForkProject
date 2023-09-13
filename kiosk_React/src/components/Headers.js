@@ -6,6 +6,8 @@ import axios from 'axios';
 import {useReceiptStore} from '../store/receiptViewStore';
 import SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
+import { useSaveData } from "../store/saveData";
+import useSocketStore from "../store/socketStore";
 
 const Headers = () => {
   const [content, setContent] = useState();
@@ -15,6 +17,8 @@ const Headers = () => {
   const subCategorys = useCategoryStore((state) => state.subCategorys);
   const setSubCategory = useCategoryStore((state) => state.setSubCategory);
 
+  const {stompClient , setStompClient} = useSocketStore();
+
   const { scrollToSubCategory } = useScrollToSubCategoryStore();
 
   const [websocket, setWebSocket] = useState(null);
@@ -23,7 +27,7 @@ const Headers = () => {
       // 스프링 부트 서버의 SockJS 엔드포인트 URL
       const createWebSocket = () => new SockJS('http://localhost:3000/kiosk/user'); // 스프링 부트 서버 주소로 변경
       const stompClient = Stomp.over(createWebSocket); // 최적화 1) 연결종료시 재연결할수있는 웹소켓 생성 팩토리 전달
-      
+
       stompClient.connect({}, (frame) => {
           console.log("웹소켓 연결", frame);
          // 여기서 컨트롤러로 연결 여러개 추가 가능
@@ -34,10 +38,10 @@ const Headers = () => {
             console.log(frame.body);
           });
 
-          stompClient.send(`/user/send/${kioskNo}`,{} ,'');
+          stompClient.send(`/user/send/${kioskNo}`,{} , '잘가니가니??');
       });
-      setWebSocket(stompClient);
-
+      setStompClient(stompClient);
+      
       return () => {
           console.log('연결해제')
           stompClient.disconnect();
