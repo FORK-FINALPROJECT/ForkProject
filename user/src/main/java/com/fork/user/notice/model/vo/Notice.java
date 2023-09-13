@@ -1,9 +1,11 @@
 package com.fork.user.notice.model.vo;
 
+import java.io.Serializable;
+
 import lombok.Data;
 
 @Data
-public class Notice {
+public class Notice implements Serializable {
 	private int noticeNo;
 	private String noticeTitle;
 	private String noticeContent;
