@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import {useReceiptStore} from '../store/receiptViewStore';
+import useSocketStore from '../store/socketStore';
 
 function Dingdong(props) {
 
     const [modalTimer, setModalTimer] = useState(10); // 모달 시간 설정
+    
+    const kioskNo = useReceiptStore((state) => state.kioskNo);
+
+    const {stompClient , setStompClient} = useSocketStore();
 
     useEffect(() => {
 
@@ -20,6 +26,8 @@ function Dingdong(props) {
                     setModalTimer(modalTimer - 1);
                 }
             }, 1000); // 1초마다 실행
+            stompClient?.send(`/user/send/${kioskNo}`,{} , JSON.stringify(kioskNo+"번 테이블에서 직원호출!"));
+            
         } else {
             // 모달이 닫힐 때 타이머 초기화
             setModalTimer(10);
