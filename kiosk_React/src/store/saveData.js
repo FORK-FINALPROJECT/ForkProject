@@ -15,6 +15,22 @@ const useSaveData = create((set, get) => ({
             console.log(error);
         });
     },
+    // 받아온 메뉴가 무슨 형태일까!?
+    //insertReceiptMenus2 이어서해보자고
+    dutchByMenu: async (kioskNo, cartItems, totalPrice) => {
+        axios.post("http://localhost:3000/kiosk/dutchByMenu/"+kioskNo , {cartItems , totalPrice})
+        .then( (response) => {
+            if(response.data > 0){
+                console.log('결제 성공');
+                console.log(response);
+            } else {
+                console.log('결제 실패');
+            }
+            return response;
+        }).catch( (error) => {
+            console.log(error);
+        });
+    },
 }));
 
 export default useSaveData;

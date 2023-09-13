@@ -4,16 +4,17 @@ import DutchpaySelectPayModal from './DutchpaySelectPayModal ';
 import { paymentModalStore } from '../store/paymentModalStore';
 import { useState } from 'react';
 import useCartStore from '../store/cartStore';
+import useSaveData from '../store/saveData';
+import { useReceiptStore } from '../store/receiptViewStore';
 
 const DutchpayByMenu = (props) => {
 
     const springUrl = 'http://localhost:8083/kiosk';
 
     // 장바구니에 있는 값 가져오기
-    const {cartItems, cartId, cartTotalPrice} = useCartStore();
-    // console.log('cartItems : ' + cartItems.menu);
-    // console.log('cartId : ' + cartId);
-    // console.log('cartTotalPrice : ' + cartTotalPrice);
+    const {cartItems, cartTotalPrice, resetCartStore } = useCartStore();
+    // 키오스크 번호
+    const kioskNo = useReceiptStore((state) => state.kioskNo);
 
     // 결제 방법별 모달
     const [modalShow, setModalShow] = useState(false);
@@ -30,6 +31,23 @@ const DutchpayByMenu = (props) => {
         setSelectedPaymentMethod('현금결제');
         setModalShow(true);
     };
+
+    // 장바구니 비우기
+    const handleResetCartStore = () => {
+        resetCartStore();
+    }
+
+    // 결제
+    const { dutchByMenu } = useSaveData();
+    const handleDutchByMenu = (menu) => {
+        let result = dutchByMenu(kioskNo, menu, menu.totalPrice);
+        if(result > 0){
+            // 성공
+            handleResetCartStore();
+        } else {
+            // 실패
+        }
+    }
 
     return (
         <div className="content-wrap">
@@ -63,7 +81,7 @@ const DutchpayByMenu = (props) => {
                                             {menu.totalPrice.toLocaleString('ko-KR')}원
                                         </li>
                                         <li>
-                                            <Button variant="secondary" onClick={handleCardPaymentClick}>카드결제</Button>{' '}
+                                            <Button variant="secondary" onClick={() => {handleCardPaymentClick(); handleDutchByMenu(menu);} }>카드결제</Button>{' '}
                                             <Button variant="secondary" onClick={handleCashPaymentClick}>현금결제</Button>
                                         </li>
                                     </ul>

@@ -59,7 +59,8 @@ public class KioskController {
 	}
 	
 	@PostMapping("/basicPay/{kioskNo}")
-	public int basicPay(@PathVariable("kioskNo") int kioskNo , @RequestBody HashMap<String ,Object> param){
+	public int basicPay( @PathVariable("kioskNo") int kioskNo ,
+						 @RequestBody HashMap<String ,Object> param) {
 		
 		param.put("kioskNo", kioskNo);
 		
@@ -70,6 +71,41 @@ public class KioskController {
 		if(totalReceiptNo > 0) {
 			// 결제테이블 insert
 			int payNo = kioskService.insertPay(param);
+			log.info("payNo : {}" , payNo);
+			if(payNo > 0) {
+				// 영수증테이블 insert
+				int receiptNo = kioskService.insertReceipt(param);
+				log.info("receiptNo : {}" , receiptNo);
+				if(receiptNo > 0) {
+					// 영수증별메뉴, 옵션 insert
+					int result = kioskService.insertReceiptMenus(param);
+					log.info("result : {}" , result);
+					if(result > 0) {
+						log.info("param : {}" , param);
+						// 오직 이 경우에만 정상적으로 모든 데이터가 insert
+						return 1;
+					}
+				}
+			}
+		}
+		// 오류
+		return 0;
+	}
+	
+	// 함수를 다시 만들자
+	@PostMapping("/dutchByMenu/{kioskNo}")
+	public int dutchByMenu( @PathVariable("kioskNo") int kioskNo , 
+							@RequestBody HashMap<String ,Object> param ) {
+		
+		param.put("kioskNo", kioskNo);
+		
+		// 총영수증 번호 조회 및 없을 시 insert후 재조회
+		int totalReceiptNo = kioskService.selectTotalReceiptNo(param);
+		log.info("param : {}" , param);
+		log.info("totalReceiptNo : {}" , totalReceiptNo);
+		if(totalReceiptNo > 0) {
+			// 결제테이블 insert
+			int payNo = kioskService.insertDutchByMenuPay(param);
 			log.info("payNo : {}" , payNo);
 			if(payNo > 0) {
 				// 영수증테이블 insert
