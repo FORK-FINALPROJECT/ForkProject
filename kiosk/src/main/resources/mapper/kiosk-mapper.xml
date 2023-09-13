@@ -223,8 +223,7 @@ LEFT JOIN RECEIPT_OPTION RO ON RO.RCM_NO = RM.RCM_NO
 LEFT JOIN OPT O ON O.OPTION_NO = RO.OPTION_NO
 WHERE TR.KIOSK_NO = #{kioskNo} AND TR.ORDER_STATUS = 'Y'
  -->
- 
- <!-- 2차 -->
+<!-- 2차 -->
 <!-- SELECT *
 FROM TOTAL_RECEIPT TR
 JOIN (
@@ -307,6 +306,16 @@ ORDER BY R.RECEIPT_NO , RM.RCM_NO
 <insert id="insertReceiptOptions" parameterType="hashMap">
 	INSERT INTO RECEIPT_OPTION
 	VALUES ( #{receiptMenuNo}, #{optionNo} )    
+</insert>
+
+<insert id="insertDutchByMenuPay" parameterType="hashmap">
+	<selectKey keyProperty="payNo" order="BEFORE" resultType="int" >
+		SELECT SEQ_PAY.NEXTVAL
+		FROM DUAL
+	</selectKey>
+	
+	INSERT INTO PAY 
+	VALUES ( #{payNo}, DEFAULT , #{totalPrice} )
 </insert>
 
  	
