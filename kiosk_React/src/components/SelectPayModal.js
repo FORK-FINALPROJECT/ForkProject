@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import useCartStore from '../store/cartStore';
 import {useReceiptStore} from '../store/receiptViewStore';
 import useSaveData from '../store/saveData';
+import useSocketStore from '../store/socketStore';
 
 function SelectPayModal(props) {
 
@@ -15,6 +16,14 @@ function SelectPayModal(props) {
     const {cartItems, cartTotalPrice, resetCartStore } = useCartStore();
     const kioskNo = useReceiptStore((state) => state.kioskNo);
 
+    // 소켓
+    const {stompClient , setStompClient} = useSocketStore();
+
+    let message = {
+        kioskNo : kioskNo,
+        price : cartTotalPrice, // 현금 가격만 합산한 거 totalCashPrice
+    }
+
     // 장바구니 비우기
     const handleResetCartStore = () => {
         resetCartStore();
@@ -22,12 +31,13 @@ function SelectPayModal(props) {
 
     // 결제
     const { basicPay } = useSaveData();
-    const handleBasicPay = () => {
-        let result = basicPay(kioskNo, cartItems, cartTotalPrice);
-
+    const handleBasicPay = async () => {
+        let result = await basicPay(kioskNo, cartItems, cartTotalPrice);
         if(result > 0){
             // 성공
             handleResetCartStore();
+            stompClient?.send(`/user/send/${kioskNo}`,{} , JSON.stringify(message));
+            
         } else {
             // 실패
         }
@@ -127,7 +137,7 @@ function SelectPayModal(props) {
                         </div>
                     ) : (
                         <div className='selectPayModal'>
-                            <ul onClick={() => handlePaymentMethodClick("카드결제")}>
+                            <ul onClick={() => {handlePaymentMethodClick("카드결제"); handleBasicPay();}}>
                                 <li><img src={require('../resources/image/payCardLogo.PNG')} alt='카드결제로고'/></li>
                                 <li>카드결제</li>
                             </ul>
