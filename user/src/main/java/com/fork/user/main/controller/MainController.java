@@ -94,8 +94,10 @@ public class MainController {
     }
     
     @GetMapping("/statistics")
-    public String toStatistics(Model model) {
+    public String toStatistics() {
         return "chart/statistics";
     }
+    
+    
     
 }
