@@ -113,7 +113,7 @@ public class KioskController {
 				log.info("receiptNo : {}" , receiptNo);
 				if(receiptNo > 0) {
 					// 영수증별메뉴, 옵션 insert
-					int result = kioskService.insertReceiptMenus(param);
+					int result = kioskService.insertReceiptMenusDutchByMenu(param);
 					log.info("result : {}" , result);
 					if(result > 0) {
 						log.info("param : {}" , param);

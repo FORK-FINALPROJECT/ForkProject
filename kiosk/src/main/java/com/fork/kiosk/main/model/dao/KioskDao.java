@@ -68,7 +68,7 @@ public class KioskDao {
 		return session.insert("kiosk.insertDutchByMenuPay", param);
 	} 
 	
-	public int insertReceiptMenus2(HashMap<String, Object> param) {
+	public int insertReceiptMenusDutchByMenu(HashMap<String, Object> param) {
 		
 		HashMap<String , Object> cartItem = (HashMap<String , Object> )param.get("cartItems");
 			// 메뉴가 있을경우에만 insert
