@@ -17,7 +17,21 @@ const useCartStore = create((set, get) => ({
             return {cartItems: [...state.cartItems, newItem], cartId: state.cartId+1 , cartTotalPrice};
         })
     },
-    resetCartStore : () =>  set({ cartItems: [], cartId: 0, cartTotalPrice: 0 })
+    resetCartStore : () =>  set({ cartItems: [], cartId: 0, cartTotalPrice: 0 }),
+    setNewCartAfterDutchByMenu : (menu, menuTotalPrice) => {
+        set((state) => {
+            // 메뉴 매개변수와 일치하는 항목을 cartItems에서 필터링하여 제거합니다.
+            const updatedCartItems = state.cartItems.filter((item) => {
+                return item.menuNo !== menu.menuNo || item.totalPrice !== menuTotalPrice;
+            });
+    
+            // menuTotalPrice를 뺀 새로운 cartTotalPrice를 계산합니다.
+            const newCartTotalPrice = state.cartTotalPrice - menuTotalPrice;
+    
+            return { cartItems: updatedCartItems, cartId: state.cartId, cartTotalPrice: newCartTotalPrice };
+        });
+        return get().cartItems;
+    }
 }));
 
 export default useCartStore;

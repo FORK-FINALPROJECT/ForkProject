@@ -12,7 +12,7 @@ const DutchpayByMenu = (props) => {
     const springUrl = 'http://localhost:8083/kiosk';
 
     // 장바구니에 있는 값 가져오기
-    const {cartItems, cartTotalPrice, resetCartStore } = useCartStore();
+    const {cartItems, setNewCartAfterDutchByMenu } = useCartStore();
     // 키오스크 번호
     const kioskNo = useReceiptStore((state) => state.kioskNo);
 
@@ -32,22 +32,25 @@ const DutchpayByMenu = (props) => {
         setModalShow(true);
     };
 
-    // 장바구니 비우기
-    const handleResetCartStore = () => {
-        resetCartStore();
+    // 결제한 메뉴 스토어에서 지우기
+    const handleSetNewCartAfterDutchByMenu = (menu, menuTotalPrice) => {
+        return setNewCartAfterDutchByMenu(menu, menuTotalPrice);
     }
 
     // 결제
     const { dutchByMenu } = useSaveData();
-    const handleDutchByMenu = (menu) => {
-        let result = dutchByMenu(kioskNo, menu, menu.totalPrice);
+    const handleDutchByMenu = async (menu) => {
+        let result = await dutchByMenu(kioskNo, menu, menu.totalPrice);
         if(result > 0){
-            // 성공
-            handleResetCartStore();
+            // 결제 성공
+            if(!handleSetNewCartAfterDutchByMenu(menu, menu.totalPrice)){ // 모두 결제된 경우
+                // 여기서 소켓보내면 됨
+                console.log(1111111111111);
+            }
         } else {
-            // 실패
+            // 결제 실패
         }
-    }
+    }    
 
     return (
         <div className="content-wrap">
@@ -67,7 +70,7 @@ const DutchpayByMenu = (props) => {
                         <div className="pay-list">
                             {
                                 cartItems.map(menu => (
-                                    <ul>
+                                    <ul id={menu.menuNo+menu.menuName+menu.totalPrice}>
                                         <li>
                                             <img src={springUrl + menu.filePath + menu.originName} alt="메뉴사진" onError={(e) => { e.target.src = require('../resources/image/defaultimg.jpg') }} />
                                         </li>
