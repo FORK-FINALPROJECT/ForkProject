@@ -26,7 +26,7 @@ const Headers = () => {
       
       stompClient.connect({}, (frame) => {
           console.log("웹소켓 연결", frame);
-
+         // 여기서 컨트롤러로 연결 여러개 추가 가능
           stompClient.subscribe( `/kiosk/${kioskNo}` ,frame => {
             console.log(frame.body);
           });
@@ -37,8 +37,6 @@ const Headers = () => {
           stompClient.send(`/user/send/${kioskNo}`,{} ,'');
       });
       setWebSocket(stompClient);
-      
-
 
       return () => {
           console.log('연결해제')
