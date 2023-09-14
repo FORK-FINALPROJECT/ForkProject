@@ -48,9 +48,9 @@ const Headers = () => {
       }
   },[]);
 
-  const handleCallReceipt = () => {
-    axios.post(`/kiosk/receipt/${kioskNo}`).then((response) => {
-        sessionStorage.setItem('receiptList',JSON.stringify(response.data));
+  const handleCallReceipt = async () => {
+    await axios?.post(`/kiosk/receipt/${kioskNo}`)?.then((response) => {
+        // sessionStorage.setItem('receiptList',JSON.stringify(response.data));
         console.log("영수증 정보정보", response.data)
         setReceiptItems(response.data);
     }).catch((error) => {

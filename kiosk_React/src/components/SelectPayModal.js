@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import useCartStore from '../store/cartStore';
-import {useReceiptStore} from '../store/receiptViewStore';
+import { useReceiptStore } from '../store/receiptViewStore';
 import useSaveData from '../store/saveData';
 import useSocketStore from '../store/socketStore';
 
@@ -13,16 +13,13 @@ function SelectPayModal(props) {
     const [modalTimer, setModalTimer] = useState(10); // 초 단위로 설정
     const [timer, setTimer] = useState(null);
 
-    const {cartItems, cartTotalPrice, resetCartStore } = useCartStore();
+    const { cartItems, cartTotalPrice, resetCartStore } = useCartStore();
     const kioskNo = useReceiptStore((state) => state.kioskNo);
 
     // 소켓
-    const {stompClient , setStompClient} = useSocketStore();
+    const { stompClient, setStompClient } = useSocketStore();
 
-    let message = {
-        kioskNo : kioskNo,
-        price : cartTotalPrice, // 현금 가격만 합산한 거 totalCashPrice
-    }
+    let message = {};
 
     // 장바구니 비우기
     const handleResetCartStore = () => {
@@ -33,11 +30,11 @@ function SelectPayModal(props) {
     const { basicPay } = useSaveData();
     const handleBasicPay = async () => {
         let result = await basicPay(kioskNo, cartItems, cartTotalPrice);
-        if(result > 0){
+        if (result > 0) {
             // 성공
             handleResetCartStore();
-            stompClient?.send(`/user/send/${kioskNo}`,{} , JSON.stringify(message));
-            
+            stompClient?.send(`/user/send/${kioskNo}`, {}, JSON.stringify(message));
+
         } else {
             // 실패
         }
@@ -47,6 +44,19 @@ function SelectPayModal(props) {
     const handlePaymentMethodClick = (method) => {
         setPayMethod(method);
         setModalTimer(10); // 타이머 리셋
+
+        // 결제 방법 별로 message 담아서 웹소켓에 보내보내
+        if (method === "카드결제") {
+            message = {
+                kioskNo: kioskNo,
+                price: null,
+            };
+        } else {
+            message = {
+                kioskNo: kioskNo,
+                price: cartTotalPrice,
+            };
+        }
     };
 
     // 모달이 닫힐 때 setPayMethod(null) 자동 실행
@@ -102,13 +112,13 @@ function SelectPayModal(props) {
                     {payMethod ? (
                         <div className='selectPayModal2'>
                             {/* 카드결제 클릭시 */}
-                            {payMethod === "카드결제" && 
-                            <div className='cardPayWrap'>
-                            <h3 className="cardPay">ic 카드를 리더기에 넣어주세요</h3>
-                            <p className="cardPay">
-                                <img src={require('../resources/image/insert-card2.png')} />
-                            </p>
-                            </div>
+                            {payMethod === "카드결제" &&
+                                <div className='cardPayWrap'>
+                                    <h3 className="cardPay">ic 카드를 리더기에 넣어주세요</h3>
+                                    <p className="cardPay">
+                                        <img src={require('../resources/image/insert-card2.png')} />
+                                    </p>
+                                </div>
                             }
 
                             {/* 현금결제 클릭시 */}
@@ -122,13 +132,13 @@ function SelectPayModal(props) {
                             {payMethod === "분할결제" && <>
                                 <ul>
                                     <Link to="/dutchpayByMenu" onClick={handleCloseModal}>
-                                        <li><img src={require('../resources/image/dutchMenuLogo.PNG')} alt='메뉴별로고'/></li>
+                                        <li><img src={require('../resources/image/dutchMenuLogo.PNG')} alt='메뉴별로고' /></li>
                                         <li>메뉴별</li>
                                     </Link>
                                 </ul>
                                 <ul>
                                     <Link to="/dutchpayByPrice" onClick={handleCloseModal}>
-                                        <li><img src={require('../resources/image/dutchPriceLogo.PNG')} alt='금액별로고'/></li>
+                                        <li><img src={require('../resources/image/dutchPriceLogo.PNG')} alt='금액별로고' /></li>
                                         <li>금액별</li>
                                     </Link>
                                 </ul>
@@ -137,16 +147,16 @@ function SelectPayModal(props) {
                         </div>
                     ) : (
                         <div className='selectPayModal'>
-                            <ul onClick={() => {handlePaymentMethodClick("카드결제"); handleBasicPay();}}>
-                                <li><img src={require('../resources/image/payCardLogo.PNG')} alt='카드결제로고'/></li>
+                            <ul onClick={() => { handlePaymentMethodClick("카드결제"); handleBasicPay(); }}>
+                                <li><img src={require('../resources/image/payCardLogo.PNG')} alt='카드결제로고' /></li>
                                 <li>카드결제</li>
                             </ul>
-                            <ul onClick={() => {handlePaymentMethodClick("현금결제"); handleBasicPay();}}>
-                                <li><img src={require('../resources/image/payCashLogo.PNG')} alt='현금결제로고'/></li>
+                            <ul onClick={() => { handlePaymentMethodClick("현금결제"); handleBasicPay(); }}>
+                                <li><img src={require('../resources/image/payCashLogo.PNG')} alt='현금결제로고' /></li>
                                 <li>현금결제</li>
                             </ul>
                             <ul onClick={() => handlePaymentMethodClick("분할결제")}>
-                                <li><img src={require('../resources/image/payDutchLogo.PNG')} alt='분할결제로고'/></li>
+                                <li><img src={require('../resources/image/payDutchLogo.PNG')} alt='분할결제로고' /></li>
                                 <li>분할결제</li>
                             </ul>
                         </div>

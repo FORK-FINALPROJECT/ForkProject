@@ -16,6 +16,11 @@ function Dingdong(props) {
 
         let timer;
 
+        let message = {
+            kioskNo : kioskNo,
+            price : 0,
+        };
+
         // 모달이 열릴 때 타이머 시작
         if (props.show) {
             timer = setInterval(() => {
@@ -26,7 +31,7 @@ function Dingdong(props) {
                     setModalTimer(modalTimer - 1);
                 }
             }, 1000); // 1초마다 실행
-            stompClient?.send(`/user/send/${kioskNo}`,{} , JSON.stringify(kioskNo+"번 테이블에서 직원호출!"));
+            stompClient?.send(`/user/send/${kioskNo}`,{} , JSON.stringify(message));
             
         } else {
             // 모달이 닫힐 때 타이머 초기화
