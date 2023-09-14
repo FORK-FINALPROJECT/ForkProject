@@ -83,7 +83,7 @@ public class KioskController {
 					if(result > 0) {
 						log.info("param : {}" , param);
 						// 오직 이 경우에만 정상적으로 모든 데이터가 insert
-						return 1;
+						return receiptNo;
 					}
 				}
 			}

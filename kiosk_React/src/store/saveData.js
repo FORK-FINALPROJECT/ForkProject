@@ -8,7 +8,7 @@ const useSaveData = create((set, get) => ({
             .then( (response) => {
                 if(response.data > 0){
                     console.log('결제 성공');
-                    return 1;
+                    return response.data;
                 } else {
                     console.log('결제 실패');
                     return 0;
@@ -26,6 +26,7 @@ const useSaveData = create((set, get) => ({
                 if(response.data > 0){
                     console.log('결제 성공');
                     return 1;
+                    // 영수증번호
                 } else {
                     console.log('결제 실패');
                     return 0;

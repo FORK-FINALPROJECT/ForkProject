@@ -33,7 +33,7 @@ const DutchpayByMenu = (props) => {
     };
 
     // 결제한 메뉴 스토어에서 지우기
-    const handleSetNewCartAfterDutchByMenu = (menu, menuTotalPrice) => {
+    const handleSetNewCartAfterDutchByMenu = (menu, menuTotalPrice) => {      
         return setNewCartAfterDutchByMenu(menu, menuTotalPrice);
     }
 
@@ -43,12 +43,14 @@ const DutchpayByMenu = (props) => {
         let result = await dutchByMenu(kioskNo, menu, menu.totalPrice);
         if(result > 0){
             // 결제 성공
-            if(!handleSetNewCartAfterDutchByMenu(menu, menu.totalPrice)){ // 모두 결제된 경우
-                // 여기서 소켓보내면 됨
+            // 리턴값을 set[] 이걸 소켓보낼때 보낸다
+            if(!handleSetNewCartAfterDutchByMenu(menu, menu.totalPrice).length){ // 모두 결제된 경우
+                // 여기서 소켓보내기 , 메뉴리스트 랜더되게 하기
                 console.log(1111111111111);
             }
         } else {
             // 결제 실패
+            // 리턴값 set[] 비워주기
         }
     }    
 
