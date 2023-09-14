@@ -15,7 +15,51 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     
     <link rel="stylesheet" href="resources/css/adminLee.css">
+    <style>
+    /* 모달 스타일 */
+    .alertPage {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+        overflow: auto;
+    }
+
+    .alertPage-content {
+        background-color: navy;
+        color: white;
+        margin: 17% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 800px;
+        height: 300px;
+        border-radius: 20px;
+        text-align: center;
+        font-size: 40px;
+        font-weight: bold;
+        display: grid;
+    	grid-template-columns: 1fr; /* 1개의 열을 생성하여 세로로 정렬합니다. */
+    	justify-items: center; /* 세로 정렬을 수행합니다. */
+    }
+
+    .closebutton {
+        width: 350px;
+        margin: 20px auto;
+        display: block;
+        color: black;
+        backgrond-color: white; 
+        border-radius: 10px;
+        height: 80px;
+    } 
     
+    .closebutton:hover {
+    	cursor: pointer;
+    }
+    </style>
 </head>
 <body>
 
@@ -92,6 +136,18 @@
             </div>
         </div>
     </div>
+    
+    <!-- 호출 확인 모달 -->
+    <div id="alertPage" class="alertPage" style="display: none;">
+        <div class="alertPage-content">
+        	번 테이블에서 호출하였습니다.
+        	<button class="closebutton" onclick="closeModal()">확인</button>
+        </div>
+    </div> 
+    
+    <audio id="notificationSound" preload="auto">
+    	<source src="resources/audio/call2.mp3" type="audio/mpeg">
+	</audio>
     
     <script type="text/javascript" src="resources/js/adminLee.js"></script>
     
