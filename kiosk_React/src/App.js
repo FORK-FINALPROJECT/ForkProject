@@ -113,7 +113,6 @@ function App() {
   const setSubCategory = useCategoryStore((state) => state.setSubCategory);
   
   useEffect(async () => {
-
     await getCategory();
     await setSubCategory(1);
 
@@ -141,26 +140,26 @@ function App() {
     const cart = document.querySelector(".cart-wrap");
     hideAndShow(cart, document.querySelector(".cart-header-wrap"), 'emphasized');
 
-    const receipt = document.querySelector(".receipt-wrap");
-    hideAndShow(receipt, document.querySelector(".receipt-header-wrap"), 'emphasized');
+    // const receipt = document.querySelector(".receipt-wrap");
+    // hideAndShow(receipt, document.querySelector(".receipt-header-wrap"), 'emphasized');
 
-    const receiptDetailButtons = document.querySelectorAll(".receipt-detail-btn");
-    const receiptDetailTop = document.querySelector(".receipt-detail-header-wrap");
-    const receiptHeaderButton = document.querySelector(".receipt-header-wrap");
+    // const receiptDetailButtons = document.querySelectorAll(".receipt-detail-btn");
+    // const receiptDetailTop = document.querySelector(".receipt-detail-header-wrap");
+    // const receiptHeaderButton = document.querySelector(".receipt-header-wrap");
 
-    hideAndShow(receipt, receiptHeaderButton, 'emphasized');
+    // hideAndShow(receipt, receiptHeaderButton, 'emphasized');
 
     // 수정================ 반복문 돌려돌려돌림판
-    receiptDetailButtons.forEach(receiptDetailButton => {
-      receiptDetailButton.addEventListener("click", function () {
-        const receiptViews = document.querySelectorAll(".receipt-view");
-        for (const view of receiptViews) {
-          view.style.display = "none";
-        }
-        // 반복문 돌린 다음에 상세정보 보이게
-        receiptDetailTop.style.display = "block";
-      });
-    })
+    // receiptDetailButtons.forEach(receiptDetailButton => {
+    //   receiptDetailButton.addEventListener("click", function () {
+    //     const receiptViews = document.querySelectorAll(".receipt-view");
+    //     for (const view of receiptViews) {
+    //       view.style.display = "none";
+    //     }
+    //     // 반복문 돌린 다음에 상세정보 보이게
+    //     receiptDetailTop.style.display = "block";
+    //   });
+    // })
 
     // 스크롤 기능. 원하는 div 상위 영역에 클래스명 추가시 모두 사용 가능
     const scrollableDivs = document.getElementsByClassName('scrollable');
@@ -196,11 +195,10 @@ function App() {
     });
 
     //스프링부트 연결
-    
-
     // axios.get("http://localhost:3000/kiosk/category").then((response) => {
     //   console.log(response, response.data);
     // }).catch(console.log);
+
   }, []);
 
   // 선유 끝

@@ -27,7 +27,7 @@ const LoginView = () => {
             console.log(11,response.data);
             //setIsLoggedIn('true');
             sessionStorage.setItem('receiptList',JSON.stringify(response.data));
-            setReceiptItems(response.data);
+            //setReceiptItems(response.data);
             e.target.submit();
         }).catch((error) => {
             console.error('오오오류류류류', error);
