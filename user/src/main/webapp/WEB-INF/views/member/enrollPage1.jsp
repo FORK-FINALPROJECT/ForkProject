@@ -21,7 +21,7 @@
 
         body {
             background-color: #eee;
-            height: 800px;
+            height: 950px;
             font-family: Arial, Helvetica, sans-serif;
             background: linear-gradient(to top, #fff 10%, #FF8B3D 60%) no-repeat;
         }
@@ -29,9 +29,12 @@
         .wrapper {
             max-width: 580px;
             border-radius: 10px;
-            margin: 160px auto;
             padding: 30px 40px;
             background-color: white;
+            position: absolute;
+        	left: 50%; 
+        	top: 50%;
+        	transform: translate(-50%,-50%);
         }
 
         .h2 {
