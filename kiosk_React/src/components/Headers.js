@@ -31,14 +31,14 @@ const Headers = () => {
       stompClient.connect({}, (frame) => {
           console.log("웹소켓 연결", frame);
          // 여기서 컨트롤러로 연결 여러개 추가 가능
-          stompClient.subscribe( `/kiosk/${kioskNo}` ,frame => {
+          stompClient.subscribe( `/kiosk/clearTable/${kioskNo}` ,frame => {
             console.log(frame.body);
           });
           stompClient.subscribe( `/kiosk/end/${kioskNo}` ,frame => {
             console.log(frame.body);
           });
 
-          stompClient.send(`/user/send/${kioskNo}`,{} , '잘가니가니??');
+          // stompClient.send(`/user/send/${kioskNo}`,{} , '잘가니가니??');
       });
       setStompClient(stompClient);
       

@@ -6,6 +6,7 @@ import { useState } from 'react';
 import useCartStore from '../store/cartStore';
 import useSaveData from '../store/saveData';
 import { useReceiptStore } from '../store/receiptViewStore';
+import useSocketStore from '../store/socketStore';
 
 const DutchpayByMenu = (props) => {
 
@@ -13,12 +14,13 @@ const DutchpayByMenu = (props) => {
 
     // 장바구니에 있는 값 가져오기
     const {cartItems, setNewCartAfterDutchByMenu } = useCartStore();
+    const {totalCashPrice, setTotalCashPrice , getTotalCashPrice} = paymentModalStore();
     // 키오스크 번호
     const kioskNo = useReceiptStore((state) => state.kioskNo);
 
     // 결제 방법별 모달
     const [modalShow, setModalShow] = useState(false);
-    const { selectedPaymentMethod, setSelectedPaymentMethod } = paymentModalStore();
+    const { selectedPaymentMethod, setSelectedPaymentMethod,updatedTotalCashPrice } = paymentModalStore();
 
     // 카드결제 버튼 클릭 시 모달 열기
     const handleCardPaymentClick = () => {
@@ -26,9 +28,19 @@ const DutchpayByMenu = (props) => {
         setModalShow(true);
     };
 
+    
+    // 현금합계 소켓 연결 설정
+    const {stompClient , setStompClient} = useSocketStore();
+
+
+    // 현금합계 기본값
+    let cashPrice = 0;
+
     // 현금결제 버튼 클릭 시 모달 열기
-    const handleCashPaymentClick = () => {
+    const handleCashPaymentClick = (menu) => {
         setSelectedPaymentMethod('현금결제');
+        cashPrice = totalCashPrice+menu.totalPrice;
+        setTotalCashPrice(cashPrice);
         setModalShow(true);
     };
 
@@ -44,14 +56,23 @@ const DutchpayByMenu = (props) => {
         if(result > 0){
             // 결제 성공
             // 리턴값을 set[] 이걸 소켓보낼때 보낸다
+                
+            let message = {
+                kioskNo : kioskNo,
+                price : getTotalCashPrice(),
+            };
+
             if(!handleSetNewCartAfterDutchByMenu(menu, menu.totalPrice).length){ // 모두 결제된 경우
                 // 여기서 소켓보내기 , 메뉴리스트 랜더되게 하기
-                console.log(1111111111111);
+                stompClient?.send(`/user/send/${kioskNo}`,{} , JSON.stringify(message));
+                console.log(message);
+                //setTotalCashPrice(0);
             }
         } else {
             // 결제 실패
             // 리턴값 set[] 비워주기
         }
+
     }    
 
     return (
@@ -87,7 +108,7 @@ const DutchpayByMenu = (props) => {
                                         </li>
                                         <li>
                                             <Button variant="secondary" onClick={() => {handleCardPaymentClick(); handleDutchByMenu(menu);} }>카드결제</Button>{' '}
-                                            <Button variant="secondary" onClick={handleCashPaymentClick}>현금결제</Button>
+                                            <Button variant="secondary" onClick={() => {handleCashPaymentClick(menu); handleDutchByMenu(menu);} }>현금결제</Button>
                                         </li>
                                     </ul>
                                 ))
