@@ -26,7 +26,6 @@
 			</div>
 			<div class="order-page-content">
 				<c:forEach var="menuList" items="${orderPage.menuOption}">
-					
 					<li>
 						${menuList.cnt} x ${menuList.menuName}
 						<c:if test="${menuList.optionName ne null}">
