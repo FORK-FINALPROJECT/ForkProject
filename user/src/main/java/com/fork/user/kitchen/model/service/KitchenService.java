@@ -11,7 +11,5 @@ public interface KitchenService {
 
 	List<MenuOption> selectMenulist(int no);
 
-	PayStructure selectTableInfo(int rno);
-
 	
 }

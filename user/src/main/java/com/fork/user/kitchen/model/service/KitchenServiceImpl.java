@@ -25,10 +25,5 @@ public class KitchenServiceImpl implements KitchenService {
 		return kitchenDao.selectMenulist(no);
 	}
 
-	@Override
-	public PayStructure selectTableInfo(int rno) {
-		return kitchenDao.selectTableInfo(rno);
-	}
-
 
 }

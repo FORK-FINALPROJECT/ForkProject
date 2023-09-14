@@ -22,10 +22,6 @@ public class KitchenDao {
 	public List<MenuOption> selectMenulist(int no) {
 		return sqlSession.selectList("kitchenMapper.selectMenulist", no);
 	}
-
-	public PayStructure selectTableInfo(int rno) {
-		return sqlSession.selectOne("kitchenMapper.selectTableInfo", rno);
-	}
 	
 	
 

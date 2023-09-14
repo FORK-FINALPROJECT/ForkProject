@@ -39,16 +39,8 @@
 		    LEFT JOIN PAY             P ON P.PAY_NO = R.PAY_NO
 		    JOIN CATEGORY             C ON C.CATEGORY_NO = M.CATEGORY_NO
 		WHERE
-		        R.RECEIPT_NO = #{no} AND NOT C.CATEGORY_NO IN (4, 5) AND NOT C.PR_CATEGORY_NO IN (4, 5)
+		        TR.TR_NO = #{no} AND NOT C.CATEGORY_NO IN (4, 5) AND NOT C.PR_CATEGORY_NO IN (4, 5)
 		    GROUP BY P.PAY_NO, RM.MENU_NO 
-	</select>
-	
-	<select id="selectTableInfo" resultType="payStructure">
-		SELECT TR_NO, PAY_DATE, STRUC_TITLE
-		FROM TOTAL_RECEIPT
-		JOIN RECEIPT USING (TR_NO)
-		LEFT JOIN STRUCTURE USING (KIOSK_NO)
-		JOIN PAY USING (PAY_NO)
-		WHERE ORDER_STATUS = 'Y' AND RECEIPT_NO = #{rno}
+		    
 	</select>
 </mapper>
