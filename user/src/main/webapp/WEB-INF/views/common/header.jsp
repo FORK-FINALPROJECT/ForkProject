@@ -21,8 +21,8 @@
             <div class="header_btn" onclick="location.href='menu'" id="header-menu">메뉴</div>
             <div class="header_btn" onclick="location.href='license'" id="header-license">결제</div>
             <div class="header_btn">문의</div>
+            <div class="header_btn" onclick="location.href='kitchen'">주방으로가기</div>
             <div class="header_btn" onclick="location.href='logout'">로그아웃</div>
-            <div class="header_btn" id="btnSend">socket테스트</div>
             <div id="time"></div>
             <div class="forklogo">
                 <img src="resources/img/fork2.png" width="100px" />
