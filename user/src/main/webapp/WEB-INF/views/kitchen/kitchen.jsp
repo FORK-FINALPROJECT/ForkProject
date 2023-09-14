@@ -16,32 +16,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 
-<script>
-var socket = null;
-
-$(document).ready( function(){
-	connectStomp();
-	// socket.send('/TTT', {}, "msg: hoho");
-});
-function connectStomp(){
-	var sock = new SockJS("http://192.168.130.18:8083/kiosk/user");
-	// endpoint
-	var client = Stomp.over(sock);
-	socket = client;
-	
-	client.connect({}, function(){
-		console.log("Connected stompTest");
-		// client.send('/TTT', {}, "msg: haha");
-		
-		client.subscribe('/kiosk/1', function (event){
-			console.log("!!!!!event>>>>>", event)
-			console.log(event.body)
-		})
-	})
-	
-}
-</script>
-
 <div class="outer">
 
 	<c:if test="${not empty orderList}">
