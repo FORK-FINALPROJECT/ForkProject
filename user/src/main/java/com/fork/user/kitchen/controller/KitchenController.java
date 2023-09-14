@@ -37,4 +37,20 @@ public class KitchenController {
         
     }
 	
+	@GetMapping("/kitchen/newOrder")
+	@ResponseBody
+	public PayStructure newOrder(int rno) {
+		
+		// 테이블정보 조회
+		PayStructure newOrder = kitchenService.selectTableInfo(rno);
+		
+		if ( newOrder != null ) {
+			List<MenuOption> menuList = kitchenService.selectMenulist(rno);
+			newOrder.setMenuOption(menuList);
+		}
+		
+		return newOrder;		
+		
+	}
+	
 }
