@@ -1,26 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import {useReceiptStore} from '../store/receiptViewStore';
-import useSocketStore from '../store/socketStore';
-//import useModalStore from '../store/useModalStore';
 
-function Dingdong(props) {
-    //const {standeByTimer , setStandeByTimer , getStandeByTimer} = useModalStore();
-    const [modalTimer, setModalTimer] = useState(10); // 모달 시간 설정
-    
-    const kioskNo = useReceiptStore((state) => state.kioskNo);
+function DutchpayByPriceModal(props) {
 
-    const {stompClient , setStompClient} = useSocketStore();
+    const [modalTimer, setModalTimer] = useState(3); // 모달 시간 설정
 
     useEffect(() => {
 
         let timer;
-
-        let message = {
-            kioskNo : kioskNo,
-            price : 0,
-        };
 
         // 모달이 열릴 때 타이머 시작
         if (props.show) {
@@ -32,18 +20,16 @@ function Dingdong(props) {
                     setModalTimer(modalTimer - 1);
                 }
             }, 1000); // 1초마다 실행
-            stompClient?.send(`/user/send/${kioskNo}`,{} , JSON.stringify(message));
-            //getStandeByTimer()?.forEach( timer =>clearTimeout(timer));
         } else {
             // 모달이 닫힐 때 타이머 초기화
-            setModalTimer(10);
+            setModalTimer(3);
         }
 
         // 컴포넌트가 언마운트될 때 타이머 초기화
         return () => {
             clearInterval(timer);
         };
-    }, [modalTimer, props, kioskNo, stompClient]);
+    }, [modalTimer, props]);
 
     return (
         <Modal
@@ -54,13 +40,12 @@ function Dingdong(props) {
         >
             <Modal.Header>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    직원호출
+                    <div> <br></br></div>
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <div>
-                    <h1>직원을 호출하셨습니다.</h1> <br/>
-                    <h1>잠시만 기다려주세요.</h1> <br/>
+                    <h1>금액별 결제는 최대 10개까지 가능합니다.</h1> <br/>
                     <h1>{modalTimer}초 후에 자동으로 창이 닫힙니다.</h1>
                 </div>
             </Modal.Body>
@@ -71,4 +56,4 @@ function Dingdong(props) {
     );
 }
 
-export default Dingdong;
+export default DutchpayByPriceModal;
