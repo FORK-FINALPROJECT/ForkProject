@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fork.kiosk.main.model.service.KioskService;
 import com.fork.kiosk.main.model.vo.Category;
 import com.fork.kiosk.main.model.vo.Coo;
+import com.fork.kiosk.main.model.vo.Receipt;
 import com.fork.kiosk.main.model.vo.TotalReceipt;
 
 import lombok.extern.slf4j.Slf4j;
@@ -76,9 +77,12 @@ public class KioskController {
 				// 영수증테이블 insert
 				int receiptNo = kioskService.insertReceipt(param);
 				log.info("receiptNo : {}" , receiptNo);
+				log.info("param.receiptNO : {}" , param.get("receiptNo"));
 				if(receiptNo > 0) {
 					// 영수증별메뉴, 옵션 insert
 					int result = kioskService.insertReceiptMenus(param);
+					// 뽑아온 영수증 번호로 초기화
+					receiptNo = (int) param.get("receiptNo");
 					log.info("result : {}" , result);
 					if(result > 0) {
 						log.info("param : {}" , param);
@@ -92,9 +96,8 @@ public class KioskController {
 		return 0;
 	}
 	
-	// 함수를 다시 만들자
-	@PostMapping("/dutchByMenu/{kioskNo}")
-	public int dutchByMenu( @PathVariable("kioskNo") int kioskNo , 
+	@PostMapping("/dutchPay/{kioskNo}")
+	public int dutchPay( @PathVariable("kioskNo") int kioskNo , 
 							@RequestBody HashMap<String ,Object> param ) {
 		
 		param.put("kioskNo", kioskNo);
@@ -105,7 +108,7 @@ public class KioskController {
 		log.info("totalReceiptNo : {}" , totalReceiptNo);
 		if(totalReceiptNo > 0) {
 			// 결제테이블 insert
-			int payNo = kioskService.insertDutchByMenuPay(param);
+			int payNo = kioskService.insertDutchPay(param);
 			log.info("payNo : {}" , payNo);
 			if(payNo > 0) {
 				// 영수증테이블 insert
@@ -113,12 +116,14 @@ public class KioskController {
 				log.info("receiptNo : {}" , receiptNo);
 				if(receiptNo > 0) {
 					// 영수증별메뉴, 옵션 insert
-					int result = kioskService.insertReceiptMenusDutchByMenu(param);
+					int result = kioskService.insertReceiptMenusDutchPay(param);
+					// 뽑아온 영수증 번호로 초기화
+					receiptNo = (int) param.get("receiptNo");
 					log.info("result : {}" , result);
 					if(result > 0) {
 						log.info("param : {}" , param);
 						// 오직 이 경우에만 정상적으로 모든 데이터가 insert
-						return 1;
+						return receiptNo;
 					}
 				}
 			}

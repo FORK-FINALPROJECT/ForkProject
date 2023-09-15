@@ -24,9 +24,9 @@ public interface KioskService {
 
 	int insertReceiptMenus(HashMap<String, Object> param);
 
-	int insertDutchByMenuPay(HashMap<String, Object> param);
+	int insertDutchPay(HashMap<String, Object> param);
 
-	int insertReceiptMenusDutchByMenu(HashMap<String, Object> param);
+	int insertReceiptMenusDutchPay(HashMap<String, Object> param);
 	
 
 }
