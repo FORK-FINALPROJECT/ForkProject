@@ -183,11 +183,9 @@ align-items: center; */
     align-items: center;
 }
 
-
-
 .detail-category>a,.receipt-header>a, .cart-header>a{
     width: 100%;
-    height: 70%;
+    height: 90%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -475,11 +473,11 @@ a:hover{
     background-color: rgb(255, 107, 27);
     width: 100%;
     height: 90%;
-    border-top-left-radius: 25%;
-    border-top-right-radius: 25%;
+    border-top-left-radius: 10%;
+    border-top-right-radius: 10%;
     position: relative;
     bottom: -10%;
-    cursor:pointer;
+    cursor: pointer;
     z-index: 3;
 }
 

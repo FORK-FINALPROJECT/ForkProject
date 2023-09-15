@@ -5,7 +5,10 @@ const useCartStore = create((set, get) => ({
     cartId : 0,
     cartTotalPrice : 0,
     setCartTotalPrice : (cartTotalPrice) => set({cartTotalPrice}),
-    setCartItems : (cartItems) => set({cartItems}),
+    setCartItems : (cartItems) => {
+        set({cartItems});
+       // get().saveCartToLocalStorage();
+    },
     // setSelectedPaymentMethod: (method) => set({ selectedPaymentMethod: method }),
     addToCart : (menuItem) => {
         // menuItem.id = await get().cartId;
@@ -16,6 +19,7 @@ const useCartStore = create((set, get) => ({
             cartTotalPrice = cartTotalPrice + newItem.totalPrice;
             return {cartItems: [...state.cartItems, newItem], cartId: state.cartId+1 , cartTotalPrice};
         })
+       //get().saveCartToLocalStorage();
     },
     resetCartStore : () =>  set({ cartItems: [], cartId: 0, cartTotalPrice: 0 }),
     setNewCartAfterDutchByMenu : (menu, menuTotalPrice) => {
@@ -31,6 +35,20 @@ const useCartStore = create((set, get) => ({
             return { cartItems: updatedCartItems, cartId: state.cartId, cartTotalPrice: newCartTotalPrice };
         });
         return get().cartItems;
+    },
+
+    saveCartToLocalStorage : () => {
+        const {cartItems, cartId, cartTotalPrice } = get();
+        const cartData = {cartItems, cartId, cartTotalPrice};
+        localStorage.setItem("cartData", JSON.stringify(cartData));
+    },
+
+    restoreCartFromLocalStorage: () => {
+        const savedCartData = localStorage.getItem("cartData");
+        if(savedCartData) {
+            const {cartItems, cartId, cartTotalPrice} = JSON.parse(savedCartData);
+            set({ cartItems, cartId, cartTotalPrice});
+        }
     }
 }));
 
