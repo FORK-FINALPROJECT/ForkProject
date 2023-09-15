@@ -9,7 +9,7 @@ const CartView = () => {
 
     // 결제 모달
     const [modalShow, setModalShow] = useState(false);
-    const {cartItems, setCartItems , cartTotalPrice, setCartTotalPrice } = useCartStore();
+    const {cartItems, setCartItems , cartTotalPrice, setCartTotalPrice, restoreCartFromLocalStorage } = useCartStore();
     // {
     //얻어온 데이터를 바탕으로 메뉴정보 보여주기 
     // 메뉴정보 : 메뉴 이미지, 메뉴이름, total가격 , 옵션리슽, 개수
@@ -56,6 +56,11 @@ const CartView = () => {
             })
         setCartItems(cartItemsresult);
     }
+
+    useEffect(() => {
+        restoreCartFromLocalStorage();
+        console.log("보이냐아ㅏㅏㅏ",restoreCartFromLocalStorage);
+    },[]);
 
     return (
         <>

@@ -29,6 +29,7 @@ const ReceiptDetailViewl = () => {
         }
     }
 
+    // console.log(receiptItem); 왜때문에 빈배열;;;
     return (
         <div className="receipt-detail-header-wrap scrollable">
             <div key={receiptItem?.receiptNo}>

@@ -11,7 +11,6 @@ const LoginView = () => {
     const {setReceiptItems} = useReceiptStore();
     const [loginSuccess, setLoginSuccess] = useState(false);
     
-
     //const {setIsLoggedIn} = prop;
 
     const handleLogin = (e) => {
