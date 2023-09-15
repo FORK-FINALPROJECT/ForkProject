@@ -68,7 +68,9 @@ function App() {
   }, []);
 
   const [standByScreen, setStandByScreen] = useState(false);
-  const {setStandeByTimer} = useModalStore();
+  const timerArr = [];
+  const {setStandeByTimer , getStandeByTimer} = useModalStore();
+
   useEffect(  () => {
     let standeByTimer;
     const resetStandByTimer = () => {
@@ -76,12 +78,14 @@ function App() {
       standeByTimer = setTimeout(() => {
         setStandByScreen(true);
       }, 1 * 100 * 100); // 30초로 바꿔놓음 // 이거 다시 3으로 바꿔놔야함!
-      setStandeByTimer(standeByTimer);
+      timerArr.push(standeByTimer);
+      setStandeByTimer(timerArr);
     };
 
     const handleUserUsing = () => {
       // 사용자가 사용시 타이머 재설정
       clearTimeout(standeByTimer);
+      timerArr.pop();
       setStandByScreen(false);
       resetStandByTimer();
     };
@@ -92,17 +96,22 @@ function App() {
     // 사용자가 사용하고 타이머 재설정
     document.addEventListener('mousemove', () => {
 
-      setTimeout(() => {
+      setTimeout(() => { // 이색기가 문제
         handleUserUsing()
       }, 100)
-      
-    });
-    document.addEventListener('keydown', handleUserUsing);
 
+    });
+
+    const deleteFullScreen = () => {
+      getStandeByTimer()?.forEach( timer =>clearTimeout(timer))
+    }
+    document.addEventListener('keydown', handleUserUsing);
+    document.addEventListener('click',deleteFullScreen);
     // 언마운트될때 이벤트 제거
     return () => {
       document.removeEventListener('mousemove', handleUserUsing);
       document.removeEventListener('keydown', handleUserUsing);
+      document.removeEventListener('click', deleteFullScreen);
       clearTimeout(standeByTimer);
     };
   }, [standByScreen]);
