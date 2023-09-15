@@ -19,9 +19,11 @@
             box-sizing: border-box;
         }
 
+		
+
         body {
             background-color: #eee;
-            height: 700px;
+            height: 950px;
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(to top, #fff 10%, #FF8B3D 60%) no-repeat;
             overflow: hidden;
@@ -30,9 +32,12 @@
         .wrapper {
             max-width: 500px;
             border-radius: 10px;
-            margin: 130px auto;
             padding: 30px 40px;
             box-shadow: 20px 20px 80px rgb(206, 206, 206);
+            position: absolute;
+        	left: 50%; 
+        	top: 50%;
+        	transform: translate(-50%,-50%);
         }
 
         .h2 {

@@ -24,5 +24,12 @@ public class WebsocketUserController {
         return message;
     }
     
+    // 클리어 테이블
+    @MessageMapping("/send/claerTable/{kioskNo}")
+    @SendTo("/kiosk/clearTable/{kioskNo}")
+    public String sendClearTable(@DestinationVariable("kioskNo") String kioskNo, String message) {
+       return message;
+    }
+    
 
 }

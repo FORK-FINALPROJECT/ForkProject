@@ -3,17 +3,49 @@ $('.struc_table').click(function(e){
     $('#struc_detail').modal("show");
 });
 
+// 모달창 기능
+const alertPage = document.getElementById('alertPage');
+
+function openModal() {
+    alertPage.style.display = 'block';
+}
+
+function closeModal() {
+    alertPage.style.display = 'none';
+}
+
+window.addEventListener('click', (event) => {
+    if (event.target === alertPage) {
+        closeModal();
+    }
+});
+
+$("#clear-table").click(function () {
+    const kioskNo = document.getElementById('kiosk-no').value; // 클릭 이벤트 핸들러 내에서 kioskNo를 가져옵니다.
+
+    $.ajax({
+        url : 'clearTable',
+        data : { kioskNo: kioskNo }, // 클릭 이벤트 핸들러 내에서 정의한 kioskNo를 사용합니다.
+        success(result){
+            if (result > 0) {
+                document.location.reload();
+            }
+        }
+    });
+    
+    socket.send(`/user/send/claerTable/${kioskNo}`, {}, kioskNo); // 변수 이름을 kioskNo로 수정
+});
+
 $(document).ready(function() {
 	socketst();
 	
-	/*
-	$('#btnSend').on('click', function(evt) {
+	/*$('.cleartable').on('click', function(evt) {
 		evt.preventDefault();
 		if(!isStomp && socket.readyState !== 1) return;
 			let msg = 1;
 			console.log("mmmmmmmmm>>", msg);
 			if(isStomp){
-				socket.send('/TTT', {}, msg);
+				socket.send('/user/send/claerTable/{kioskNo}', {}, msg);
 			} else {
 				socket.send(msg);
 			}
@@ -24,6 +56,7 @@ $(document).ready(function() {
 var socket = null;
 var isStomp = false;
 
+const notificationSound = document.getElementById('notificationSound');
 
 function socketst() {
 	var sock = new SockJS("http://192.168.130.18:8083/kiosk/user");
@@ -31,66 +64,71 @@ function socketst() {
 	isStomp = true;
 	socket = client;
 	
-	
-	
 	client.connect({}, function() {
 		console.log("Connected stompTest!");
 		
-		client.send('/user/send/1', {}, 1);
+		// client.send('/user/send/3', {}, 3);
 		
-		client.subscribe('/kiosk/3', function(event){
-			console.log(event);
+		for(let j = 1; j < 11; j++) {
 			
-			try {
-			    const data = JSON.parse(event.body); // JSON 형식의 문자열을 파싱하여 객체로 변환
-			    console.log(data.kioskNo); // kioskNo 값을 출력
-			    
-			    
-				if(data.price == null){
-					
-					$.ajax({
-						url : "selectDetailMenu",
-						data : {kioskNo : 3},
-						success : function(result) {
-							var html = "";
-							var tprice = 0;
-							for(let i = 0; i < result.length; i++) {
-								html += `<div class="menu">
-	                                        <div class="menu_title">${result[i].menuName}</div>
-	                                        <div class="menu_cnt">${result[i].cnt}</div>
-	                                    </div>`;
-	                           	tprice += result[i].price;
-							}
-							
-							html += `<div class="menu_price">
-	                                	${tprice}원
-	                            	 </div>`;
-	                        
-	                        console.log(html);
-	                        
-	                        $("#kiosk3>.struc_title").after(html); 
-	                        $("#kiosk3").addClass("in_menu");
-						} 
-					});
-				} else {
-					alert(data.kioskNo + "번 테이블 현금결제 요망");
-				}
-			    
-			  } catch (error) {
-			    console.error('JSON 파싱 오류:', error);
-			  }
-			
-			// console.log($("#kiosk"+3).val()); // 수정요망
-			
-		});
+			const kioskPath = `/kiosk/${j}`;
 		
-		// client.subscribe('/kiosk/2', function(event){
-		// 	 console.log("glgl>>", event)
-		// });
+			client.subscribe(kioskPath, function(event){
+				console.log(event);
+				
+				try {
+				    const data = JSON.parse(event.body); // JSON 형식의 문자열을 파싱하여 객체로 변환
+				    console.log(data.kioskNo); // kioskNo 값을 출력
+				    
+				    
+					if(data.price == null){
+						
+						$.ajax({
+							url : "selectDetailMenu",
+							data : {kioskNo : j},
+							success : function(result) {
+								var html = "";
+								var tprice = 0;
+								for(let i = 0; i < result.length; i++) {
+									html += `<div class="menu">
+		                                        <div class="menu_title">${result[i].menuName}</div>
+		                                        <div class="menu_cnt">${result[i].cnt}</div>
+		                                    </div>`;
+		                           	tprice += result[i].price;
+								}
+								
+								html += `<div class="menu_price">
+		                                	${tprice}원
+		                            	 </div>`;
+		                        
+		                        console.log(html);
+		                        
+		                        $(`#kiosk${j} > .struc_title`).after(html); 
+                        		$(`#kiosk${j}`).addClass("in_menu");
+							} 
+						});
+					} else if(data.price == 0) {
+					 	const text1 = data.kioskNo + '번 테이블에서 호출하였습니다. <button class="closebutton" onclick="closeModal()">확인</button>'
+						$(".alertPage-content").html(text1);
+						notificationSound.play();
+					 	openModal();
+					} else {
+						const text2 = data.kioskNo + '번 테이블 현금결제 요망. <button class="closebutton" onclick="closeModal()">확인</button>'
+						$(".alertPage-content").html(text2);
+						notificationSound.play();
+						openModal();
+					}
+				    
+				  } catch (error) {
+				    console.error('JSON 파싱 오류:', error);
+				  }
+				
+			});
+		}
+		
 	
 	});
 }
-
 
 function detail_order(title, no){
     $.ajax({
@@ -166,6 +204,7 @@ function insertStructure(){
     })
 }
 
+/*
 $("#clear-table").click(function (){
     
     $.ajax({
@@ -178,3 +217,4 @@ $("#clear-table").click(function (){
         }
     })
 })
+*/

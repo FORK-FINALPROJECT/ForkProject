@@ -32,7 +32,6 @@ public class ChartController {
 		day.put("endDay", endDay);
 		
 		List<Chart> list = chartService.loadChart(day);
-		
         return list;
     }
 	

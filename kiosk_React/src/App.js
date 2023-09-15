@@ -2,7 +2,7 @@
 import './resources/css/nav, sidbar, receipt, cart.css';
 import './resources/css/kiosk.css';
 // components
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link   } from 'react-router-dom';
 import Headers from './components/Headers';
 import Sidebar from './components/Sidebar';
 import ReceiptView from './components/ReceiptView';
@@ -15,6 +15,7 @@ import useFullscreen from './components/useFullscreen';
 import React, { useEffect, useState } from 'react';
 import { useCategoryStore } from './store/mainViewStore';
 import { useReceiptStore } from './store/receiptViewStore';
+import useModalStore from './store/useModalStore';
 // 터치 / 터치스크롤로 수정하기
 // 화면보호기 화면
 const standByScreen1 = () => <div id='standByScreen'><img src={require('./resources/image/standByScreen1.png')} /></div>
@@ -67,15 +68,15 @@ function App() {
   }, []);
 
   const [standByScreen, setStandByScreen] = useState(false);
-
-  useEffect(() => {
+  const {setStandeByTimer} = useModalStore();
+  useEffect(  () => {
     let standeByTimer;
-
     const resetStandByTimer = () => {
       // 해당 시간동안 동작이 없으면 실행
       standeByTimer = setTimeout(() => {
         setStandByScreen(true);
-      }, 3 * 100 * 100); // 30초로 바꿔놓음
+      }, 1 * 100 * 100); // 30초로 바꿔놓음 // 이거 다시 3으로 바꿔놔야함!
+      setStandeByTimer(standeByTimer);
     };
 
     const handleUserUsing = () => {
@@ -90,9 +91,11 @@ function App() {
 
     // 사용자가 사용하고 타이머 재설정
     document.addEventListener('mousemove', () => {
+
       setTimeout(() => {
         handleUserUsing()
       }, 100)
+      
     });
     document.addEventListener('keydown', handleUserUsing);
 
