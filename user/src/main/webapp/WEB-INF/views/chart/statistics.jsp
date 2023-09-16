@@ -11,7 +11,7 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 <link rel="stylesheet" href="resources/css/chart/statistics.css">
-<link rel="stylesheet" href="resources/css/adminLee.css">
+<link rel="stylesheet" href="resources/css/sales.css">
 
 </head>
 <body>
