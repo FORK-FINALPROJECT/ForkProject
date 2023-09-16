@@ -1,5 +1,4 @@
- <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="<%= request.getContextPath() %>"/>
 <!DOCTYPE html>
@@ -25,13 +24,17 @@
             height: 100px;
             margin-top: 80px;
         }
+        
+        .content_nav {
+        	width: 95%;
+        }
 
         .content_nav > div {
             float: left;
         }
 
         .content_title {
-            width: 1100px;
+            width: 60%;
             font-size: 40px;
             font-family: Arial, Helvetica, sans-serif;
             font-weight: bolder;
@@ -40,7 +43,7 @@
         }
 
         .btn1 {
-            width: 150px;
+            width: 8%;
             height: 56px;
             display: flex;
             margin-top : 20px;
@@ -72,7 +75,7 @@
         }
 
         .option_table {
-            width: 1500px;
+            width: 88%;
             margin: 0 auto;
             border-bottom: 1px solid lightgray;
             border-spacing: 0px;
@@ -289,6 +292,8 @@
         </div>
         </form>
     </div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <script>
         const insertCoo = document.querySelector('.insertCoo');

@@ -36,9 +36,12 @@
         .wrapper {
             max-width: 400px;
             border-radius: 10px;
-            margin: 220px auto;
             padding: 30px 40px;
             background-color: white;
+            position: absolute;
+	        left: 50%; 
+	        top: 50%;
+	        transform: translate(-50%,-50%);
         }
 
         .h2 {

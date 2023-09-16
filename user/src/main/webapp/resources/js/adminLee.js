@@ -59,7 +59,7 @@ var isStomp = false;
 const notificationSound = document.getElementById('notificationSound');
 
 function socketst() {
-	var sock = new SockJS("http://192.168.130.18:8083/kiosk/user");
+	var sock = new SockJS("http://192.168.0.64:8083/kiosk/user");
 	var client = Stomp.over(sock);
 	isStomp = true;
 	socket = client;
@@ -113,6 +113,33 @@ function socketst() {
 						notificationSound.play();
 					 	openModal();
 					} else {
+						
+						$.ajax({
+							url : "selectDetailMenu",
+							data : {kioskNo : j},
+							success : function(result) {
+							
+								var html = "";
+								var tprice = 0;
+								for(let i = 0; i < result.length; i++) {
+									html += `<div class="menu">
+		                                        <div class="menu_title">${result[i].menuName}</div>
+		                                        <div class="menu_cnt">${result[i].cnt}</div>
+		                                    </div>`;
+		                           	tprice += result[i].price;
+								}
+								
+								html += `<div class="menu_price">
+		                                	${tprice}원
+		                            	 </div>`;
+		                        
+		                        console.log(html);
+		                        
+		                        $(`#kiosk${j} > .struc_title`).after(html); 
+                        		$(`#kiosk${j}`).addClass("in_menu");
+							} 
+						});
+					
 						const text2 = data.kioskNo + '번 테이블 현금결제 요망. <button class="closebutton" onclick="closeModal()">확인</button>'
 						$(".alertPage-content").html(text2);
 						notificationSound.play();

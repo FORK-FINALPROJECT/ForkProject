@@ -192,42 +192,79 @@ FORK는 개인정보보호법 등 관련 법령상의 개인정보 보호 규정
         </form>
     </div>
     <script>
-    	// HTML에서 모두 동의하는 체크박스와 하위 체크박스들의 클래스를 설정
-	    var masterCheckbox = document.querySelector('.btn.btn-all');
-	    var childCheckboxes = document.querySelectorAll('.btn:not(.btn-all)'); // "모두 동의합니다." 체크박스 제외
-	
-	    // "모두 동의합니다." 체크박스를 클릭했을 때 실행되는 함수
-	    masterCheckbox.addEventListener('click', function () {
-	        // 모두 동의합니다. 체크박스의 상태를 가져옴
-	        var isChecked = masterCheckbox.checked;
-	
-	        // 하위 체크박스들의 상태를 모두 동일하게 설정
-	        for (var i = 0; i < childCheckboxes.length; i++) {
-	            childCheckboxes[i].checked = isChecked;
-	        }
-	    });
-	
-	    // 하위 체크박스 중 하나라도 체크가 해제되면 "모두 동의합니다." 체크박스도 체크 해제
-	    for (var i = 0; i < childCheckboxes.length; i++) {
-	        childCheckboxes[i].addEventListener('click', function () {
-	            // 하위 체크박스 중 하나라도 체크 해제된 경우
-	            if (!this.checked) {
-	                masterCheckbox.checked = false;
-	            } else {
-	                // 모든 하위 체크박스가 선택되었을 때 "모두 동의합니다." 체크박스도 체크
-	                var allChecked = true;
-	                for (var j = 0; j < childCheckboxes.length; j++) {
-	                    if (!childCheckboxes[j].checked) {
-	                        allChecked = false;
-	                        break;
-	                    }
-	                }
-	                if (allChecked) {
-	                    masterCheckbox.checked = true;
-	                }
-	            }
-	        });
-	    }
+    	
+ 	// HTML에서 각 체크박스와 라벨 또는 스팬 요소를 가져옵니다.
+    var termsCheckbox = document.querySelector('.btn[required] + label'); // 이용약관 동의 체크박스와 라벨
+    var privacyCheckbox = document.querySelectorAll('.btn[required] + label')[1]; // 개인정보 수집 및 이용 동의 체크박스와 라벨
+    var thirdPartyCheckbox = document.querySelectorAll('.btn[required] + label')[2]; // 개인정보 제3자 제공 동의 체크박스와 라벨
+
+    // 각 라벨 또는 스팬을 클릭했을 때 해당 체크박스를 체크하도록 이벤트 리스너를 추가합니다.
+    termsCheckbox.addEventListener('click', function () {
+        var checkbox = this.previousElementSibling; // 체크박스 엘리먼트를 가져옵니다.
+        checkbox.checked = !checkbox.checked; // 체크 상태를 변경합니다.
+    });
+
+    privacyCheckbox.addEventListener('click', function () {
+        var checkbox = this.previousElementSibling; // 체크박스 엘리먼트를 가져옵니다.
+        checkbox.checked = !checkbox.checked; // 체크 상태를 변경합니다.
+    });
+
+    thirdPartyCheckbox.addEventListener('click', function () {
+        var checkbox = this.previousElementSibling; // 체크박스 엘리먼트를 가져옵니다.
+        checkbox.checked = !checkbox.checked; // 체크 상태를 변경합니다.
+    });
+    
+    /* ======================================================= */
+    
+    
+    // "모두 동의합니다" 체크박스와 그 라벨 요소, 필수 체크박스 요소들을 가져옵니다.
+    var masterCheckbox = document.querySelector('.btn.btn-all');
+    var masterLabel = document.querySelector('.btn.btn-all + label');
+    var requiredCheckboxes = document.querySelectorAll('.btn[required]');
+
+    // "모두 동의합니다" 체크박스를 클릭했을 때 실행되는 함수
+    masterCheckbox.addEventListener('click', function () {
+        // "모두 동의합니다" 체크박스의 상태를 가져옵니다.
+        var isChecked = masterCheckbox.checked;
+
+        // 모든 필수 체크박스의 상태를 모두 동일하게 설정합니다.
+        for (var i = 0; i < requiredCheckboxes.length; i++) {
+            requiredCheckboxes[i].checked = isChecked;
+        }
+    });
+
+    // "모두 동의합니다" 체크박스의 라벨(label)를 클릭했을 때 "모두 동의합니다" 체크박스의 상태를 변경합니다.
+    masterLabel.addEventListener('click', function () {
+        masterCheckbox.checked = !masterCheckbox.checked;
+
+        // "모두 동의합니다" 체크박스의 상태가 변경되면 필수 체크박스들의 상태도 변경합니다.
+        for (var i = 0; i < requiredCheckboxes.length; i++) {
+            requiredCheckboxes[i].checked = masterCheckbox.checked;
+        }
+    });
+
+    // 필수 체크박스 중 하나라도 체크가 해제되면 "모두 동의합니다" 체크박스도 체크 해제
+    for (var i = 0; i < requiredCheckboxes.length; i++) {
+        requiredCheckboxes[i].addEventListener('click', function () {
+            // 필수 체크박스 중 하나라도 체크 해제된 경우
+            if (!this.checked) {
+                masterCheckbox.checked = false;
+            } else {
+                // 모든 필수 체크박스가 선택되었을 때 "모두 동의합니다" 체크박스도 체크
+                var allChecked = true;
+                for (var j = 0; j < requiredCheckboxes.length; j++) {
+                    if (!requiredCheckboxes[j].checked) {
+                        allChecked = false;
+                        break;
+                    }
+                }
+                if (allChecked) {
+                    masterCheckbox.checked = true;
+                }
+            }
+        });
+    }
+
 	</script>
 
 

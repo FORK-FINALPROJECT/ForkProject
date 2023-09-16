@@ -28,17 +28,21 @@
 	float: left;
 }
 
+.content_nav{
+	width: 95%;
+}
+
 .content_title {
-	width: 900px;
+	width: 50%;
 	font-size: 40px;
 	font-family: Arial, Helvetica, sans-serif;
 	font-weight: bolder;
-	margin-left: 6%;
+	margin-left: 8%;
 	margin-top: 20px;
 }
 
 .btn1 {
-	width: 150px;
+	width: 8%;
 	height: 56px;
 	display: flex;
 	margin-top: 20px;
@@ -272,7 +276,7 @@ textarea {
 	padding-left: 10px;
 	background-color: rgb(50, 50, 50);
 	color: white; 
-	width: 1500px;
+	width: 1506px;
 	margin: 0 auto; 
 	line-height: 50px;
 }

@@ -18,7 +18,6 @@
     <style>
     /* 모달 스타일 */
     .alertPage {
-        display: none;
         position: fixed;
         z-index: 1;
         left: 0;
@@ -27,11 +26,18 @@
         height: 100%;
         background-color: rgba(0, 0, 0, 0.4);
         overflow: auto;
+        position: absolute;
+	    left: 50%; 
+	    top: 50%;
+	    transform: translate(-50%,-50%);
+	    display: flex;
+    	justify-content: center; /* 수평 중앙 정렬 */
+    	align-items: center; /* 수직 중앙 정렬 */
     }
 
     .alertPage-content {
-        background-color: navy;
-        color: white;
+        background-color: white;
+        color: black;
         margin: 17% auto;
         padding: 20px;
         border: 1px solid #888;
@@ -41,19 +47,22 @@
         text-align: center;
         font-size: 40px;
         font-weight: bold;
-        display: grid;
-    	grid-template-columns: 1fr; /* 1개의 열을 생성하여 세로로 정렬합니다. */
-    	justify-items: center; /* 세로 정렬을 수행합니다. */
+        display: flex;
+	    flex-direction: column;
+	    justify-content: center;
+	    align-items: center;
+	    text-align: center;
     }
 
     .closebutton {
         width: 350px;
         margin: 20px auto;
         display: block;
-        color: black;
-        backgrond-color: white; 
+        color: white;
+        background-color: #FF8B3D;
         border-radius: 10px;
         height: 80px;
+        border: none;
     } 
     
     .closebutton:hover {
