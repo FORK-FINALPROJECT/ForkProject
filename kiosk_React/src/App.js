@@ -77,7 +77,7 @@ function App() {
       // 해당 시간동안 동작이 없으면 실행
       standeByTimer = setTimeout(() => {
         setStandByScreen(true);
-      }, 1 * 100 * 100); // 30초로 바꿔놓음 // 이거 다시 3으로 바꿔놔야함!
+      }, 15 * 100 * 100); // 30초로 바꿔놓음 // 이거 다시 3으로 바꿔놔야함!
       timerArr.push(standeByTimer);
       setStandeByTimer(timerArr);
     };

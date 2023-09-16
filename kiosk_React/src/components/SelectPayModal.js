@@ -13,18 +13,6 @@ function SelectPayModal(props) {
     const [modalTimer, setModalTimer] = useState(10); // 초 단위로 설정
     const [timer, setTimer] = useState(null);
 
-    const [receiptNo , setReceiptNo] = useState([]);
-
-    // 받아온 영수증 번호 담아주기
-    const addReceiptNo = (newReceiptNo) => {
-        setReceiptNo([...receiptNo, newReceiptNo]);
-        return [...receiptNo, newReceiptNo];
-    }
-    // 소켓통신이 완료되면 영수증 번호 지워주기
-    const resetReceiptNo = () => {
-        setReceiptNo([]);
-    }
-
     const { cartItems, cartTotalPrice, resetCartStore } = useCartStore();
     const kioskNo = useReceiptStore((state) => state.kioskNo);
 
@@ -43,22 +31,12 @@ function SelectPayModal(props) {
     const handleBasicPay = async () => {
         let result = await basicPay(kioskNo, cartItems, cartTotalPrice);
         if (result > 0) {
-            // 결제 성공
-            // 영수증번호 배열에 담아주기
-            let receiptNoList = addReceiptNo(result); // 저장된 영수증 번호(이걸 소켓에서 보내주심 됩니다. 배열형태에요)
-            console.log('****receiptNoList : ', receiptNoList);
-
+            // 성공
+            handleResetCartStore();
             stompClient?.send(`/user/send/${kioskNo}`, {}, JSON.stringify(message));
-            // 1. 소켓이 정상적으로 보내졌을 경우
-            handleResetCartStore(); // 카트비워주기
-            resetReceiptNo(); // 영수증번호 리스트 비워주기
 
-            // 2. 아니면 소켓 다시 진행 반복
-            // 소켓 반복
         } else {
-            // 결제 실패
-            // 영수증번호 리스트 비워주기
-            resetReceiptNo();
+            // 실패
         }
     }
 

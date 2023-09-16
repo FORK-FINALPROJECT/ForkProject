@@ -104,12 +104,12 @@ const CartView = () => {
                                 ))}
                             </div>
                         )}
-                        {cartTotalPrice ? (
+                        {/* {cartTotalPrice ? (
                         <div className="cartview-total-price">총합 : {cartTotalPrice.toLocaleString('ko-KR')}원</div>
-                        ) : null}
+                        ) : null} */}
                     </div>
                     <div className="cart-order">
-                        <Button id="button-coo" variant="light" onClick={() => setModalShow(true)}> 결제하기 </Button>
+                        <Button id="button-coo" variant="light" onClick={() => setModalShow(true)}> {cartTotalPrice.toLocaleString('ko-KR')}원 결제하기 </Button>
                         <SelectPayModal show={modalShow} onHide={() => setModalShow(false)} />
                     </div>
                 </form>
