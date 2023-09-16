@@ -3,9 +3,10 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import {useReceiptStore} from '../store/receiptViewStore';
 import useSocketStore from '../store/socketStore';
+//import useModalStore from '../store/useModalStore';
 
 function Dingdong(props) {
-
+    //const {standeByTimer , setStandeByTimer , getStandeByTimer} = useModalStore();
     const [modalTimer, setModalTimer] = useState(10); // 모달 시간 설정
     
     const kioskNo = useReceiptStore((state) => state.kioskNo);
@@ -32,7 +33,7 @@ function Dingdong(props) {
                 }
             }, 1000); // 1초마다 실행
             stompClient?.send(`/user/send/${kioskNo}`,{} , JSON.stringify(message));
-            
+            //getStandeByTimer()?.forEach( timer =>clearTimeout(timer));
         } else {
             // 모달이 닫힐 때 타이머 초기화
             setModalTimer(10);
@@ -42,7 +43,7 @@ function Dingdong(props) {
         return () => {
             clearInterval(timer);
         };
-    }, [modalTimer, props]);
+    }, [modalTimer, props, kioskNo, stompClient]);
 
     return (
         <Modal
