@@ -19,14 +19,14 @@ const useSaveData = create((set, get) => ({
             });
         return result;
     },
-    // 메뉴별 분할결제시
-    dutchByMenu: async (kioskNo, cartItems, totalPrice) => {
-        let result = await axios.post("http://localhost:3000/kiosk/dutchByMenu/"+kioskNo , {cartItems , totalPrice})
+    // 분할결제시
+    dutchPay: async (kioskNo, cartItems, totalPrice) => {
+        let result = await axios.post("http://localhost:3000/kiosk/dutchPay/"+kioskNo , {cartItems , totalPrice})
             .then( (response) => {
                 if(response.data > 0){
                     console.log('결제 성공');
-                    return 1;
-                    // 영수증번호
+                    // 영수증번호 return
+                    return response.data;
                 } else {
                     console.log('결제 실패');
                     return 0;
@@ -35,7 +35,6 @@ const useSaveData = create((set, get) => ({
                 console.log(error);
                 return 0;
             });
-            // console.log(cartItems);
         return result;
     },
 }));
