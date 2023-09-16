@@ -6,11 +6,13 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 import useCartStore from '../store/cartStore';
+import useModalStore from '../store/useModalStore';
 
 const MenuDetail = (props) => {
 
     // 원산지 모달
     const [modalShow, setModalShow] = useState(false);
+    const {standeByTimer , setStandeByTimer , getStandeByTimer} = useModalStore();
 
     // 나가기 버튼
     const navigate = useNavigate();

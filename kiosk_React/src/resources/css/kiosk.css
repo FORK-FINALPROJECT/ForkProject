@@ -226,6 +226,7 @@ a {
 .pay-list ul li {
     list-style: none;
     background-color: rgba(8, 6, 6, 0.212);
+    position: relative;
 }
 
 .pay-list ul {
@@ -456,4 +457,11 @@ a {
 .cardPayWrap{
     display: flex;
     flex-direction: column;
+}
+
+.numPad{
+    position: absolute;
+    width: 10% !important;
+    height: 55% !important;
+    top: 11%;
 }
