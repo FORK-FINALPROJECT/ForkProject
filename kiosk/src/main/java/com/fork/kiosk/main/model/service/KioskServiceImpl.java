@@ -60,13 +60,13 @@ public class KioskServiceImpl implements KioskService {
 	}
 
 	@Override
-	public int insertDutchByMenuPay(HashMap<String, Object> param) {
-		return kioskDao.insertDutchByMenuPay(param);
+	public int insertDutchPay(HashMap<String, Object> param) {
+		return kioskDao.insertDutchPay(param);
 	}
 
 	@Override
-	public int insertReceiptMenusDutchByMenu(HashMap<String, Object> param) {
-		return kioskDao.insertReceiptMenusDutchByMenu(param);
+	public int insertReceiptMenusDutchPay(HashMap<String, Object> param) {
+		return kioskDao.insertReceiptMenusDutchPay(param);
 	}
 	
 	

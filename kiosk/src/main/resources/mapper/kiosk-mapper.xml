@@ -308,7 +308,7 @@ ORDER BY R.RECEIPT_NO , RM.RCM_NO
 	VALUES ( #{receiptMenuNo}, #{optionNo} )    
 </insert>
 
-<insert id="insertDutchByMenuPay" parameterType="hashmap">
+<insert id="insertDutchPay" parameterType="hashmap">
 	<selectKey keyProperty="payNo" order="BEFORE" resultType="int" >
 		SELECT SEQ_PAY.NEXTVAL
 		FROM DUAL

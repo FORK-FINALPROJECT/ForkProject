@@ -64,24 +64,24 @@ public class KioskDao {
 		return 1;
 	}
 
-	public int insertDutchByMenuPay(HashMap<String, Object> param) {
-		return session.insert("kiosk.insertDutchByMenuPay", param);
+	public int insertDutchPay(HashMap<String, Object> param) {
+		return session.insert("kiosk.insertDutchPay", param);
 	} 
 	
-	public int insertReceiptMenusDutchByMenu(HashMap<String, Object> param) {
+	public int insertReceiptMenusDutchPay(HashMap<String, Object> param) {
 		
 		HashMap<String , Object> cartItem = (HashMap<String , Object> )param.get("cartItems");
 			// 메뉴가 있을경우에만 insert
 			if(!((cartItem.get("menuNo") != null && (int)cartItem.get("menuNo") == 0  ) || cartItem.get("menuNo") == null)) {
 				cartItem.put("receiptNo", param.get("receiptNo"));
 				session.insert("kiosk.insertReceiptMenus",cartItem);
+				for(HashMap<String , Object> options : (List<HashMap<String , Object>>)cartItem.get("selectedOption")) {
+					// 옵션이 있을경우에만 insert
+					if((options.get("optionNo") != null && (int)options.get("optionNo") == 0  ) || options.get("optionNo") == null) continue;
+					options.put("receiptMenuNo", cartItem.get("receiptMenuNo"));
+					session.insert("kiosk.insertReceiptOptions", options );
+				}
 			}
-			for(HashMap<String , Object> options : (List<HashMap<String , Object>>)cartItem.get("selectedOption")) {
-				// 옵션이 있을경우에만 insert
-				if((options.get("optionNo") != null && (int)options.get("optionNo") == 0  ) || options.get("optionNo") == null) continue;
-				options.put("receiptMenuNo", cartItem.get("receiptMenuNo"));
-				session.insert("kiosk.insertReceiptOptions", options );
-		}
 		return 1;
 	}
 	
