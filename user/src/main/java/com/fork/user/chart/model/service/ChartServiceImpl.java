@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.fork.user.chart.model.dao.ChartDao;
 import com.fork.user.chart.model.vo.Chart;
-import com.fork.user.management.model.vo.Category;
+import com.fork.user.chart.model.vo.ChartCategory;
 
 @Service
 public class ChartServiceImpl implements ChartService {
@@ -28,8 +28,8 @@ public class ChartServiceImpl implements ChartService {
 	}
 
 	@Override
-	public List<Category> selectCategory() {
-		return chartDao.selectCategory();
+	public List<ChartCategory> selectChartCategory() {
+		return chartDao.selectChartCategory();
 	}
 
 }

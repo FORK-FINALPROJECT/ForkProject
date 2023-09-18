@@ -1,11 +1,15 @@
 package com.fork.user.kitchen.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fork.user.kitchen.model.service.KitchenService;
@@ -37,15 +41,16 @@ public class KitchenController {
         
     }
 	
-	@GetMapping("/kitchen/newOrder")
+	@PostMapping("/kitchen/newOrder/{kno}")
 	@ResponseBody
-	public PayStructure newOrder(int rno) {
+	public PayStructure newOrder(@PathVariable("kno") int kioskNo, @RequestParam(value="receiptNoList[]") ArrayList<Integer> receiptNoList) { 
 		
 		// 테이블정보 조회
-		PayStructure newOrder = kitchenService.selectTableInfo(rno);
+		PayStructure newOrder = kitchenService.selectTableInfo(kioskNo);
+		List<MenuOption> menuList = new ArrayList();
 		
 		if ( newOrder != null ) {
-			List<MenuOption> menuList = kitchenService.selectMenulist(rno);
+			menuList = kitchenService.selectMenulist(receiptNoList);
 			newOrder.setMenuOption(menuList);
 		}
 		
@@ -54,3 +59,4 @@ public class KitchenController {
 	}
 	
 }
+
