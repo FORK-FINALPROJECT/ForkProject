@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.fork.user.chart.model.vo.Chart;
-import com.fork.user.management.model.vo.Category;
+import com.fork.user.chart.model.vo.ChartCategory;
 
 public interface ChartService {
 
@@ -13,7 +13,7 @@ public interface ChartService {
 
 	List<Chart> loadMenuChart(Map<String, Object> day);
 	
-	List<Category> selectCategory();
+	List<ChartCategory> selectChartCategory();
 	
 
 }

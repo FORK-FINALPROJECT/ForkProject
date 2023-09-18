@@ -1,5 +1,6 @@
 package com.fork.user.kitchen.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ public class KitchenServiceImpl implements KitchenService {
 	@Override
 	public List<MenuOption> selectMenulist(int no) {
 		return kitchenDao.selectMenulist(no);
+	}
+	
+	@Override
+	public List<MenuOption> selectMenulist(ArrayList<Integer> receiptNoList) {
+		return kitchenDao.selectMenulist(receiptNoList);
 	}
 
 	@Override

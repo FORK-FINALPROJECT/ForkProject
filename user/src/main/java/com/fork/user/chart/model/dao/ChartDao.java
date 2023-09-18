@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.fork.user.chart.model.vo.Chart;
-import com.fork.user.management.model.vo.Category;
+import com.fork.user.chart.model.vo.ChartCategory;
 
 @Repository
 public class ChartDao {
@@ -32,8 +32,8 @@ public class ChartDao {
 		return c; 
 	}
 
-	public List<Category> selectCategory() {
-		return sqlSession.selectList("chartMapper.selectCategory");
+	public List<ChartCategory> selectChartCategory() {
+		return sqlSession.selectList("chartMapper.selectChartCategory");
 	}
 
 

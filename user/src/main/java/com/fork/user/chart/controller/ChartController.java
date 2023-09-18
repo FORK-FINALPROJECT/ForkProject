@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fork.user.chart.model.service.ChartService;
 import com.fork.user.chart.model.vo.Chart;
-import com.fork.user.management.model.vo.Category;
+import com.fork.user.chart.model.vo.ChartCategory;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -51,9 +51,9 @@ public class ChartController {
 	
 	@GetMapping("/selectPrCategory")
 	@ResponseBody
-    public List<Category> selectCategory() {
+    public List<ChartCategory> selectCategory() {
 		
-		List<Category> list = chartService.selectCategory();
+		List<ChartCategory> list = chartService.selectChartCategory();
 		
         return list;
     }

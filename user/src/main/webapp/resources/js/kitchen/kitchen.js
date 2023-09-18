@@ -18,32 +18,40 @@ $(document).ready(function() {
 	    }
 	})
 
-
-
 // socket
 // var socket = null;
 // socketst();
 
 });
 
+function test(){
+
+const kno = 2;
+let rlist = [ 1, 2, 3 ];
+
+}
+
+
 function socketst() {
-	var sock = new SockJS("http://192.168.130.18:8083/kiosk/user");
+	var sock = new SockJS("http://192.168.30.14:8083/kiosk/user");
 	var client = Stomp.over(sock);
 	socket = client;
 	
 	client.connect({}, function() {
 		console.log("Connected stompTest!");
 		
-		client.subscribe('/kiosk/3', function(event){
+		client.subscribe('/kiosk/${kno}', function(event){
 			console.log(event);
 			
 			try {
 			    const data = JSON.parse(event.body); // JSON 형식의 문자열을 파싱하여 객체로 변환
-			    console.log(data.receiptNo); // kioskNo 값을 출력
+			    console.log(data.receiptNoList);
+			    let rlist = data.receiptNoList;
 			    
 				$.ajax({
-					url : "kitchen/newOrder",
-					data : {rno : data.receiptNo},
+					url : "kitchen/newOrder/"+kno,
+					data : { receiptNoList : rlist },
+					type : "POST",
 					success(newOrder) {
 						let orderPage = "";
 						let orderList = "";
@@ -64,6 +72,8 @@ function socketst() {
 										</div>
 									</div>`
 						$(".outer").children().first().before(orderPage);
+				
+				
 					} 
 				});
 			    

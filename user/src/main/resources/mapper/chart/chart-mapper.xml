@@ -35,13 +35,13 @@
 		WHERE MENU_NO = #{menuNo}
     </select>
     
-    <resultMap id="categoryResultMap" type="Category">
+    <resultMap id="categoryResultMap" type="ChartCategory">
         <result column="CATEGORY_NO" property="categoryNo" />
         <result column="CATEGORY_NAME" property="categoryName" />
         <result column="PR_CATEGORY_NO" property="prCategoryNo" />
     </resultMap>
     
-    <select id="selectCategory" resultMap="categoryResultMap">
+    <select id="selectChartCategory" resultMap="categoryResultMap">
     	SELECT *
 		FROM CATEGORY
 		WHERE PR_CATEGORY_NO IS NULL
