@@ -1,3 +1,4 @@
+
 .content { 
     width: 1500px; 
     height: 800px; 
@@ -26,18 +27,13 @@
 .struc_pos{ background-image: url(/user/resources/img/pos.png); }
 .struc_structure{ background-color: orange; color: white; height: 67px; }
 
-.struc_title{
-    color:orange;
-    font-size: 16pt;
-    font-weight: bold;
-}
 
-.struc_structure>span {
+
+.struc_structure>div {
     color: white;
     font-size: 16pt;
     font-weight: bold;
 }
-
 
 .in_menu{
     background-color: orange;
@@ -47,15 +43,39 @@
 .in_menu .struc_title{
     color: white;
 }
+
+.struc>div{
+	margin:0 auto;
+}
+
+.struc_title{
+    color:orange;
+    font-size: 16pt;
+    font-weight: bold;
+    height: 25%;
+}
+
+.menu_footer{
+    font-weight: bold;
+    height: 20%;
+    margin-top: 20px;
+    display: flex;
+}
+
+.menu_price{
+    margin-left: auto;
+}
+
+.menus{
+	height: 55%;
+	overflow: hidden;
+}
+
 .menu{
     display: flex;
     justify-content: space-between;
 }
-.menu_price{
-    text-align: right;
-    font-weight: bold;
-    margin-top: 10px;
-}
+
 .content>.setting{
     position: absolute;
     bottom: 0px;
@@ -137,4 +157,57 @@
 .add-item>span:active{
     position: relative;
     top: 1px;
+}
+
+/* 모달 스타일 */
+.alertPage {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    overflow: auto;
+    position: absolute;
+ left: 50%; 
+ top: 50%;
+ transform: translate(-50%,-50%);
+ display: flex;
+	justify-content: center; /* 수평 중앙 정렬 */
+	align-items: center; /* 수직 중앙 정렬 */
+}
+
+.alertPage-content {
+    background-color: white;
+    color: black;
+    margin: 17% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 800px;
+    height: 300px;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+    display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+ text-align: center;
+}
+
+.closebutton {
+    width: 350px;
+    margin: 20px auto;
+    display: block;
+    color: white;
+    background-color: #FF8B3D;
+    border-radius: 10px;
+    height: 80px;
+    border: none;
+} 
+
+.closebutton:hover {
+	cursor: pointer;
 }

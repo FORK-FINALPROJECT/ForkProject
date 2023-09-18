@@ -37,7 +37,7 @@ public class MainController {
     @Autowired
 	private ManagementService mService;
     
-    @GetMapping("/main")
+    @GetMapping(value = {"/", "/main"})
     public String goMain(Model model, HttpServletRequest req) {
     	HttpSession session = req.getSession();
     	
@@ -63,7 +63,7 @@ public class MainController {
 			session.setAttribute("licenseYN", 1);
 		}
 		
-		return "redirect:/index.jsp";
+		return "main";
     }
     
     @GetMapping("/selectNotice")

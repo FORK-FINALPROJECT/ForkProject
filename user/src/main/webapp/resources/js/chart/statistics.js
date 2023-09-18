@@ -93,7 +93,7 @@ function drawChart(){
 }
 
 function loadChart(){
-	$(".statistics-content").removeClass("menu-chart").html(`<div id="chart-outer"><canvas id="chart-area" /></div>`);
+	$(".statistics-content").removeClass("menu-chart").html(`<div id="chart-outer"><canvas id="chart-area" height="100%" /></div>`);
 	
 	const chartData = {
 		labels: chartDataLabels,
@@ -134,8 +134,6 @@ function drawMenuChart(){
 		success(categorylist){
 			for(prCate of categorylist) {
 					let prNo= prCate.categoryNo;
-					
-
 					$.ajax({
 						url: 'menuChart',
 						data: {startDay: startDay.value, endDay: endDay.value, prCateNo: prNo},
@@ -147,7 +145,7 @@ function drawMenuChart(){
 
 						if ( menulist.length > 0 ) {
 
-							$(".statistics-content").append(`<div id="chart-outer" style="position: relative; width: 50%; height: 50%">
+							$(".statistics-content").append(`<div id="chart-outer" style="position: relative; width: 33%; height: 33%">
 							<div class="chart-category-title">${prCate.categoryName}</div>
 						<canvas id="chart-area${prCate.categoryNo}" />
 					</div>`);

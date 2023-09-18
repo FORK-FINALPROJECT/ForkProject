@@ -21,7 +21,7 @@
 
         body {
             background-color: #eee;
-            height: 950px;
+            height: 100vh;
             font-family: Arial, Helvetica, sans-serif;
             background: linear-gradient(to top, #fff 10%, #FF8B3D 60%) no-repeat;
         }
@@ -174,7 +174,7 @@
 		}
 		
 		.explain2{
-			display:block;
+			display:none;
 			width: 300px;
 			border: none;
 			font-size: 12px;
@@ -186,15 +186,16 @@
 		}
 		
 		.explain3{
-			display:block;
-			width: 300px;
-			border: none;
+			height: 30px;
+			line-height: 30px;
+			padding-left: 10px;
 			font-size: 12px;
-			background-color: white;
 			color: black;
 			text-align: left;
-			height: 20px;
-			padding-top: 5px;
+			width: 230px;
+			overflow:hidden; 
+			text-overflow:ellipsis; 
+			white-space:nowrap;
 		}
 
     </style>
@@ -236,8 +237,11 @@
                     <tr>
                         <th>사업자등록증</th>
 						<td colspan="2">
-						    <label class="filelabel">파일등록<input type="file" name="file" class="businessFile" style="display:none" required onchange="updateFileName(this)"></label>
-						    <label class="explain3"></label>
+						    <div style="display:flex;">
+						    	<label class="filelabel" for="businessFile" style="display:inline-block">파일등록</label>
+						    	<div class="explain3"></div>
+						    </div>
+						    <input type="file" name="file" class="businessFile" id="businessFile" style="display:none;" required onchange="updateFileName(this)">
 						</td>
                     </tr>
                     <tr>
@@ -318,11 +322,14 @@
     		
     	    const passwordValue = memberPwd.value;
     	    const confirmPasswordValue = checkPwd.value;
+    	    
 
     	    if (passwordValue !== confirmPasswordValue) {
+	    	    label2.style.display = "block";
     	        label2.textContent = "비밀번호가 일치하지 않습니다.";
     	        label2.style.color = "red";
     	    } else {
+	    	    label2.style.display = "block";
     	        label2.textContent = "비밀번호가 일치합니다.";
     	        label2.style.color = "green";
     	    }

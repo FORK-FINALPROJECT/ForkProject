@@ -71,6 +71,8 @@
 
 .statistics-content{
 	margin-top: 40px;
+	max-height: 95vh;
+	width: 100%;
 }
 
 .menu-chart {

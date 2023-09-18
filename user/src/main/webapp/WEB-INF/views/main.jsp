@@ -10,6 +10,7 @@
 <meta charset="UTF-8">
 <title>Fork User Main Choice</title>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
 <!-- bootstrap js: jquery load 이후에 작성할것.-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
@@ -79,6 +80,7 @@
         background-repeat: no-repeat;
         background-size: 35%;
         background-position: 90% 50%;
+        cursor: pointer;
         
         box-shadow: 0 1px 0 rgba(255,255,255,0.34) inset, 
                     0 2px 0 -1px rgba(0,0,0,0.13), 
@@ -120,6 +122,19 @@
     }
     .notice-list>li{
         transition: 0.5s;
+    }
+    
+    .content>.disabled{
+    	background-color: lightgray;
+        box-shadow: none;
+        background-image: none;
+        color: black;
+        text-decoration: line-through;
+    }
+    .content>.disabled:active{
+        position: unset;
+        top: 0px;
+        box-shadow: none;
     }
 </style>
 </head>
@@ -270,6 +285,12 @@
         			
         		}
         	})
+        }
+        
+        if ( ${licenseYN} == 0 ) {
+        	$(".con1").addClass(" disabled");
+        	$(".con2").addClass(" disabled");
+        	$(".con3").addClass(" disabled");
         }
         
     </script>

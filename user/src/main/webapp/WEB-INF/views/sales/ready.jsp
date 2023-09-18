@@ -15,60 +15,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     
     <link rel="stylesheet" href="resources/css/sales.css">
-    <style>
-    /* 모달 스타일 */
-    .alertPage {
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.4);
-        overflow: auto;
-        position: absolute;
-	    left: 50%; 
-	    top: 50%;
-	    transform: translate(-50%,-50%);
-	    display: flex;
-    	justify-content: center; /* 수평 중앙 정렬 */
-    	align-items: center; /* 수직 중앙 정렬 */
-    }
-
-    .alertPage-content {
-        background-color: white;
-        color: black;
-        margin: 17% auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 800px;
-        height: 300px;
-        border-radius: 20px;
-        text-align: center;
-        font-size: 40px;
-        font-weight: bold;
-        display: flex;
-	    flex-direction: column;
-	    justify-content: center;
-	    align-items: center;
-	    text-align: center;
-    }
-
-    .closebutton {
-        width: 350px;
-        margin: 20px auto;
-        display: block;
-        color: white;
-        background-color: #FF8B3D;
-        border-radius: 10px;
-        height: 80px;
-        border: none;
-    } 
     
-    .closebutton:hover {
-    	cursor: pointer;
-    }
-    </style>
 </head>
 <body>
 
@@ -98,21 +45,33 @@
                     </c:if>
                     
                     <div class="struc ${struc_class}${inMenu}" id="kiosk${struc.kioskNo}" style="transform: translate3d(${struc.positionX}px, ${struc.positionY}px, 0);" onclick="detail_order('${struc.strucTitle}', ${struc.kioskNo})">
-                        <span class="struc_title">${struc.strucTitle}</span>
+                        <div class="struc_title">${struc.strucTitle}</div>
                         <c:if test="${inMenu eq ' in_menu'}">
                             <c:set var="price" value="0" />
-                            <c:forEach var="order" items="${orderList}">
-                                <c:if test="${struc.kioskNo eq order.kioskNo}">
+                           	<c:set var="quantity" value="0" />
+           			            <div class="menus">
+                            <c:forEach var="order" items="${orderList}" varStatus="status">
+                                <c:if test="${struc.kioskNo eq order.kioskNo && quantity le 3}">
                                     <div class="menu">
                                         <div class="menu_title">${order.menuName}</div>
                                         <div class="menu_cnt">${order.cnt}</div>
                                         <c:set var="price" value="${price + order.price}" />
+                                        <c:set var="quantity" value="${quantity + 1}" />
                                     </div>
                                 </c:if>                                
                             </c:forEach>
-                            <div class="menu_price">
-                                <fmt:formatNumber type="number" maxFractionDigits="3" value="${price}" />원
-                            </div>
+                        	</div>
+			                <div class="menu_footer">
+			                	<div class="menu_more">
+	                               	<c:if test="${quantity eq 4}">
+					                	…
+	                               	</c:if>
+			                	</div>
+			                	<div class="menu_price">
+	                                <fmt:formatNumber type="number" maxFractionDigits="3" value="${price}" />원
+	                            </div>
+			                </div>        
+                            
                         </c:if>
                     </div>
                     
@@ -158,8 +117,13 @@
     	<source src="resources/audio/call2.mp3" type="audio/mpeg">
 	</audio>
     
-    <script type="text/javascript" src="resources/js/adminLee.js"></script>
     
+    
+    
+    
+    
+    
+    <script type="text/javascript" src="resources/js/adminLee.js"></script>
     <script>
         $("#sales-ready").addClass("header_btn_on").removeClass("header_btn");
     </script>
