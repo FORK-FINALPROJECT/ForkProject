@@ -101,7 +101,7 @@ function App() {
     resetStandByTimer();
 
     // 사용자가 사용하고 타이머 재설정
-    document.addEventListener('mousemove', () => {
+    document.addEventListener('click', () => {
 
       let timer = setTimeout(() => { // 이색기가 문제
         handleUserUsing()
@@ -117,7 +117,7 @@ function App() {
     document.addEventListener('click',deleteFullScreen);
     // 언마운트될때 이벤트 제거
     return () => {
-      document.removeEventListener('mousemove', handleUserUsing);
+      document.removeEventListener('click', handleUserUsing);
       document.removeEventListener('keydown', handleUserUsing);
       document.removeEventListener('click', deleteFullScreen);
       clearTimeout(standeByTimer);
