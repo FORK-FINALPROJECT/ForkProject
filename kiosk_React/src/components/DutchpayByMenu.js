@@ -12,6 +12,18 @@ const DutchpayByMenu = (props) => {
 
     const springUrl = 'http://localhost:8083/kiosk';
 
+    const [receiptNo , setReceiptNo] = useState([]);
+
+    // 받아온 영수증 번호 담아주기
+    const addReceiptNo = (newReceiptNo) => {
+        setReceiptNo([...receiptNo, newReceiptNo]);
+        return [...receiptNo, newReceiptNo];
+    }
+    // 소켓통신이 완료되면 영수증 번호 지워주기
+    const resetReceiptNo = () => {
+        setReceiptNo([]);
+    }
+
     // 장바구니에 있는 값 가져오기
     const {cartItems, setNewCartAfterDutchByMenu } = useCartStore();
     const {totalCashPrice, setTotalCashPrice , getTotalCashPrice} = paymentModalStore();
@@ -27,11 +39,9 @@ const DutchpayByMenu = (props) => {
         setSelectedPaymentMethod('카드결제');
         setModalShow(true);
     };
-
     
     // 현금합계 소켓 연결 설정
     const {stompClient , setStompClient} = useSocketStore();
-
 
     // 현금합계 기본값
     let cashPrice = 0;
@@ -50,30 +60,36 @@ const DutchpayByMenu = (props) => {
     }
 
     // 결제
-    const { dutchByMenu } = useSaveData();
-    const handleDutchByMenu = async (menu) => {
-        let result = await dutchByMenu(kioskNo, menu, menu.totalPrice);
+    const { dutchPay } = useSaveData();
+    const handleDutchPay = async (menu) => {
+        let result = await dutchPay(kioskNo, menu, menu.totalPrice);
         if(result > 0){
             // 결제 성공
-            // 리턴값을 set[] 이걸 소켓보낼때 보낸다
-                
+            // 영수증번호 배열에 담아주기
+            let receiptNoList = addReceiptNo(result); // 저장된 영수증 번호(이걸 소켓에서 보내주심 됩니다. 배열형태에요)
+            console.log('****receiptNoList : ', receiptNoList);
             let message = {
                 kioskNo : kioskNo,
                 price : getTotalCashPrice(),
+                receiptNoList : receiptNoList
             };
 
             if(!handleSetNewCartAfterDutchByMenu(menu, menu.totalPrice).length){ // 모두 결제된 경우
-                // 여기서 소켓보내기 , 메뉴리스트 랜더되게 하기
+                // 소켓 보내주는곳
                 stompClient?.send(`/user/send/${kioskNo}`,{} , JSON.stringify(message));
                 console.log(message);
-                //setTotalCashPrice(0);
+                // 1. 소켓이 정상적으로 보내졌을 경우
+                resetReceiptNo(); // 영수증번호 리스트 비워주기
+
+                // 2. 아니면 소켓 다시 진행 반복
+                // 소켓 반복
             }
         } else {
             // 결제 실패
-            // 리턴값 set[] 비워주기
+            // 영수증번호 리스트 비워주기
+            resetReceiptNo();
         }
-
-    }    
+    }
 
     return (
         <div className="content-wrap">
@@ -107,8 +123,8 @@ const DutchpayByMenu = (props) => {
                                             {menu.totalPrice.toLocaleString('ko-KR')}원
                                         </li>
                                         <li>
-                                            <Button variant="secondary" onClick={() => {handleCardPaymentClick(); handleDutchByMenu(menu);} }>카드결제</Button>{' '}
-                                            <Button variant="secondary" onClick={() => {handleCashPaymentClick(menu); handleDutchByMenu(menu);} }>현금결제</Button>
+                                            <Button variant="secondary" onClick={() => {handleCardPaymentClick(); handleDutchPay(menu);} }>카드결제</Button>{' '}
+                                            <Button variant="secondary" onClick={() => {handleCashPaymentClick(menu); handleDutchPay(menu);} }>현금결제</Button>
                                         </li>
                                     </ul>
                                 ))
