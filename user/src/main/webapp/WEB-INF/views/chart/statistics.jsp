@@ -43,15 +43,11 @@
 	                <div class="choice-btn" onclick="changeType('메뉴')">메뉴</div>
 	            </div>
             </div>
-        
-        <div class="statistics-content">
-         	<!-- 차트 들어갈 영역 -->
-        </div>
-            
-        </div>
-        
-
+	    <div class="statistics-content">
+	     	<!-- 차트 들어갈 영역 -->
+	    </div>
     </div>
+
 
 	<script type="text/javascript" src="resources/js/chart/statistics.js"></script>
 	<script>

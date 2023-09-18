@@ -27,9 +27,7 @@ public class salesController {
     @GetMapping("/deleteStructure")
     @ResponseBody
     public int deleteStructure() {
-        
         int result = salesService.deleteStructure();
-        
         return result;
     }
     
