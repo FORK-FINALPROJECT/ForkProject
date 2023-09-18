@@ -1,7 +1,5 @@
 import {create} from 'zustand';
 
-import useCartStore from './cartStore';
-
 const numpadStore = create((set ,get) => ({
   inputId : null , 
   items : [], 

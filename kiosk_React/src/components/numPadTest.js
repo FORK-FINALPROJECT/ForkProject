@@ -20,6 +20,8 @@ const Numpad = (props) => {
 
     // 숫자 버튼 클릭 시 실행되는 함수
     const onChange = (number) => {
+
+
         setInputPrice((prevInputPrice) => number);
     };
 
@@ -42,21 +44,29 @@ const Numpad = (props) => {
         // 총결제금액에서 아직 결제할 금액이 남아있다면 새로운 금액창추가 --- 없애
         
         const items = getItems();
+        let inputCheck = true;
         const updatedItems = items.map((item) => {
             if (item.id == itemId) {
-                return { ...item, price: inputPrice };
+                if(item.maximumPrice <inputPrice){
+                    alert("총 결제금액보다 큽니다");
+                    inputCheck = false;
+                    return item;
+                }
+                return { ...item, price: Number(inputPrice) };
             }
             return item;
         })
         setItems(updatedItems);
 
-        handleCloseModal();
+        if(inputCheck){
+            handleCloseModal();
+        } else{
+            handleClear();
+        }     
       };
 
 
     const onKeyPress = (button) => {
-        console.log("Button pressed", button);
-    
         if (button === "{clear}") {
             handleClear();
             return;

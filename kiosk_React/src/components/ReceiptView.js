@@ -103,7 +103,7 @@ const ReceiptView = () => {
 
     return (
         <div>
-            <div scrollable emphasizeddiv className="receipt-wrap scrollable">
+            <div scrollable="true" emphasizeddiv="true" className="receipt-wrap scrollable">
                 {receiptItems == [] ? <div>결제영수증이 없습니다.</div> : 
                 <>
                 {groupedReceipts && groupedReceipts?.map((receiptItem, index) => (

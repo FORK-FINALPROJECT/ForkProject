@@ -11,14 +11,11 @@ export const useCategoryStore = create( (set ,get) => ({
                         : get().categorys;
 
       set({categorys});
-
       //this.getSubCategory(1);
-
       return categorys;
     },
     setSubCategory : async (categoryNo) => {
         const subCategorys = await get().categorys.find( (category) => category.categoryNo == categoryNo).categoryList;
-        console.log(subCategorys);
         set({subCategorys});
 
         const menus =  subCategorys.reduce(
@@ -27,13 +24,10 @@ export const useCategoryStore = create( (set ,get) => ({
             }, []
         ).flat();
         set({menus});
-
-        console.log(subCategorys, menus)
     },
     setMenus : (categoryNo) => {
         const menus = get().subCategorys.find( (category) => category.categoryNo == categoryNo).menuList;
         set({menus});
-        console.log(menus)
     }
   }));
 

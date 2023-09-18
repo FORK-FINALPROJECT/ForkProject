@@ -1,54 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { useReceiptStore } from '../store/receiptViewStore';
-import useSocketStore from '../store/socketStore';
 
 function Dingdong(props) {
 
     const [modalTimer, setModalTimer] = useState(10); // 모달 시간 설정
 
-    const kioskNo = useReceiptStore((state) => state.kioskNo);
-
-    const { stompClient, setStompClient } = useSocketStore();
-
-        let timer;
-
-        let message = {
-            kioskNo: kioskNo,
-            price: 0,
-        };
-
-        const handleSendMsg = () => {
-            stompClient?.send(`/user/send/${kioskNo}`, {}, JSON.stringify(message));
-        }
-
     useEffect(() => {
-
-        const decreaseTimer = () => {
-            setModalTimer((prevTimer) => {
-              if (prevTimer <= 0) {
-                props.onHide();
-                clearInterval(timer);
-                return 0;
-              }
-              return prevTimer - 1;
-            });
-          };
+        let timer;
 
         // 모달이 열릴 때 타이머 시작
         if (props.show) {
-            // timer = setInterval(() => {
-            //     if (modalTimer === 0) {
-            //         props.onHide();
-            //         clearInterval(timer);
-            //     } else {
-            //         setModalTimer(modalTimer - 1);
-            //     }
-            // }, 1000); // 1초마다 실행
-            decreaseTimer();
-            timer = setInterval(decreaseTimer, 10000);
-
+            timer = setInterval(() => {
+                if (modalTimer === 0) {
+                    props.onHide();
+                    clearInterval(timer);
+                } else {
+                    setModalTimer(modalTimer - 1);
+                }
+            }, 1000); // 1초마다 실행
         } else {
             // 모달이 닫힐 때 타이머 초기화
             setModalTimer(10);
@@ -58,7 +28,7 @@ function Dingdong(props) {
         return () => {
             clearInterval(timer);
         };
-    }, [modalTimer, props, stompClient]);
+    }, [modalTimer, props]);
 
     return (
         <Modal
@@ -80,7 +50,7 @@ function Dingdong(props) {
                 </div>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={() => { props.onHide(); handleSendMsg(); }}>Close</Button>
+                <Button variant="secondary" onClick={() => { props.onHide();}}>Close</Button>
             </Modal.Footer>
         </Modal>
     );

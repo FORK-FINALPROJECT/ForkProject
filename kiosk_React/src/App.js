@@ -16,6 +16,11 @@ import React, { useEffect, useState } from 'react';
 import { useCategoryStore } from './store/mainViewStore';
 import { useReceiptStore } from './store/receiptViewStore';
 import useModalStore from './store/useModalStore';
+
+import SockJS from 'sockjs-client';
+import { Stomp } from '@stomp/stompjs';
+import useSocketStore from "./store/socketStore";
+
 // 터치 / 터치스크롤로 수정하기
 // 화면보호기 화면
 const standByScreen1 = () => <div id='standByScreen'><img src={require('./resources/image/standByScreen1.png')} /></div>
@@ -23,9 +28,10 @@ const standByScreen2 = () => <div id='standByScreen'><img src={require('./resour
 const standByScreen3 = () => <div id='standByScreen'><img src={require('./resources/image/standByScreen3.png')} /></div>
 const standByScreen4 = () => <div id='standByScreen'><img src={require('./resources/image/standByScreen4.png')} /></div>
 
-
-
 function App() {
+  // interval제거용 배열
+  const timerArr = [];
+
   // 동연 시작  
 
   // 풀스크린 기능 시작
@@ -59,7 +65,8 @@ function App() {
   // 5초마다 변경
   useEffect(() => {
     const intervalScreen = setInterval(changeStandByScreen, 5000);
-
+    timerArr.push(intervalScreen);
+    setStandeByTimer(timerArr);
     // 언마운트 될 때 인터벌 제거
     return () => {
       clearInterval(intervalScreen);
@@ -68,7 +75,7 @@ function App() {
   }, []);
 
   const [standByScreen, setStandByScreen] = useState(false);
-  const timerArr = [];
+ 
   const {setStandeByTimer , getStandeByTimer} = useModalStore();
 
   useEffect(  () => {
@@ -96,10 +103,11 @@ function App() {
     // 사용자가 사용하고 타이머 재설정
     document.addEventListener('mousemove', () => {
 
-      setTimeout(() => { // 이색기가 문제
+      let timer = setTimeout(() => { // 이색기가 문제
         handleUserUsing()
       }, 100)
-
+      timerArr.push(timer);
+      setStandeByTimer(timerArr);
     });
 
     const deleteFullScreen = () => {
@@ -124,9 +132,12 @@ function App() {
   const getCategory = useCategoryStore((state) => state.getCategory);
   const setSubCategory = useCategoryStore((state) => state.setSubCategory);
   
-  useEffect(async () => {
-    await getCategory();
-    await setSubCategory(1);
+  useEffect( () => {
+    const fetchData = async () => {
+      await getCategory();
+      await setSubCategory(1);
+    }
+    fetchData();
 
     // 장바구니 영수증 보여지게.
     function hideAndShow(wrapper, button, className) {
@@ -212,6 +223,35 @@ function App() {
     // }).catch(console.log);
 
   }, []);
+
+  //headers에 있던거 옮김
+  const {stompClient , setStompClient} = useSocketStore();
+  const kioskNo = useReceiptStore((state) => state.kioskNo);
+
+  useEffect(() => {
+      // 스프링 부트 서버의 SockJS 엔드포인트 URL
+      const createWebSocket = () => new SockJS('http://localhost:8083/kiosk/user'); // 스프링 부트 서버 주소로 변경
+      const stompClient = Stomp.over(createWebSocket); // 최적화 1) 연결종료시 재연결할수있는 웹소켓 생성 팩토리 전달
+
+      stompClient.connect({}, (frame) => {
+          console.log("웹소켓 연결", frame);
+        // 여기서 컨트롤러로 연결 여러개 추가 가능
+          stompClient.subscribe( `/kiosk/clearTable/${kioskNo}` ,frame => {
+            console.log(frame.body);
+          });
+          stompClient.subscribe( `/kiosk/end/${kioskNo}` ,frame => {
+            console.log(frame.body);
+          });
+
+          // stompClient.send(`/user/send/${kioskNo}`,{} , '잘가니가니??');
+          setStompClient(stompClient);
+      });
+      
+      return () => {
+          console.log('연결해제')
+          stompClient.disconnect();
+      }
+  },[]);
 
   // 선유 끝
 
