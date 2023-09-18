@@ -58,7 +58,7 @@ public class MemberController {
 				return "forward:index.jsp";
 			}
 		} else {
-			session.setAttribute("alertMsg", "가입된 회원이 아닙니다.");
+			session.setAttribute("alertMsg", "아이디 또는 비밀번호가 일치하지 않습니다.");
 			return "forward:index.jsp"; 
 		}
 		
@@ -140,9 +140,9 @@ public class MemberController {
 		int result = mService.insertMember(m);
 		
 		if(result > 0) {
-			session.setAttribute("alertMsg", "회원가입 성공");
+			session.setAttribute("alertMsg", "회원가입에 성공했습니다.");
 		} else {
-			session.setAttribute("alertMsg", "회원가입 실패");
+			session.setAttribute("alertMsg", "회원가입에 실패했습니다.");
 		}
 		
 		return "forward:index.jsp";
@@ -248,8 +248,9 @@ public class MemberController {
 				HttpSession session
 			) {
 		
-		log.info(m.getMemberId());
-		log.info(m.getMemberPwd());
+		String encPwd = bcryptPasswordEncoder.encode(m.getMemberPwd());
+		
+		m.setMemberPwd(encPwd);
 		
 		int result = mService.changePwd(m);
 		

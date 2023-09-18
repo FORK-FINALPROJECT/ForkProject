@@ -103,6 +103,10 @@ public class ManagementController {
 		return "management/menu";
 	}
 	
+	/**
+	 * 카테고리 리스트 조회
+	 * @return
+	 */
 	@PostMapping("/category")
 	@ResponseBody
 	public List<Category> category(){
@@ -110,6 +114,10 @@ public class ManagementController {
 		return categoryList;
 	}
 	
+	/**
+	 * 메뉴 리스트 조회
+	 * @return
+	 */
 	@PostMapping("/menu")
 	@ResponseBody
 	public List<Menu> menu(){
@@ -290,12 +298,15 @@ public class ManagementController {
 	    return "redirect:/menu";
 	}
 	
+	/**
+	 * 특정 메뉴 리스트 조회
+	 * @return
+	 */
 	@PostMapping("/selectMenuList")
 	@ResponseBody
 	public List<Menu> selectMenuList(){
 		return mService.selectMenuList();
 	}
-
 	
 	/**
 	 * 카테고리 조회

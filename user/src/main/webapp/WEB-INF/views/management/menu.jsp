@@ -5,13 +5,11 @@
 <c:set var="contextPath" value="<%=request.getContextPath()%>" />
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>메뉴 관리</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
 <style>
 * {
 	/* border: 1px solid red; */
@@ -21,7 +19,7 @@
 .content_outer {
 	width: 100%;
 	height: 100px;
-	margin-top: 6%;
+	margin-top: 7%;
 }
 
 .content_nav>div {
@@ -66,7 +64,7 @@ button:hover {
 
 .content {
 	width: 100%;
-	margin-top: 30px;
+	margin-top: -1.5vh;
 }
 
 table * {
@@ -330,9 +328,7 @@ textarea {
 			<div class="btn1"><button onClick="location.href='${contextPath}/coo'">원산지 관리</button></div>
 			<div class="btn1"><button onclick="insertMenu1()" class="insertMenu">메뉴 등록</button></div>
 		</div>
-		
 	</div>
-
 	<div class="content">
 		<!-- 메뉴가 들어가는 곳 -->
 	</div>

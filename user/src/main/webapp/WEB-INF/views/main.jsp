@@ -162,7 +162,7 @@
                 <div class="con con2" onclick="location.href='statistics'">판매집계<h6>Statistics</h6></div>
                 <div class="con con3" onclick="location.href='menu'">메뉴<h6>Menu</h6></div>
                 <div class="con con4" onclick="location.href='license'">결제<h6>License</h6></div>
-                <div class="con con5" onclick="location.href='qna'">상담<h6>QnA</h6></div>
+                <div class="con con5" onclick="location.href='http://192.168.130.53:8084/fork/qnaList'">상담<h6>QnA</h6></div>
             </div>
         </div>
     </div>

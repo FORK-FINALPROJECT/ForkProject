@@ -4,15 +4,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>원산지 관리</title>
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- alertify -->
-	<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-	<!-- alertify css -->
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>원산지 관리</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         * {
             /* border: 1px solid red; */
@@ -50,7 +45,7 @@
 
         button {
             width: 80%;
-            height: 70%;
+            height: 65%;
             border-radius: 5px;
             margin: auto auto;
             cursor: pointer;
@@ -69,7 +64,7 @@
         .content {
             width: 100%;
             margin-top: 130px;
-            height: 65vh;
+            height: 75vh;
         }
 
         .option_table {
@@ -206,7 +201,6 @@
             <div class="btn1"><button onClick="location.href='${contextPath}/coo'">원산지 관리</button></div>
             <div class="btn1"><button onclick="" class="insertCoo">원산지 등록</button></div>
         </div>
-        <hr>
         <div class="content">
             <div class="table_outer">
                 <table class="option_table">

@@ -1,23 +1,22 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="<%= request.getContextPath() %>"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>카테고리 관리</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- alertify -->
-	<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-	<!-- alertify css -->
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>카테고리 관리</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <style>
         * {
             /* border: 1px solid red; */
             box-sizing: border-box;
+        }
+        
+        body {
+        	height: 800px;
         }
         
         a {
@@ -32,7 +31,7 @@
 
         .content_outer {
             width: 100%;
-            height: 100px;
+            height: 50%;
             margin-top: 6%;
         }
 
@@ -61,7 +60,7 @@
 
         button {
             width: 80%;
-			height: 70%;
+			height: 65%;
 			border-radius: 5px;
 			margin: auto auto;
 			cursor: pointer;
@@ -79,7 +78,7 @@
         .content {
             width: 100%;
             margin-top: 130px;
-            height: 65vh;
+            height: 75vh;
         }
 
         .option_table {
@@ -227,7 +226,6 @@
             <div class="btn1"><button type=button onClick="location.href='${contextPath}/coo'">원산지 관리</button></div>
             <div class="btn1"><button class="insertCategory">카테고리 등록</button></div>
         </div>
-        <hr>
         <div class="content">
             <div class="table_outer">
                 <table class="option_table">

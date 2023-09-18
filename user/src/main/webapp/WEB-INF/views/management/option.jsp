@@ -5,220 +5,214 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>옵션 관리</title>
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- alertify -->
-	<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-	<!-- alertify css -->
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
-    <style>
-        * {
-            /* border: 1px solid red; */
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>옵션 관리</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<style>
+      * {
+          /* border: 1px solid red; */
+          box-sizing: border-box;
+      }
 
-        .content_outer {
-            width: 100%;
-            height: 100px;
-            margin-top: 6%;
-        }
+      .content_outer {
+          width: 100%;
+          height: 100px;
+          margin-top: 6%;
+      }
 
-        .content_nav > div {
-            float: left;
-        }
-        
-        .content_nav {
-			width: 100%;        
-        }
+      .content_nav > div {
+          float: left;
+      }
+      
+      .content_nav {
+		  width: 100%;        
+      }
 
-        .content_title {
-            width: 48.7%;
-            font-size: 40px;
-            font-weight: bolder;
-            margin-left: 6%;
-            margin-top : 20px;
-        }
+      .content_title {
+          width: 48.7%;
+          font-size: 40px;
+          font-weight: bolder;
+          margin-left: 6%;
+          margin-top : 20px;
+      }
 
-        .btn1 {
-            width: 8%;
-            height: 62px;
-            display: flex;
-            margin-top : 20px;
-        }
+      .btn1 {
+          width: 8%;
+          height: 62px;
+          display: flex;
+          margin-top : 20px;
+      }
 
-        button {
-            width: 80%;
-            height: 70%;
-            border-radius: 5px;
-            margin: auto auto;
-            cursor: pointer;
-            background-color: #FF8B3D;
-            color: white;
-            font-weight: bolder;
-            border: none;
-            font-size: 14px;
-        }
+      button {
+          width: 80%;
+          height: 65%;
+          border-radius: 5px;
+          margin: auto auto;
+          cursor: pointer;
+          background-color: #FF8B3D;
+          color: white;
+          font-weight: bolder;
+          border: none;
+          font-size: 14px;
+      }
 
-        button:hover {
-            background-color: wheat;
-        }
+      button:hover {
+          background-color: wheat;
+      }
 
-        .content {
-            width: 100%;
-            margin-top: 130px;
-            height: 65vh;
-        }
+      .content {
+          width: 100%;
+          margin-top: 130px;
+          height: 75vh;
+      }
 
-        .option_table {
-        	width: 88%;
-            margin: 0 auto;
-            border-bottom: 1px solid lightgray;
-            border-spacing: 0px;
-        }
+      .option_table {
+      	width: 88%;
+          margin: 0 auto;
+          border-bottom: 1px solid lightgray;
+          border-spacing: 0px;
+      }
 
-        td {
-            text-align: center;
-            height: 50px;
-            font-size: 2vh;
-            border-bottom: 1px solid lightgray;
-        }
+      td {
+          text-align: center;
+          height: 50px;
+          font-size: 2vh;
+          border-bottom: 1px solid lightgray;
+      }
 
-        th {
-            height: 55px;
-            background-color: lightgrey;
-            font-size: 2.3vh;
-            text-align: center;
-        }
+      th {
+          height: 55px;
+          background-color: lightgrey;
+          font-size: 2.3vh;
+          text-align: center;
+      }
 
-         /* 모달 스타일 */
-         .modal {
-            display: block;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.4);
-            overflow: auto;
-        }
+       /* 모달 스타일 */
+       .modal {
+          display: block;
+          position: fixed;
+          z-index: 1;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.4);
+          overflow: auto;
+      }
 
-        .modal-content {
-            background-color: white;
-            margin: 14% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 400px;
-            height: 530px;
-            border-radius: 5px;
-            text-align: center;
-            font-size: 20px;
-            font-weight: bold;
-        }
-        
-        .modal-content2 {
-            background-color: white;
-            margin: 14% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 400px;
-            height: 440px;
-            border-radius: 5px;
-            text-align: center;
-            font-size: 20px;
-            font-weight: bold;
-        }
+      .modal-content {
+          background-color: white;
+          margin: 14% auto;
+          padding: 20px;
+          border: 1px solid #888;
+          width: 400px;
+          height: 530px;
+          border-radius: 5px;
+          text-align: center;
+          font-size: 20px;
+          font-weight: bold;
+      }
+      
+      .modal-content2 {
+          background-color: white;
+          margin: 14% auto;
+          padding: 20px;
+          border: 1px solid #888;
+          width: 400px;
+          height: 440px;
+          border-radius: 5px;
+          text-align: center;
+          font-size: 20px;
+          font-weight: bold;
+      }
 
-        .close-button {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+      .close-button {
+          color: #aaa;
+          float: right;
+          font-size: 28px;
+          font-weight: bold;
+          cursor: pointer;
+      }
 
-        .close-button:hover,
-        .close-button:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
+      .close-button:hover,
+      .close-button:focus {
+          color: black;
+          text-decoration: none;
+          cursor: pointer;
+      }
 
-        .checkbutton {
-            width: 350px;
-            margin: 20px auto
-        }
+      .checkbutton {
+          width: 350px;
+          margin: 20px auto
+      }
 
-        .modal_header {
-            font-size: 30px;
-            margin-bottom: 10px;
-        }
+      .modal_header {
+          font-size: 30px;
+          margin-bottom: 10px;
+      }
 
-        .modal_content {
-            margin-top: 10px;
-        }
+      .modal_content {
+          margin-top: 10px;
+      }
 
-        .modal_content div{
-            text-align: left;
-            margin-bottom: 10px;
-        }
+      .modal_content div{
+          text-align: left;
+          margin-bottom: 10px;
+      }
 
-        .modal_content input[type=text], select {
-            height: 30px;
-            width: 100%;
-            border-radius: 5px;
-            border: 1px solid lightgray;
-            padding-left: 5px;
-        }
+      .modal_content input[type=text], select {
+          height: 30px;
+          width: 100%;
+          border-radius: 5px;
+          border: 1px solid lightgray;
+          padding-left: 5px;
+      }
 
-        .closeModal{
-            position: absolute;
-            right: 10%;
-            color:#FF8B3D
-        }
-        
-        .closeModal2{
-        	position: absolute;
-            right: 41%;
-            color:#FF8B3D
-        }
+      .closeModal{
+          position: absolute;
+          right: 10%;
+          color:#FF8B3D
+      }
+      
+      .closeModal2{
+      	position: absolute;
+          right: 41%;
+          color:#FF8B3D
+      }
 
-        .closeModal:hover, .closeModal2:hover{
-            cursor: pointer;
-        }
+      .closeModal:hover, .closeModal2:hover{
+          cursor: pointer;
+      }
 
-        .insertbtn, .updatebtn {
-            width: 350px;
-            height: 40px;
-            margin-top: 20px;
-        }
+      .insertbtn, .updatebtn {
+          width: 350px;
+          height: 40px;
+          margin-top: 20px;
+      }
 
-        select {
-            height: 30px;
-            width: 100%;
-            border-radius: 5px;
-            border: 1px solid lightgray;
-            padding-left: 5px;
-        }
-        
-        .delete-btn {
-        	height: 30px;
-        	background-color: gray;
-        }
-        
-        .delete-btn:hover {
-        	background-color: lightgray;
-        }
+      select {
+          height: 30px;
+          width: 100%;
+          border-radius: 5px;
+          border: 1px solid lightgray;
+          padding-left: 5px;
+      }
+      
+      .delete-btn {
+      	height: 30px;
+      	background-color: gray;
+      }
+      
+      .delete-btn:hover {
+      	background-color: lightgray;
+      }
 
-		.pagination{
-			justify-content: center;
-		}
-
-    </style>
+	  .pagination{
+		justify-content: center;
+	  }
+</style>
 </head>
 <body>
 
@@ -234,7 +228,6 @@
             <div class="btn1"><button onClick="location.href='${contextPath}/coo'">원산지 관리</button></div>
             <div class="btn1"><button onclick="" class="insertOption">옵션 등록</button></div>
         </div>
-        <hr>
         <div class="content">
             <div class="table_outer">
                 <table class="option_table">
