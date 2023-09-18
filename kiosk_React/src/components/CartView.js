@@ -59,7 +59,6 @@ const CartView = () => {
 
     useEffect(() => {
         restoreCartFromLocalStorage();
-        console.log("보이냐아ㅏㅏㅏ",restoreCartFromLocalStorage);
     },[]);
 
     return (
