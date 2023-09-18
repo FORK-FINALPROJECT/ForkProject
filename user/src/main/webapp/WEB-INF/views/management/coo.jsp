@@ -22,11 +22,11 @@
         .content_outer {
             width: 100%;
             height: 100px;
-            margin-top: 80px;
+            margin-top: 6%;
         }
         
         .content_nav {
-        	width: 95%;
+        	width: 100%;
         }
 
         .content_nav > div {
@@ -34,9 +34,8 @@
         }
 
         .content_title {
-            width: 60%;
+            width: 48.7%;
             font-size: 40px;
-            font-family: Arial, Helvetica, sans-serif;
             font-weight: bolder;
             margin-left: 6%;
             margin-top : 20px;
@@ -44,7 +43,7 @@
 
         .btn1 {
             width: 8%;
-            height: 56px;
+            height: 62px;
             display: flex;
             margin-top : 20px;
         }
@@ -57,7 +56,6 @@
             cursor: pointer;
             background-color: #FF8B3D;
             color: white;
-            font-family: Arial, Helvetica, sans-serif;
             font-weight: bolder;
             border: none;
             font-size: 14px;
@@ -71,7 +69,7 @@
         .content {
             width: 100%;
             margin-top: 130px;
-            height: 650px;
+            height: 65vh;
         }
 
         .option_table {
@@ -83,14 +81,15 @@
 
         td {
             text-align: center;
-            height: 45px;
+            height: 50px;
+            font-size: 2vh;
             border-bottom: 1px solid lightgray;
         }
 
         th {
-            height: 50px;
+            height: 55px;
             background-color: lightgrey;
-            font-size: 20px;
+            font-size: 2.3vh;
             text-align: center;
         }
 
@@ -202,8 +201,9 @@
         <div class="content_nav">
             <div class="content_title">원산지 관리</div>
             <div class="btn1"><button onClick="location.href='${contextPath}/category'">카테고리 관리</button></div>
-            <div class="btn1"><button onClick="location.href='${contextPath}/option'">옵션 관리</button></div>
             <div class="btn1"><button onClick="location.href='${contextPath}/menu'">메뉴 관리</button></div>
+            <div class="btn1"><button onClick="location.href='${contextPath}/option'">옵션 관리</button></div>
+            <div class="btn1"><button onClick="location.href='${contextPath}/coo'">원산지 관리</button></div>
             <div class="btn1"><button onclick="" class="insertCoo">원산지 등록</button></div>
         </div>
         <hr>
@@ -250,10 +250,10 @@
 			<ul class="pagination">
 				<c:choose>
 					<c:when test="${pi.currentPage eq 1 }">
-						<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+						<li class="page-item disabled"><a class="page-link" href="#">이전 페이지</a></li>
 					</c:when>
 					<c:otherwise>
-						<li class="page-item"><a class="page-link" href="${url}${pi.currentPage - 1}${sUrl}">Previous</a></li>
+						<li class="page-item"><a class="page-link" href="${url}${pi.currentPage - 1}${sUrl}">이전 페이지</a></li>
 					</c:otherwise>
 				</c:choose>
 	
@@ -263,10 +263,10 @@
 	
 				<c:choose>
 					<c:when test="${pi.currentPage eq pi.maxPage}">
-						<li class="page-item disabled"><a class="page-link" href="#">next</a></li>
+						<li class="page-item disabled"><a class="page-link" href="#">다음 페이지</a></li>
 					</c:when>
 					<c:otherwise>
-						<li class="page-item"><a class="page-link" href="${url}${pi.currentPage + 1}${sUrl}">next</a></li>
+						<li class="page-item"><a class="page-link" href="${url}${pi.currentPage + 1}${sUrl}">다음 페이지</a></li>
 					</c:otherwise>
 				</c:choose>
 			</ul>

@@ -4,102 +4,25 @@
 <c:set var="contextPath" value="<%= request.getContextPath() %>"/>
 <!doctype html>
 <html>
-
 <head>
-    <meta charset='utf-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <title>회원가입 동의서</title>
-    <link href='https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css' rel='stylesheet'>
-    <link href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' rel='stylesheet'>
-    <style>
-        * {
-            /* border: 1px solid red; */
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-        }
-
-		
-
-        body {
-            background-color: #eee;
-            height: 950px;
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(to top, #fff 10%, #FF8B3D 60%) no-repeat;
-            overflow: hidden;
-        }
-
-        .wrapper {
-            max-width: 500px;
-            border-radius: 10px;
-            padding: 30px 40px;
-            box-shadow: 20px 20px 80px rgb(206, 206, 206);
-            position: absolute;
-        	left: 50%; 
-        	top: 50%;
-        	transform: translate(-50%,-50%);
-        }
-
-        .h2 {
-            font-style: normal;
-            color: #FF8B3D;
-            font-family: Arial, Helvetica, sans-serif;
-            font-weight: bolder;
-        }
-
-        textarea {
-            resize: none;
-            width: 415px;
-            height: 120px;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            border: 1px solid #FF8B3D;
-            color: black;
-            cursor: default;
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-
-        .form-group {
-            position: relative;
-        }
-
-        .nextpage {
-            height: 40px;
-            margin-top: 20px;
-        }
-
-        button {
-            background-color: #FF8B3D;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            width: 100%;
-            height: 100%;
-        }
-
-        input[type="checkbox"] {
-            position: absolute;
-            top: 2px;
-            width: 20px;
-            height: 20px;
-        }
-
-        label {
-            margin-left: 25px;
-        }
-
-        .essential {
-            color: red;
-        }
-    </style>
-    <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js'></script>
-    <script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js'></script>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<title>회원가입 동의서</title>
+<link href='https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css' rel='stylesheet'>
+<link href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' rel='stylesheet'>
+<link rel="stylesheet" href="../resources/css/member/enrollPage2.css">
+<script type='text/javascript' src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js'></script>
+<script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js'></script>
 </head>
-
 <body oncontextmenu='return false' class='snippet-body'>
+	
+	<c:if test="${not empty alertMsg }">
+		<script>
+			alert('${alertMsg}');
+		</script>
+		<c:remove var="alertMsg"/>
+	</c:if>
+
     <div class="wrapper bg-white">
         <div class="h2 text-center">회원가입 동의서</div>
         <form class="pt-3" action="${contextPath }/member/enrollForm2">

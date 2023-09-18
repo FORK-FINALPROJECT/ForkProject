@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.fork.user.management.model.vo.Category;
+import com.fork.user.management.model.vo.CategoryList;
 import com.fork.user.management.model.vo.Coo;
 import com.fork.user.management.model.vo.License;
 import com.fork.user.management.model.vo.LicenseHistory;
@@ -80,5 +81,7 @@ public interface ManagementService {
 	void updateLhStatus();
 
 	int checkLicense(int memberNo);
+
+	List<CategoryList> selectCategoryList2(int currentPage, Map<String, Object> paramMap);
 	
 }

@@ -23,3 +23,20 @@ function getTime(){
 
     time.innerHTML = livetime;
 }
+
+// 모달창 기능
+const logoutPage = document.getElementById('logoutPage');
+
+function openModal5() {
+    logoutPage.style.display = 'block';
+}
+
+function closeModal5() {
+    logoutPage.style.display = 'none';
+}
+
+window.addEventListener('click', (event) => {
+    if (event.target === logoutPage) {
+        closeModal5();
+    }
+});

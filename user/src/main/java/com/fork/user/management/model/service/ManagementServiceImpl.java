@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.fork.user.management.model.dao.ManagementDao;
 import com.fork.user.management.model.vo.Category;
+import com.fork.user.management.model.vo.CategoryList;
 import com.fork.user.management.model.vo.Coo;
 import com.fork.user.management.model.vo.License;
 import com.fork.user.management.model.vo.LicenseHistory;
@@ -189,6 +190,11 @@ public class ManagementServiceImpl implements ManagementService {
 	@Override
 	public int checkLicense(int memberNo) {
 		return managementDao.checkLicense(memberNo);
+	}
+
+	@Override
+	public List<CategoryList> selectCategoryList2(int currentPage, Map<String, Object> paramMap) {
+		return managementDao.selectCategoryList2(currentPage, paramMap);
 	}
 
 

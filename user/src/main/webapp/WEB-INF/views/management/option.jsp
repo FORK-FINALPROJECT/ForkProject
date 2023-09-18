@@ -24,25 +24,28 @@
         .content_outer {
             width: 100%;
             height: 100px;
-            margin-top: 80px;
+            margin-top: 6%;
         }
 
         .content_nav > div {
             float: left;
         }
+        
+        .content_nav {
+			width: 100%;        
+        }
 
         .content_title {
-            width: 1100px;
+            width: 48.7%;
             font-size: 40px;
-            font-family: Arial, Helvetica, sans-serif;
             font-weight: bolder;
             margin-left: 6%;
             margin-top : 20px;
         }
 
         .btn1 {
-            width: 150px;
-            height: 56px;
+            width: 8%;
+            height: 62px;
             display: flex;
             margin-top : 20px;
         }
@@ -55,10 +58,9 @@
             cursor: pointer;
             background-color: #FF8B3D;
             color: white;
-            font-family: Arial, Helvetica, sans-serif;
             font-weight: bolder;
             border: none;
-            font-size: 13px;
+            font-size: 14px;
         }
 
         button:hover {
@@ -68,11 +70,11 @@
         .content {
             width: 100%;
             margin-top: 130px;
-            height: 650px;
+            height: 65vh;
         }
 
         .option_table {
-            width: 1700px;
+        	width: 88%;
             margin: 0 auto;
             border-bottom: 1px solid lightgray;
             border-spacing: 0px;
@@ -80,14 +82,15 @@
 
         td {
             text-align: center;
-            height: 45px;
+            height: 50px;
+            font-size: 2vh;
             border-bottom: 1px solid lightgray;
         }
 
         th {
-            height: 50px;
+            height: 55px;
             background-color: lightgrey;
-            font-size: 20px;
+            font-size: 2.3vh;
             text-align: center;
         }
 
@@ -225,9 +228,10 @@
     <div class="content_outer">
         <div class="content_nav">
             <div class="content_title">옵션 관리</div>
-            <div class="btn1"><button onClick="location.href='${contextPath}/coo'">원산지 관리</button></div>
             <div class="btn1"><button onClick="location.href='${contextPath}/category'">카테고리 관리</button></div>
             <div class="btn1"><button onClick="location.href='${contextPath}/menu'">메뉴 관리</button></div>
+            <div class="btn1"><button onClick="location.href='${contextPath}/option'">옵션 관리</button></div>
+            <div class="btn1"><button onClick="location.href='${contextPath}/coo'">원산지 관리</button></div>
             <div class="btn1"><button onclick="" class="insertOption">옵션 등록</button></div>
         </div>
         <hr>
@@ -239,7 +243,7 @@
                             <th style="width:5%;">옵션 번호</th>
                             <th style="width:15%;">옵션 이름</th>
                             <th style="width:8%;">가격</th>
-                            <th style="width:5%;">상위 옵션 번호</th>
+                            <th style="width:8%;">상위 옵션 번호</th>
                             <th style="width:15%;">메뉴 이름</th>
                             <th style="width:10%;">수정</th>
                             <th style="width:10%;">삭제</th>
@@ -285,10 +289,10 @@
 			<ul class="pagination">
 				<c:choose>
 					<c:when test="${pi.currentPage eq 1 }">
-						<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+						<li class="page-item disabled"><a class="page-link" href="#">이전 페이지</a></li>
 					</c:when>
 					<c:otherwise>
-						<li class="page-item"><a class="page-link" href="${url}${pi.currentPage - 1}${sUrl}">Previous</a></li>
+						<li class="page-item"><a class="page-link" href="${url}${pi.currentPage - 1}${sUrl}">이전 페이지</a></li>
 					</c:otherwise>
 				</c:choose>
 	
@@ -298,10 +302,10 @@
 	
 				<c:choose>
 					<c:when test="${pi.currentPage eq pi.maxPage}">
-						<li class="page-item disabled"><a class="page-link" href="#">next</a></li>
+						<li class="page-item disabled"><a class="page-link" href="#">다음 페이지</a></li>
 					</c:when>
 					<c:otherwise>
-						<li class="page-item"><a class="page-link" href="${url}${pi.currentPage + 1}${sUrl}">next</a></li>
+						<li class="page-item"><a class="page-link" href="${url}${pi.currentPage + 1}${sUrl}">다음 페이지</a></li>
 					</c:otherwise>
 				</c:choose>
 			</ul>

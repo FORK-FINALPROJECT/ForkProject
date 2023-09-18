@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.fork.user.management.model.vo.Category;
+import com.fork.user.management.model.vo.CategoryList;
 import com.fork.user.management.model.vo.Coo;
 import com.fork.user.management.model.vo.License;
 import com.fork.user.management.model.vo.LicenseHistory;
@@ -186,6 +187,16 @@ public class ManagementDao {
 		}
 		
 		return result; 
+	}
+
+	public List<CategoryList> selectCategoryList2(int currentPage, Map<String, Object> paramMap) {
+		
+		int offset = (currentPage - 1) * 10;
+		int limit = 10;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return session.selectList("managementMapper.selectCategoryList2", paramMap, rowBounds);
 	}
 	
 }

@@ -64,6 +64,11 @@ public class MemberController {
 		
 	}
 	
+	/**
+	 * 로그아웃 
+	 * @param session
+	 * @return
+	 */
 	@GetMapping("logout")
 	public String logout(HttpSession session) {
 		

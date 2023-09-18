@@ -8,7 +8,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +23,7 @@ import com.fork.user.common.template.Pagination;
 import com.fork.user.common.vo.PageInfo;
 import com.fork.user.management.model.service.ManagementService;
 import com.fork.user.management.model.vo.Category;
+import com.fork.user.management.model.vo.CategoryList;
 import com.fork.user.management.model.vo.Coo;
 import com.fork.user.management.model.vo.License;
 import com.fork.user.management.model.vo.LicenseHistory;
@@ -132,7 +132,7 @@ public class ManagementController {
 				@RequestParam Map<String, Object> paramMap
 			) {
 		
-		List<Category> list = mService.selectCategory(currentPage, paramMap);
+		List<CategoryList> list = mService.selectCategoryList2(currentPage, paramMap);
 		
 		int total = mService.selectCategoryCount(paramMap);
 		

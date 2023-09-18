@@ -8,6 +8,13 @@
 		<result column="PR_CATEGORY_NO" property="prCategoryNo"/>
 	</resultMap>
 	
+	<resultMap type="categoryList" id="categoryListResultSet">
+		<id column="CATEGORY_NO" property="categoryNo"/>
+		<result column="CATEGORY_NAME" property="categoryName"/>
+		<result column="PR_CATEGORY_NO" property="prCategoryNo"/>
+		<result column="PR_CATEGORY_NAME" property="prCategoryName"/>
+	</resultMap>
+	
 	<resultMap type="option" id="optionResultSet">
 		<id column="OPTION_NO" property="optionNo"/>
 		<result column="OPTION_NAME" property="optionName"/>
@@ -298,6 +305,13 @@
 		SELECT *
 		FROM LICENSE_HISTORY
 		WHERE LH_STATUS = 'Y' AND MEMBER_NO = #{memberNo}
+	</select>
+	
+	<select id="selectCategoryList2" parameterType="string" resultMap="categoryListResultSet">
+		SELECT C.CATEGORY_NO, C.CATEGORY_NAME, NVL(C.PR_CATEGORY_NO, 0), NVL(P.CATEGORY_NAME, '없음') AS PR_CATEGORY_NAME
+		FROM CATEGORY C
+		LEFT JOIN CATEGORY P ON C.PR_CATEGORY_NO = P.CATEGORY_NO
+		ORDER BY CATEGORY_NO ASC
 	</select>
 
 </mapper>

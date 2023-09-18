@@ -3,16 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="<%= request.getContextPath() %>"/>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>옵션 관리</title>
-    <link rel="stylesheet" href="css/header.css">
-    <!-- alertify -->
-	<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-	<!-- alertify css -->
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
     <style>
         * {
             /* border: 1px solid red; */
@@ -22,18 +17,16 @@
         .content_outer {
             width: 100%;
             height: 100px;
-            margin-top: 80px;
+            margin-top: 6%;
         }
 
         .content_nav>div {
             float: left;
-            margin-top: -30px;
         }
 
         .content_title {
             width: 1100px;
             font-size: 40px;
-            font-family: Arial, Helvetica, sans-serif;
             font-weight: bolder;
             margin-left: 5%;
             margin-top : 20px;
@@ -55,7 +48,6 @@
             cursor: pointer;
             background-color: #FF8B3D;
             color: white;
-            font-family: Arial, Helvetica, sans-serif;
             font-weight: bolder;
             border: none;
         }
@@ -82,6 +74,7 @@
             height: 100px;
             font-size: 40px;
             border-bottom: 1px solid lightgray;
+            background-color: lightgray;
         }
 
         .license_table tbody tr td:first-child {
@@ -122,13 +115,6 @@
 </head>
 
 <body>
-	
-	<c:if test="${not empty alertMsg }">
-		<script>
-			alertify.alert("서비스 요청 성공", '${alertMsg}');
-		</script>
-		<c:remove var="alertMsg"/>
-	</c:if>
 
     <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
@@ -191,37 +177,26 @@
     <!-- <script src="payAPI.js"></script> -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
     <!-- iamport.payment.js -->
-    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
     
     <script>
     	$("#header-license").addClass("header_btn_on").removeClass("header_btn");
-    	
-		var IMP = window.IMP; 
-		IMP.init("imp06580330"); 
-		  
-		var today = new Date();   
-		var hours = today.getHours(); // 시
-		var minutes = today.getMinutes();  // 분
-		var seconds = today.getSeconds();  // 초
-		var milliseconds = today.getMilliseconds() * 3;
-		var makeMerchantUid = hours +  minutes + seconds + milliseconds;
+   	  
+   	    var today = new Date();   
 		    
-		function requestPay(amount) {   
-		    IMP.request_pay({
-		        pg : "html5_inicis",
-		        pay_method : 'card',
-		        merchant_uid: "IMP"+hours+minutes+seconds+makeMerchantUid+makeMerchantUid*2+makeMerchantUid*3, 
-		        name : '이용권', // 상품명
-		        amount : amount, // 수정된 부분
-		        buyer_email : 'Iamport@chai.finance',
-		        buyer_name : '아임포트 기술지원팀',
-		        buyer_tel : '010-1234-5678',
-		        buyer_addr : '서울특별시 강남구 삼성동',
-		        buyer_postcode : '123-456',
-		        custom_data: today,
-		        display: {
-		            card_quota: [3]  // 할부개월 3개월까지 활성화
-		        }
+		function requestPay(amount) {
+			IMP.init("imp52171157"); 
+	    	IMP.request_pay({
+	    		pg : 'html5_inicis', 
+			    pay_method : 'card',
+			    merchant_uid : 'merchant_' + new Date().getTime(),
+			    name : '이용권'/*상품명*/,
+			    amount : amount/*상품 가격*/, 
+			    buyer_email : 'iamport@siot.do'/*구매자 이메일*/,
+			    buyer_name : '구매자이름',
+			    buyer_tel : '010-1234-5678'/*구매자 연락처*/,
+			    buyer_addr : '서울특별시 강남구 삼성동'/*구매자 주소*/,
+			    buyer_postcode : '123-456'/*구매자 우편번호*/
 		    }, function (rsp) { // callback
 		        if (rsp.success) {
 		        	$.ajax({

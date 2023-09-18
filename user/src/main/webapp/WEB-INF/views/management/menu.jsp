@@ -21,7 +21,7 @@
 .content_outer {
 	width: 100%;
 	height: 100px;
-	margin-top: 80px;
+	margin-top: 6%;
 }
 
 .content_nav>div {
@@ -29,36 +29,35 @@
 }
 
 .content_nav{
-	width: 95%;
+	width: 100%;
 }
 
 .content_title {
-	width: 50%;
+	width: 48.7%;
 	font-size: 40px;
-	font-family: Arial, Helvetica, sans-serif;
 	font-weight: bolder;
-	margin-left: 8%;
+	margin-left: 6%;
 	margin-top: 20px;
 }
 
 .btn1 {
 	width: 8%;
-	height: 56px;
+	height: 62px;
 	display: flex;
 	margin-top: 20px;
 }
 
 button {
 	width: 80%;
-	height: 40px;
+	height: 70%;
 	border-radius: 5px;
 	margin: auto auto;
 	cursor: pointer;
 	background-color: #FF8B3D;
 	color: white;
-	font-family: Arial, Helvetica, sans-serif;
 	font-weight: bolder;
 	border: none;
+	font-size: 14px;
 }
 
 button:hover {
@@ -75,7 +74,7 @@ table * {
 }
 
 .menuTable {
-	width: 1500px;
+	width: 88%;
 	height: 50px;
 	margin: 0 auto;
 	text-align: left;
@@ -87,7 +86,6 @@ table * {
 
 th {
 	height: 50px;
-	font-family: Arial, Helvetica, sans-serif;
 	font-weight: bolder;
 	font-size: 20px;
 	padding-left: 10px;
@@ -148,7 +146,14 @@ td {
 
 .checkbutton {
 	width: 350px;
-	margin: 20px auto
+	margin: 20px auto;
+	height: 5%;
+}
+
+.checkbutton1 {
+	width: 350px;
+	margin: 20px auto;
+	height: 40px;
 }
 
 .modal_header {
@@ -229,6 +234,7 @@ textarea {
 	width: 150px;
 	margin-left: 20px;
 	margin-top: 20px;
+	height: 10%;
 }
 
 .menu-detail {
@@ -270,13 +276,12 @@ textarea {
 }
 .top-menu{
 	height: 50px;
-	font-family: Arial, Helvetica, sans-serif;
 	font-weight: bolder;
 	font-size: 20px;
 	padding-left: 10px;
 	background-color: rgb(50, 50, 50);
 	color: white; 
-	width: 1506px;
+	width: 88%;
 	margin: 0 auto; 
 	line-height: 50px;
 }
@@ -319,20 +324,11 @@ textarea {
 	<div class="content_outer">
 		<div class="content_nav">
 			<div class="content_title">메뉴 관리</div>
-			<div class="btn1">
-			</div>
-			<div class="btn1">
-				<button onClick="location.href='${contextPath}/coo'">원산지 관리</button>
-			</div>
-			<div class="btn1">
-				<button onClick="location.href='${contextPath}/category'">카테고리 관리</button>
-			</div>
-			<div class="btn1">
-				<button onClick="location.href='${contextPath}/option'">옵션 관리</button>
-			</div>
-			<div class="btn1">
-				<button onclick="insertMenu1()" class="insertMenu">메뉴 등록</button>
-			</div>
+			<div class="btn1"><button onClick="location.href='${contextPath}/category'">카테고리 관리</button></div>
+			<div class="btn1"><button onClick="location.href='${contextPath}/menu'">메뉴 관리</button></div>
+			<div class="btn1"><button onClick="location.href='${contextPath}/option'">옵션 관리</button></div>
+			<div class="btn1"><button onClick="location.href='${contextPath}/coo'">원산지 관리</button></div>
+			<div class="btn1"><button onclick="insertMenu1()" class="insertMenu">메뉴 등록</button></div>
 		</div>
 		
 	</div>
@@ -352,11 +348,11 @@ textarea {
 	            <div class="modal_content">
 	                <div class="menu_name">메뉴 이름</div>
 	                <div>
-	                    <input type="text" name="menuName" placeholder="메뉴 이름을 입력하세요">
+	                    <input type="text" name="menuName" placeholder="메뉴 이름을 입력하세요" required>
 	                </div>
 	                <div>가격</div>
 	                <div>
-	                    <input type="text" name="price" placeholder="가격을 입력하세요">
+	                    <input type="text" name="price" placeholder="가격을 입력하세요" required>
 	                </div>
 	                <div>카테고리</div>
 	                <div>
@@ -370,10 +366,10 @@ textarea {
 	                </div>
 	                <div>메뉴 상세정보</div>
 	                <div>
-	                    <textarea name="menuDetail" placeholder="메뉴 상세정보를 입력하세요"></textarea>
+	                    <textarea name="menuDetail" placeholder="메뉴 상세정보를 입력하세요" required></textarea>
 	                </div>
 	            </div>
-	            <button class="checkbutton" id="closeModalButton" type="submit">등록</button>
+	            <button class="checkbutton1" id="closeModalButton" type="submit">등록</button>
 	        </form>
 	    </div>
 	</div>
@@ -685,7 +681,7 @@ textarea {
             		$("#modalprice").html(data.price);
             		$("#modalcategory").html(data.categoryName);
             		$("#modalDetail").html(data.menuDetail);
-            		$(".menu_detail_img_tol").html("<img class='menu_detail_img' src='" + "${contextPath}" + "/" + data.filePath + "/" + data.changeName + "'>");
+            		$(".menu_detail_img_tol").html("<img class='menu_detail_img' src='" + "${contextPath}" + data.filePath + data.changeName + "'>");
             	}
             });
             
