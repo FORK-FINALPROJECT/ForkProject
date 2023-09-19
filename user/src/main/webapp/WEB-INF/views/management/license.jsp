@@ -1,185 +1,182 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="contextPath" value="<%= request.getContextPath() %>"/>
+<c:set var="contextPath" value="<%= request.getContextPath() %>" />
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>옵션 관리</title>
-    <style>
-        * {
-            /* border: 1px solid red; */
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>옵션 관리</title>
+<style>
+* {
+	/* border: 1px solid red; */
+	box-sizing: border-box;
+}
+.content { 
+    width: 1500px; 
+    height: 800px; 
+    margin: 0 auto;
+    margin-top: 80px;
+    padding-top: 40px;
+    position: relative;
+    overflow: hidden;
+}
+.content_title {
+	font-size: 40px;
+	font-weight: bolder;
+}
+.lisence-category{
+	font-size: 24px;
+}
+.lisence-outer{
+	display: flex;
+	align-content: space-around;
+}
+.lisence-list{
+	box-shadow: 0 5px 7px #ccc;
+	border-radius: 15px;
+	padding: 30px;
+	align-items: center;
+	margin: 0 auto;
+}
+.lisence-content{
+	display: flex;
+}
+.license-year{
+	width: 49%;
+}
+.license-month{
+	width: 32%;
+}
+.license-info{
+	flex: 1 1 0;
+}
 
-        .content_outer {
-            width: 100%;
-            height: 100px;
-            margin-top: 6%;
-        }
+.lisenece-title{color: orange; font-size: 20px;}
+.lisenece-price{margin-bottom: 30px;}
 
-        .content_nav>div {
-            float: left;
-        }
+.lisenece-btn{
+	flex: 1 1 0;
+	text-align: center;
+	width: 100%;
+}
+.pay {
+	width: 100%;
+	padding: 12px 0;
+	font-size: 16px;
+	border: none;
+	background-color: orange;
+	color: white;
+}
+.pay:hover{
+	background-color: #FF8B3D;
+}
+.pay:active{
+    position: relative;
+    top: 1px;
+}
+.lisence-list>li{font-size: 12px; color: gray; margin-top: 10px;}
 
-        .content_title {
-            width: 1100px;
-            font-size: 40px;
-            font-weight: bolder;
-            margin-left: 5%;
-            margin-top : 20px;
-            margin-bottom: 40px;
-        }
+button {
+    border-radius: 5px;
+    background-color: #eee;
+    cursor: pointer;
+    border:none;
+    box-shadow: 1px 3px 4px rgb(0, 0, 0, 0.3);
+}
+button:active {
+    box-shadow: 1px 1px 0 rgb(0, 0, 0, 0.1);
+    position: relative;
+    top: 2px;
+}
 
-        .btn1 {
-            width: 150px;
-            height: 56px;
-            display: flex;
-            margin-top: 20px;
-        }
-
-        button {
-            width: 80%;
-            height: 70%;
-            border-radius: 5px;
-            margin: auto auto;
-            cursor: pointer;
-            background-color: #FF8B3D;
-            color: white;
-            font-weight: bolder;
-            border: none;
-        }
-
-        button:hover {
-            background-color: wheat;
-        }
-
-        .content {
-            width: 100%;
-            margin-top: 130px;
-            height: 650px;
-        }
-
-        .license_table {
-            width: 1700px;
-            margin: 0 auto;
-            border-spacing: 0px;
-        }
-
-        th {
-            text-align: left;
-            padding-left: 15px;
-            height: 100px;
-            font-size: 40px;
-            border-bottom: 1px solid lightgray;
-            background-color: lightgray;
-        }
-
-        .license_table tbody tr td:first-child {
-            padding-left: 40px;
-            width: 700px;
-            color: #FF8B3D;
-        }
-
-        td {
-            font-size: 20px;
-            height: 70px;
-            border-bottom: 1px solid lightgray;
-        }
-
-        input[type=button] {
-            margin: auto auto;
-            width: 150px;
-            height: 40px;
-            border-radius: 5px;
-            background-color: #FF8B3D;
-            color: white;
-            font-weight: bold;
-            border: none;
-        }
-
-        input[type=button]:hover {
-            cursor: pointer;
-            background-color: wheat;
-        }
-        
-        .pay {
-        	width: 150px;
-        	font-size: 16px;
-        	height: 40px;
-        }
-
-    </style>
+</style>
 </head>
 
 <body>
 
-    <jsp:include page="/WEB-INF/views/common/header.jsp"/>
+<jsp:include page="/WEB-INF/views/common/header.jsp" />
 
-    <!-- content 시작 -->
-    <div class="content_outer">
-        <div class="content_nav">
-            <div class="content_title">이용권 결제</div>
-        </div>
-        <div class="content">
-            <table class="license_table">
-                <thead>
-                    <tr>
-                        <th colspan="3">연간 이용권</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>2년 이용권</td>
-                        <td>900,000 원</td>
-                        <td style="width:300px"><button value="결제" class="pay" onclick="requestPay(900000)">결제</button></td>
-                    </tr>
-                    <tr>
-                        <td>1년 이용권</td>
-                        <td>550,000 원</td>
-                        <td style="width:300px"><button value="결제" class="pay" onclick="requestPay(550000)">결제</button></td>
-                    </tr>
-                </tbody>
-            </table>
-            <br><br><br>
-            <table class="license_table">
-                <thead>
-                    <tr>
-                        <th colspan="3">월간 이용권</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>9개월 이용권</td>
-                        <td>450,000 원</td>
-                        <td style="width:300px"><button value="결제" class="pay" onclick="requestPay(450000)">결제</button></td>
-                    </tr>
-                    <tr>
-                        <td>6개월 이용권</td>
-                        <td>300,000 원</td>
-                        <td style="width:300px"><button value="결제" class="pay" onclick="requestPay(300000)">결제</button></td>
-                    </tr>
-                    <tr>
-                        <td>3개월 이용권</td>
-                        <td>150,000 원</td>
-                        <td style="width:300px"><button value="결제" class="pay" onclick="requestPay(100)">결제</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+<div class="outer">
+	<div class="content">
+		<div class="content_title">이용권 결제</div><br>
+		
+		<div class="lisence-category">연간 이용권</div><br>
+		
+		<div class="lisence-outer">
+			<div class="lisence-list license-year">
+				<div class="lisence-content">
+					<div class="license-info">
+						<span class="lisenece-title">2년 이용권</span><br>
+						<span class="lisenece-price"><s>1,200,000</s> ▶ 900,000원</span>
+					</div>
+					<div class="lisenece-btn"><button value="결제" class="pay" onclick="requestPay(900000)">결제</button></div>
+				</div>
+				<br>
+				<li>FORK 2년(24개월) 이용권</li>
+				<li>300,000원 절감 효과</li>
+			</div>
+			<div class="lisence-list license-year">
+				<div class="lisence-content">
+					<div class="license-info">
+						<span class="lisenece-title">1년 이용권</span><br>
+						<span class="lisenece-price"><s>600,000</s> ▶ 550,000원</span>
+					</div>
+					<div class="lisenece-btn"><button value="결제" class="pay" onclick="requestPay(550000)">결제</button></div>
+				</div>
+				<br>
+				<li>FORK 1년(12개월) 이용권</li>
+				<li>50,000원 절감 효과</li>
+			</div>
+		</div>
+		
+		<br>
+		
+		<br><div class="lisence-category">월간 이용권</div><br>
+		
+		<div class="lisence-outer">
+			<div class="lisence-list license-month">
+				<div class="lisence-content">
+					<div class="license-info">
+						<span class="lisenece-title">9개월 이용권</span><br>
+						<span class="lisenece-price">450,000원</span>
+					</div>
+					<div class="lisenece-btn"><button value="결제" class="pay" onclick="requestPay(450000)">결제</button></div>
+				</div>
+			</div>
+			<div class="lisence-list license-month">
+				<div class="lisence-content">
+					<div class="license-info">
+						<span class="lisenece-title">6개월 이용권</span><br>
+						<span class="lisenece-price">300,000원</span>
+					</div>
+					<div class="lisenece-btn"><button value="결제" class="pay" onclick="requestPay(300000)">결제</button></div>
+				</div>
+			</div>
+			<div class="lisence-list license-month">
+				<div class="lisence-content">
+					<div class="license-info">
+						<span class="lisenece-title">3개월 이용권</span><br>
+						<span class="lisenece-price">150,000원</span>
+					</div>
+					<div class="lisenece-btn"><button value="결제" class="pay" onclick="requestPay(150000)">결제</button></div>
+				</div>
+		</div>
+		
+		
+	</div>
+</div>
 
-    <br><br><br><br>
-    
-     <!-- 결제API -->
-    <!-- <script src="payAPI.js"></script> -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
-    <!-- iamport.payment.js -->
-    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-    
-    <script>
+	<!-- 결제API -->
+	<!-- <script src="payAPI.js"></script> -->
+	<script type="text/javascript"
+		src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	<!-- iamport.payment.js -->
+	<script type="text/javascript"
+		src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
+	<script>
     	$("#header-license").addClass("header_btn_on").removeClass("header_btn");
    	  
    	    var today = new Date();   
