@@ -10,6 +10,7 @@ import { useReceiptStore } from '../store/receiptViewStore';
 import Numpad from './numPadTest'; 
 import numpadStore from '../store/numpadStore';
 import Modal from 'react-bootstrap/Modal';
+import useSocketStore from '../store/socketStore';
 const DutchpayByPrice = (props) => {
 
     const [receiptNo , setReceiptNo] = useState([]);
@@ -19,6 +20,9 @@ const DutchpayByPrice = (props) => {
         return [...receiptNo, newReceiptNo];
     }
     // 소켓통신이 완료되면 영수증 번호 지워주기
+    const { stompClient, setStompClient } = useSocketStore();
+    const {totalCashPrice, setTotalCashPrice , getTotalCashPrice} = paymentModalStore();
+    
     const resetReceiptNo = () => {
         setReceiptNo([]);
     }
@@ -64,7 +68,15 @@ const DutchpayByPrice = (props) => {
                     // 영수증번호 배열에 담아주기
                     let receiptNoList = addReceiptNo(result); // 저장된 영수증 번호(이걸 소켓에서 보내주심 됩니다. 배열형태에요)
                     console.log('****receiptNoList : ', receiptNoList);
-        
+
+                    let message = {
+                        kioskNo : kioskNo,
+                        price : getTotalCashPrice(),
+                        receiptNoList : receiptNoList
+                    };
+
+                    stompClient?.send(`/user/send/${kioskNo}`, {}, JSON.stringify(message));
+                    console.log(message);
                     // 1. 소켓이 정상적으로 보내졌을 경우
                     handleResetCartStore(); // 카트비워주기
                     resetReceiptNo(); // 영수증번호 리스트 비워주기
