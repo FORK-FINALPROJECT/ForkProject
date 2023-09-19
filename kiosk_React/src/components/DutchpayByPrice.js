@@ -1,5 +1,5 @@
 import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState , useEffect } from 'react';
 import DutchpayByPriceModal from './DutchpayByPriceModal';
 import DutchpaySelectPayModal from './DutchpaySelectPayModal ';
@@ -11,6 +11,7 @@ import Numpad from './numPadTest';
 import numpadStore from '../store/numpadStore';
 import Modal from 'react-bootstrap/Modal';
 import useSocketStore from '../store/socketStore';
+
 const DutchpayByPrice = (props) => {
 
     const [receiptNo , setReceiptNo] = useState([]);
@@ -27,6 +28,7 @@ const DutchpayByPrice = (props) => {
     // 소켓통신이 완료되면 영수증 번호 지워주기
     const { stompClient, setStompClient } = useSocketStore();
     const {totalCashPrice, setTotalCashPrice , getTotalCashPrice} = paymentModalStore();
+    const navigate = useNavigate();
     
     const resetReceiptNo = () => {
         setReceiptNo([]);
@@ -63,8 +65,9 @@ const DutchpayByPrice = (props) => {
             
             let paidPriceSum = addPaidPrice(price);
             // console.log('newCartTotalPrice : ', newCartTotalPrice);
-            console.log('cartTotalPrice : ', cartTotalPrice);
-            console.log('페이드프라이스섬',paidPriceSum);
+            // console.log('cartTotalPrice : ', cartTotalPrice);
+            // console.log('페이드프라이스섬',paidPriceSum);
+            
             if(paidPriceSum == cartTotalPrice){ // 모두 결제된 경우
                 // 가격없이 아이템들 basicPay로 데이터 넣어주기
                 let result = await basicPay(kioskNo, cartItems, 0);
@@ -76,7 +79,7 @@ const DutchpayByPrice = (props) => {
 
                     let message = {
                         kioskNo : kioskNo,
-                        price : getTotalCashPrice(),
+                        price : (getTotalCashPrice() == 0 ? null : getTotalCashPrice() ),
                         receiptNoList : receiptNoList
                     };
 
@@ -85,6 +88,9 @@ const DutchpayByPrice = (props) => {
                     // 1. 소켓이 정상적으로 보내졌을 경우
                     handleResetCartStore(); // 카트비워주기
                     resetReceiptNo(); // 영수증번호 리스트 비워주기
+                    setTotalCashPrice(0);
+                    
+                    navigate("/") // 결제 완료 후 메인화면으로
         
                     // 2. 아니면 소켓 다시 진행 반복
                     // 소켓 반복
@@ -101,6 +107,7 @@ const DutchpayByPrice = (props) => {
             resetReceiptNo();
         }
     }
+
 
     // 최대개수 넘어가면 모달모달
     const [modalShow, setModalShow] = useState(false);
@@ -142,11 +149,15 @@ const DutchpayByPrice = (props) => {
     };
 
     // 현금결제 버튼 클릭 시 모달 열기
-    const handleCashPaymentClick = (itemId) => {
+    let cashPrice = 0;
+    const handleCashPaymentClick = (item) => {
         if(checkTotalInputPrice()){
             setSelectedPaymentMethod('현금결제');
             setModalShow(true);
-            updatePaymentStatus(itemId);
+            updatePaymentStatus(item.id);
+            cashPrice = totalCashPrice+item.price;
+            setTotalCashPrice(cashPrice);
+            console.log("현금결제 금액금액",cashPrice);
         }
     };
 
@@ -291,7 +302,7 @@ const DutchpayByPrice = (props) => {
                                         </li>
                                         <li>
                                             <Button variant="secondary" onClick={() => {if(!paymentStatusCheck(item)) handleCardPaymentClick(item.id); handleDutchPay(item.price, index);}}>카드결제</Button>{' '}
-                                            <Button variant="secondary" onClick={() => {if(!paymentStatusCheck(item)) handleCashPaymentClick(item.id); handleDutchPay(item.price, index);}}>현금결제</Button>
+                                            <Button variant="secondary" onClick={() => {if(!paymentStatusCheck(item)) handleCashPaymentClick(item); handleDutchPay(item.price, index);}}>현금결제</Button>
                                         </li>
                                     </ul>
                                 )
@@ -303,6 +314,7 @@ const DutchpayByPrice = (props) => {
                                 </li>
                                 <DutchpaySelectPayModal show={modalShow} onHide={() => setModalShow(false)} selectedPaymentMethod={selectedPaymentMethod}/>
                                 <Numpad show={numpadModalShow} onHide={() => setNumpadModalShow(false)} />
+                                
                             </ul>
                         </div>
                     </div>

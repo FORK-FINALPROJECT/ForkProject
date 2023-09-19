@@ -2,13 +2,15 @@ import React, { useEffect, useRef, useState } from "react";
 import SelectPayModal from './SelectPayModal';
 import Button from 'react-bootstrap/Button';
 import useCartStore from '../store/cartStore';
+import SelectPayModal2 from './SelectPayModal2';
 
 const CartView = () => {
 
-    const springUrl = 'http://192.168.80.14:8083/kiosk';
+    const springUrl = 'http://localhost:8083/kiosk';
 
     // 결제 모달
     const [modalShow, setModalShow] = useState(false);
+    const [modalShow2, setModalShow2] = useState(false);
     const {cartItems, setCartItems , cartTotalPrice, setCartTotalPrice, restoreCartFromLocalStorage } = useCartStore();
     // {
     //얻어온 데이터를 바탕으로 메뉴정보 보여주기 
@@ -108,8 +110,15 @@ const CartView = () => {
                         ) : null} */}
                     </div>
                     <div className="cart-order">
-                        <Button id="button-coo" variant="light" onClick={() => setModalShow(true)}> {cartTotalPrice.toLocaleString('ko-KR')}원 결제하기 </Button>
+                        <Button id="button-coo" variant="light" onClick={() => {
+                            if(cartTotalPrice){
+                                setModalShow(true)
+                            }else{
+                                setModalShow2(true)
+                            }}
+                    }> {cartTotalPrice.toLocaleString('ko-KR')}원 결제하기 </Button>
                         <SelectPayModal show={modalShow} onHide={() => setModalShow(false)} />
+                        <SelectPayModal2 show={modalShow2} onHide={() => setModalShow2(false)} />
                     </div>
                 </form>
             </div>

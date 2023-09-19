@@ -5,7 +5,7 @@ import useScrollToSubCategoryStore from '../store/scrollListStore';
 
 const MenuList = () => {
     const subCategorys = useCategoryStore((state) => state.subCategorys);
-    const springUrl = 'http://192.168.30.14:8083/kiosk';
+    const springUrl = 'http://localhost:8083/kiosk';
 
     // 헤더에서 카테고리 클릭시 해당 카테고리로 스크롤
     const subCategoryRefs = {};
