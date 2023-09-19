@@ -19,6 +19,11 @@ const DutchpayByPrice = (props) => {
         setReceiptNo([...receiptNo, newReceiptNo]);
         return [...receiptNo, newReceiptNo];
     }
+    // 모두 결제가 되었을때 마지막 영수증 번호 담아주기
+    const lastAddReceiptNo = (prevReceiptNoList, newReceiptNo) => {
+        setReceiptNo([...prevReceiptNoList, newReceiptNo]);
+        return ([...prevReceiptNoList, newReceiptNo]);
+    }
     // 소켓통신이 완료되면 영수증 번호 지워주기
     const { stompClient, setStompClient } = useSocketStore();
     const {totalCashPrice, setTotalCashPrice , getTotalCashPrice} = paymentModalStore();
@@ -53,8 +58,8 @@ const DutchpayByPrice = (props) => {
         if(result > 0){
             // 결제 성공
             // 영수증번호 배열에 담아주기
-            let receiptNoList = addReceiptNo(result); // 저장된 영수증 번호(이걸 소켓에서 보내주심 됩니다. 배열형태에요)
-            console.log('****receiptNoList : ', receiptNoList); // 일단 여기까지는 됨! 아래 수정 좀 하면 될것같은데?
+            let prevReceiptNoList = addReceiptNo(result); // 저장된 영수증 번호(이걸 소켓에서 보내주심 됩니다. 배열형태에요)
+            console.log('****receiptNoList : ', prevReceiptNoList); // 일단 여기까지는 됨! 아래 수정 좀 하면 될것같은데?
             
             let paidPriceSum = addPaidPrice(price);
             // console.log('newCartTotalPrice : ', newCartTotalPrice);
@@ -66,7 +71,7 @@ const DutchpayByPrice = (props) => {
                 if (result > 0) {
                     // 결제 성공
                     // 영수증번호 배열에 담아주기
-                    let receiptNoList = addReceiptNo(result); // 저장된 영수증 번호(이걸 소켓에서 보내주심 됩니다. 배열형태에요)
+                    let receiptNoList = lastAddReceiptNo( prevReceiptNoList,result); // 저장된 영수증 번호(이걸 소켓에서 보내주심 됩니다. 배열형태에요)
                     console.log('****receiptNoList : ', receiptNoList);
 
                     let message = {
@@ -95,7 +100,7 @@ const DutchpayByPrice = (props) => {
             // 영수증번호 리스트 비워주기
             resetReceiptNo();
         }
-    }    
+    }
 
     // 최대개수 넘어가면 모달모달
     const [modalShow, setModalShow] = useState(false);
@@ -248,8 +253,27 @@ const DutchpayByPrice = (props) => {
                         </div>
                         <div className="pay-list">
                             {items.map((item, index) => (
-                                (
-                                    <ul key={item.id} id={index}>
+                                item.paymentStatus ? (
+                                    <ul key={item.id} id='paidUlInDutch'>
+                                        <li>
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <th>금액</th>
+                                                        <td></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </li>
+                                        <li>
+                                            <input type="text" id={item.id} readOnly value={item.price} onClick={(e) => { if(!paymentStatusCheck(item)) {handleNumPad(e, this); setNumpadModalShow(items.length > 1);}}}/>
+                                        </li>
+                                        <li>
+                                            결제완료
+                                        </li>
+                                    </ul>
+                                ) : (
+                                    <ul key={item.id}>
                                         <li>
                                             <table>
                                                 <tbody>
@@ -271,6 +295,7 @@ const DutchpayByPrice = (props) => {
                                         </li>
                                     </ul>
                                 )
+                                
                             ))}
                             <ul>
                                 <li className="userAddLi" onClick={handleAddItem}>
