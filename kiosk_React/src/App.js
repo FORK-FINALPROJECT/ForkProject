@@ -185,37 +185,37 @@ function App() {
     // })
 
     // 스크롤 기능. 원하는 div 상위 영역에 클래스명 추가시 모두 사용 가능
-    const scrollableDivs = document.getElementsByClassName('scrollable');
+    // const scrollableDivs = document.getElementsByClassName('scrollable');
 
-    [].forEach.call(scrollableDivs, function (item) {
-      let isMouseDown = false;
-      let startY;
-      let startScrollTop;
+    // [].forEach.call(scrollableDivs, function (item) {
+    //   let isMouseDown = false;
+    //   let startY;
+    //   let startScrollTop;
 
-      item.addEventListener('mousedown', (e) => {
-        isMouseDown = true;
-        startY = e.pageY - item.offsetTop;
-        startScrollTop = item.scrollTop;
-      });
+    //   item.addEventListener('mousedown', (e) => {
+    //     isMouseDown = true;
+    //     startY = e.pageY - item.offsetTop;
+    //     startScrollTop = item.scrollTop;
+    //   });
 
-      item.addEventListener('mouseup', () => {
-        isMouseDown = false;
-      });
+    //   item.addEventListener('mouseup', () => {
+    //     isMouseDown = false;
+    //   });
 
-      item.addEventListener('mousemove', (e) => {
-        if (!isMouseDown) return;
-        e.preventDefault();
+    //   item.addEventListener('mousemove', (e) => {
+    //     if (!isMouseDown) return;
+    //     e.preventDefault();
 
-        const newY = e.pageY - item.offsetTop;
-        const deltaY = newY - startY;
+    //     const newY = e.pageY - item.offsetTop;
+    //     const deltaY = newY - startY;
 
-        item.scrollTop = startScrollTop - deltaY;
-      });
+    //     item.scrollTop = startScrollTop - deltaY;
+    //   });
 
-      item.addEventListener('mouseleave', () => {
-        isMouseDown = false;
-      });
-    });
+    //   item.addEventListener('mouseleave', () => {
+    //     isMouseDown = false;
+    //   });
+    // });
 
     //스프링부트 연결
     // axios.get("http://localhost:3000/kiosk/category").then((response) => {

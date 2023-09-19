@@ -10,7 +10,7 @@ import useSocketStore from '../store/socketStore';
 
 const DutchpayByMenu = (props) => {
 
-    const springUrl = 'http://localhost:8083/kiosk';
+    const springUrl = 'http://192.168.80.14:8083/kiosk';
 
     const [receiptNo , setReceiptNo] = useState([]);
 
