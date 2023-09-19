@@ -39,6 +39,7 @@ public class KitchenDao {
 			if ( menus != null ) {
 				for(MenuOption menu : menus) {
 					menuList.add(menu);
+					log.info("menu={}", menu);
 				}
 			}
 		}

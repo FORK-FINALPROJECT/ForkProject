@@ -17,6 +17,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 
 <div class="outer">
+	<div>
+		<audio id="notificationSound" preload="none">
+	    	<source src="resources/audio/kitchenCall.mp3" type="audio/mpeg">
+		</audio>
+	</div>
 
 	<c:if test="${not empty orderList}">
 		<c:forEach var="orderPage" items="${orderList}">

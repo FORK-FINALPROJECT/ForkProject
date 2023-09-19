@@ -11,10 +11,10 @@
     </resultMap>
     
     <select id="loadChart" resultMap="chartResultSet" parameterType="hashmap">
-        SELECT PAY_DATE, SUM(PRICE) PRICE
+        SELECT TO_CHAR(PAY_DATE, 'YYYY-MM-DD') PAY_DATE, SUM(PRICE) PRICE
 		FROM PAY
-		GROUP BY PAY_DATE
-		HAVING PAY_DATE BETWEEN TO_DATE('${startDay}','YYYY-MM-DD') AND TO_DATE('${endDay}','YYYY-MM-DD')+1
+		GROUP BY TO_CHAR(PAY_DATE, 'YYYY-MM-DD')
+		HAVING TO_DATE(TO_CHAR(PAY_DATE, 'YYYY-MM-DD')) BETWEEN TO_DATE('${startDay}','YYYY-MM-DD') AND TO_DATE('${endDay}','YYYY-MM-DD')+1
 		ORDER BY PAY_DATE
     </select>
     

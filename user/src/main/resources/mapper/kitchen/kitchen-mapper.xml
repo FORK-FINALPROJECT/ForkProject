@@ -27,7 +27,7 @@
 	
 	<select id="selectTotalMenulist" resultMap="menuOptResultSet">
 		SELECT 
-		    MAX(MENU_NAME) MENU_NAME, LISTAGG(option_name, ',') WITHIN GROUP (ORDER BY option_name)  OPTION_NAME, COUNT(CNT) CNT
+		    MAX(MENU_NAME) MENU_NAME, LISTAGG(option_name, ',') WITHIN GROUP (ORDER BY option_name)  OPTION_NAME, SUM(CNT) CNT
 		    
 		FROM
 		    TOTAL_RECEIPT   TR
