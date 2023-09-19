@@ -31,10 +31,11 @@ public class KitchenController {
 		List<PayStructure> orderList = kitchenService.selectPaylist();
 
 		for (PayStructure order : orderList) {
-			List<MenuOption> menuList = kitchenService.selectMenulist(order.getTrNo());
+			List<MenuOption> menuList = kitchenService.selectTotalMenulist(order.getTrNo());
 			order.setMenuOption(menuList);
 		}
 		
+		log.info("orderList ={}", orderList);
 		model.addAttribute("orderList", orderList);
 		
 		return "kitchen/kitchen";
@@ -43,15 +44,22 @@ public class KitchenController {
 	
 	@PostMapping("/kitchen/newOrder/{kno}")
 	@ResponseBody
-	public PayStructure newOrder(@PathVariable("kno") int kioskNo, @RequestParam(value="receiptNoList[]") ArrayList<Integer> receiptNoList) { 
+	public PayStructure newOrder(@PathVariable("kno") int kioskNo, @RequestParam(value="receiptNoList[]") ArrayList<Integer> receiptNoList) {
+		
+		log.info("receiptNoList={}", receiptNoList);
+		log.info("kioskNo={}", kioskNo);
 		
 		// 테이블정보 조회
-		PayStructure newOrder = kitchenService.selectTableInfo(kioskNo);
-		List<MenuOption> menuList = new ArrayList();
+		PayStructure newOrder = null;
+		PayStructure order = kitchenService.selectTableInfo(kioskNo);
+		log.info("order={}", order);
 		
-		if ( newOrder != null ) {
+		List<MenuOption> menuList = new ArrayList();
+		if ( order != null ) {
 			menuList = kitchenService.selectMenulist(receiptNoList);
-			newOrder.setMenuOption(menuList);
+			log.info("menuList={}", menuList);
+			order.setMenuOption(menuList);
+			newOrder = order;
 		}
 		
 		return newOrder;		

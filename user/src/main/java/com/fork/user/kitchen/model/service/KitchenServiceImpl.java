@@ -22,8 +22,8 @@ public class KitchenServiceImpl implements KitchenService {
 	}
 
 	@Override
-	public List<MenuOption> selectMenulist(int no) {
-		return kitchenDao.selectMenulist(no);
+	public List<MenuOption> selectTotalMenulist(int no) {
+		return kitchenDao.selectTotalMenulist(no);
 	}
 	
 	@Override
