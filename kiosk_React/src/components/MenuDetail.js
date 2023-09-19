@@ -23,7 +23,7 @@ const MenuDetail = (props) => {
     // 메뉴리스트에서 값을 받아옴
     const location = useLocation();
     const menu = location.state;
-    const springUrl = 'http://localhost:8083/kiosk';
+    const springUrl = 'http://192.168.30.14:8082/user';
     // 선택된 옵션 담아주기
     const [selectedOption, setSelectedOption] = useState([]);
     const [totalPrice, setTotalPrice] = useState(menu.price);
@@ -88,7 +88,7 @@ const MenuDetail = (props) => {
                     </div>
                     <div className="detailmenu-content">
                         <div className="detailmenu-content-left">
-                            <img src={springUrl + menu.filePath + menu.originName} alt="메뉴사진" onError={(e) => { e.target.src = require('../resources/image/defaultimg.jpg') }} />
+                            <img src={springUrl + menu.filePath + menu.changeName} alt="메뉴사진" onError={(e) => { e.target.src = require('../resources/image/defaultimg.jpg') }} />
                             <ul>
                                 <li>
                                     {menu.menuDetail}

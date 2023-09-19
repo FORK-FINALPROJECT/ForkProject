@@ -39,7 +39,7 @@ function SelectPayModal(props) {
 
     // 결제
     const { basicPay } = useSaveData();
-    const handleBasicPay = async () => {
+    const handleBasicPay = async (method) => {
         let result = await basicPay(kioskNo, cartItems, cartTotalPrice);
         if (result > 0) {
             // 결제 성공
@@ -47,13 +47,24 @@ function SelectPayModal(props) {
             let receiptNoList = addReceiptNo(result); // 저장된 영수증 번호(이걸 소켓에서 보내주심 됩니다. 배열형태에요)
             console.log('****receiptNoList : ', receiptNoList);
 
+            // 결제 방법 별로 message 담아서 웹소켓에 보내보내
+            if (method === "카드결제") {
+                message = {
+                    kioskNo: kioskNo,
+                    price: null,
+                    receiptNoList : receiptNoList
+                };
+            } else if (method === "현금결제") {
+                message = {
+                    kioskNo: kioskNo,
+                    price: cartTotalPrice,
+                    receiptNoList : receiptNoList
+                };
+            }
+
             stompClient?.send(`/user/send/${kioskNo}`, {}, JSON.stringify(message));
-            // 1. 소켓이 정상적으로 보내졌을 경우
             handleResetCartStore(); // 카트비워주기
             resetReceiptNo(); // 영수증번호 리스트 비워주기
-            
-            // 2. 아니면 소켓 다시 진행 반복
-            // 소켓 반복
         } else {
             // 결제 실패
             // 영수증번호 리스트 비워주기
@@ -65,23 +76,6 @@ function SelectPayModal(props) {
     const handlePaymentMethodClick = (method) => {
         setPayMethod(method);
         setModalTimer(10); // 타이머 리셋
-        let result = basicPay(kioskNo, cartItems, cartTotalPrice);
-        let receiptNoList = addReceiptNo(result);
-
-        // 결제 방법 별로 message 담아서 웹소켓에 보내보내
-        if (method === "카드결제") {
-            message = {
-                kioskNo: kioskNo,
-                price: null,
-                receiptNoList : receiptNoList
-            };
-        } else {
-            message = {
-                kioskNo: kioskNo,
-                price: cartTotalPrice,
-                receiptNoList : receiptNoList
-            };
-        }
     };
 
     // 모달이 닫힐 때 setPayMethod(null) 자동 실행
@@ -173,11 +167,11 @@ function SelectPayModal(props) {
                         </div>
                     ) : (
                         <div className='selectPayModal'>
-                            <ul onClick={() => { handlePaymentMethodClick("카드결제"); handleBasicPay(); }}>
+                            <ul onClick={() => { handlePaymentMethodClick("카드결제"); handleBasicPay("카드결제"); }}>
                                 <li><img src={require('../resources/image/payCardLogo.PNG')} alt='카드결제로고' /></li>
                                 <li>카드결제</li>
                             </ul>
-                            <ul onClick={() => { handlePaymentMethodClick("현금결제"); handleBasicPay(); }}>
+                            <ul onClick={() => { handlePaymentMethodClick("현금결제"); handleBasicPay("현금결제"); }}>
                                 <li><img src={require('../resources/image/payCashLogo.PNG')} alt='현금결제로고' /></li>
                                 <li>현금결제</li>
                             </ul>
