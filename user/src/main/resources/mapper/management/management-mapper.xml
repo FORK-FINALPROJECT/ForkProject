@@ -92,8 +92,8 @@
 			#{price},
 			#{originName},
 			#{changeName},
-			#{categoryNo},
-			#{filePath}
+			#{filePath},
+			#{categoryNo}
 		)
 	</insert>
 	
