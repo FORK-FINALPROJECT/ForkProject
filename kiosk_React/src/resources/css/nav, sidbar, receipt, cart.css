@@ -175,10 +175,10 @@ align-items: center; */
     display: contents;
 }
 
-.detail-category,.receipt-header {
+.detail-category, .receipt-header {
     display: flex;
     height: 100%;
-    width: 11%;
+    width: fit-content;
     margin: 1%;
     align-items: center;
 }
@@ -737,7 +737,7 @@ a:hover{
     align-items: center;
     justify-content: center;
     letter-spacing:1px;
-    font-size:xx-large;
+    font-size: 2vw;
   }
   #flag:after {
     content: "";
@@ -746,7 +746,25 @@ a:hover{
     bottom: 0;
     width: 0;
     height: 0;
-    border-bottom: 13px solid rgb(22, 22, 22);
-    border-left: 55px solid transparent;
-    border-right: 55px solid transparent;
+    border-bottom: 2vh solid rgb(22, 22, 22);
+    border-left: 3.7vw solid transparent;
+    border-right: 3.7vw solid transparent;
+  }
+
+  .dutchPrice-table{
+    width:100%;
+  }
+
+  .dutchPrice-body{
+    width:100%;
+  }
+
+  .dutchPrice-tr{
+    width:100%;
+    display: flex;
+  }
+
+  .inputValueTotalPrice{
+    display: flex;
+    margin-left:auto;
   }
