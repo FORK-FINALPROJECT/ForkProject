@@ -1,5 +1,5 @@
 import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import DutchpaySelectPayModal from './DutchpaySelectPayModal ';
 import { paymentModalStore } from '../store/paymentModalStore';
 import { useState } from 'react';
@@ -11,7 +11,7 @@ import useSocketStore from '../store/socketStore';
 const DutchpayByMenu = (props) => {
 
     const springUrl = 'http://192.168.80.14:8083/kiosk';
-
+    const navigate = useNavigate();
     const [receiptNo , setReceiptNo] = useState([]);
 
     // 받아온 영수증 번호 담아주기
@@ -70,7 +70,7 @@ const DutchpayByMenu = (props) => {
             console.log('****receiptNoList : ', receiptNoList);
             let message = {
                 kioskNo : kioskNo,
-                price : getTotalCashPrice(),
+                price : cashPrice == 0 ? null : getTotalCashPrice(),
                 receiptNoList : receiptNoList
             };
 
@@ -80,7 +80,7 @@ const DutchpayByMenu = (props) => {
                 console.log(message);
                 // 1. 소켓이 정상적으로 보내졌을 경우
                 resetReceiptNo(); // 영수증번호 리스트 비워주기
-
+                navigate("/")
                 // 2. 아니면 소켓 다시 진행 반복
                 // 소켓 반복
             }

@@ -242,7 +242,9 @@ function App() {
           stompClient.subscribe( `/kiosk/end/${kioskNo}` ,frame => {
             console.log(frame.body);
           });
-
+          stompClient.subscribe( `/kiosk/${kioskNo}` ,frame => {
+            alert("잘 받음");
+          });
           // stompClient.send(`/user/send/${kioskNo}`,{} , '잘가니가니??');
           setStompClient(stompClient);
       });
