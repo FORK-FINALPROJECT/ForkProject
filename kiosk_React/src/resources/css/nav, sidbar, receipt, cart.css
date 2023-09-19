@@ -720,3 +720,33 @@ a:hover{
     font-size: x-large;
     font-weight:600;
 }
+
+#flag {
+    width: 7%;
+    height: 70%;
+    box-sizing: content-box;
+    margin-bottom: auto;
+    padding-top: 15px;
+    position: relative;
+    background: darkred;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-align: center;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing:1px;
+    font-size:xx-large;
+  }
+  #flag:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-bottom: 13px solid rgb(22, 22, 22);
+    border-left: 55px solid transparent;
+    border-right: 55px solid transparent;
+  }

@@ -35,6 +35,9 @@ const Headers = () => {
           <img id='header-logo' src={`${process.env.PUBLIC_URL}/forkLogo.PNG`} alt='로고' onClick={toHome}></img>
           
         </div>
+        <div id='flag'>
+          No.{kioskNo}
+        </div>
         <div className="header category-wrap">
 
           {subCategorys && subCategorys.map(subCategory => {
