@@ -249,12 +249,12 @@ const DutchpayByPrice = (props) => {
                     </div>
                     <div className="dutchpayByPrice-content">
                         <div className="totalPrice">
-                            <table>
-                                <tbody>
-                                    <tr>
+                            <table className='dutchPrice-table'>
+                                <tbody className='dutchPrice-body'>
+                                    <tr className='dutchPrice-tr'>
                                         <th>총 금액 : </th>
-                                        <td>{pricePerPerson}</td>
-                                        <td colSpan="3" className='inputValueTotalPrice'>&nbsp;&nbsp;&nbsp;&nbsp;{items.reduce((total , item) => {return total+item.price},0)}</td>
+                                        <td>&nbsp;{pricePerPerson.toLocaleString()}원</td>
+                                        <td colSpan="3" className='inputValueTotalPrice'>현재 입력한 금액 : {items.reduce((total ,item) => {return (total+item.price)},0).toLocaleString()}원&nbsp;&nbsp;&nbsp;</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -274,7 +274,7 @@ const DutchpayByPrice = (props) => {
                                             </table>
                                         </li>
                                         <li>
-                                            <input type="text" id={item.id} readOnly value={item.price} onClick={(e) => { if(!paymentStatusCheck(item)) {handleNumPad(e, this); setNumpadModalShow(items.length > 1);}}}/>
+                                            <input type="text" id={item.id} readOnly value={item.price.toLocaleString()} onClick={(e) => { if(!paymentStatusCheck(item)) {handleNumPad(e, this); setNumpadModalShow(items.length > 1);}}}/>
                                         </li>
                                         <li>
                                             결제완료
@@ -294,7 +294,7 @@ const DutchpayByPrice = (props) => {
                                             </table>
                                         </li>
                                         <li>
-                                            <input type="text" id={item.id} readOnly value={item.price} onClick={(e) => { if(!paymentStatusCheck(item)) {handleNumPad(e, this); setNumpadModalShow(items.length > 1);}}}/>
+                                            <input type="text" id={item.id} readOnly value={item.price.toLocaleString()} onClick={(e) => { if(!paymentStatusCheck(item)) {handleNumPad(e, this); setNumpadModalShow(items.length > 1);}}}/>
                                             {/* <Numpad items={items} setItems={setItems} /> */}
                                         </li>
                                         <li>
