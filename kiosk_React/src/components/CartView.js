@@ -5,7 +5,7 @@ import useCartStore from '../store/cartStore';
 
 const CartView = () => {
 
-    const springUrl = 'http://localhost:8083/kiosk';
+    const springUrl = 'http://192.168.80.14:8083/kiosk';
 
     // 결제 모달
     const [modalShow, setModalShow] = useState(false);
@@ -64,7 +64,7 @@ const CartView = () => {
     return (
         <>
             <div className="cart-wrap">
-                <form className="cart-form scrollable">
+                <form className="cart-form">
                     <div className="cart-view ">
                         {cartItems.length === 0 ? (
                             <div className="empty-cart-message">

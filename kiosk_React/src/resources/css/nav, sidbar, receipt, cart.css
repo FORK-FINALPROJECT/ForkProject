@@ -222,7 +222,7 @@ a:hover{
     height: 100%;
     background-color: rgb(255, 107, 27);
     padding: 1.5%;
-    overflow-y: hidden;
+    overflow-y: scroll;
     display: none;
     z-index: 2;
 }
@@ -296,13 +296,13 @@ a:hover{
     display: none;
     padding: 1%;
     z-index: 2;
-    overflow-y:hidden;
+    overflow-y:scroll;
 }
 
 .cart-view {
     position: relative;
     width: 100%;
-    overflow-y: hidden;
+    overflow-y: scroll;
 }
 
 .cart-header {
@@ -414,7 +414,7 @@ a:hover{
 
 .cart-form {
     height: 90%;
-    overflow-y: hidden;
+    overflow-y: scroll;
 }
 
 .count-wrap {
