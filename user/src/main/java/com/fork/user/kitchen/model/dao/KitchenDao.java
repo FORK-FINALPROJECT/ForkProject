@@ -24,9 +24,9 @@ public class KitchenDao {
 		return sqlSession.selectList("kitchenMapper.selectPaylist");
 	}
 	
-	public List<MenuOption> selectMenulist(int no) {
-			
-		return sqlSession.selectList("kitchenMapper.selectMenulist", no);
+	public List<MenuOption> selectTotalMenulist(int no) {
+		
+		return sqlSession.selectList("kitchenMapper.selectTotalMenulist", no);
 	}
 
 	public List<MenuOption> selectMenulist(ArrayList<Integer> receiptNoList) {

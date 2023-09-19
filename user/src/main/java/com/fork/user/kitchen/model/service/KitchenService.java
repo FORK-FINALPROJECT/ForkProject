@@ -10,7 +10,7 @@ public interface KitchenService {
 
 	List<PayStructure> selectPaylist();
 	
-	List<MenuOption> selectMenulist(int no);
+	List<MenuOption> selectTotalMenulist(int no);
 
 	List<MenuOption> selectMenulist(ArrayList<Integer> receiptNoList);
 

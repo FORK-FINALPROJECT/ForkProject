@@ -59,7 +59,7 @@ var isStomp = false;
 const notificationSound = document.getElementById('notificationSound');
 
 function socketst() {
-	var sock = new SockJS("http://192.168.0.64:8083/kiosk/user");
+	var sock = new SockJS("http://192.168.30.4:8083/kiosk/user");
 	var client = Stomp.over(sock);
 	isStomp = true;
 	socket = client;
@@ -67,28 +67,25 @@ function socketst() {
 	client.connect({}, function() {
 		console.log("Connected stompTest!");
 		
-		// client.send('/user/send/3', {}, 3);
-		
-		for(let j = 1; j < 11; j++) {
 			
-			const kioskPath = `/kiosk/${j}`;
-		
-			client.subscribe(kioskPath, function(event){
+			client.subscribe('/kiosk', function(event){
 				console.log(event);
 				
 				try {
 				    const data = JSON.parse(event.body); // JSON 형식의 문자열을 파싱하여 객체로 변환
 				    console.log(data.kioskNo); // kioskNo 값을 출력
+				    let kno = data.kioskNo;
 				    
 				    
 					if(data.price == null){
 						
 						$.ajax({
 							url : "selectDetailMenu",
-							data : {kioskNo : j},
+							data : {kioskNo : kno},
 							success : function(result) {
 								var html = "";
 								var tprice = 0;
+								html += `<div class="menus">`
 								for(let i = 0; i < result.length; i++) {
 									html += `<div class="menu">
 		                                        <div class="menu_title">${result[i].menuName}</div>
@@ -96,15 +93,20 @@ function socketst() {
 		                                    </div>`;
 		                           	tprice += result[i].price;
 								}
+								html += `</div>`
 								
-								html += `<div class="menu_price">
-		                                	${tprice}원
-		                            	 </div>`;
+								html += `<div class="menu_footer">`
+								if ( result.length > 3 ) {
+									html +=  `<div class="menu_more">…</div>`
+								}
+						        html += `<div class="menu_price">
+			                                	${tprice.toLocaleString()}원
+			                            </div>`;
 		                        
 		                        console.log(html);
 		                        
-		                        $(`#kiosk${j} > .struc_title`).after(html); 
-                        		$(`#kiosk${j}`).addClass("in_menu");
+		                        $(`#kiosk${kno} > .struc_title`).after(html); 
+                        		$(`#kiosk${kno}`).addClass("in_menu");
 							} 
 						});
 					} else if(data.price == 0) {
@@ -151,7 +153,6 @@ function socketst() {
 				  }
 				
 			});
-		}
 		
 	
 	});
