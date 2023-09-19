@@ -85,15 +85,12 @@ const DutchpayByPrice = (props) => {
 
                     stompClient?.send(`/user/send/${kioskNo}`, {}, JSON.stringify(message));
                     console.log(message);
-                    // 1. 소켓이 정상적으로 보내졌을 경우
                     handleResetCartStore(); // 카트비워주기
                     resetReceiptNo(); // 영수증번호 리스트 비워주기
                     setTotalCashPrice(0);
                     
                     navigate("/") // 결제 완료 후 메인화면으로
         
-                    // 2. 아니면 소켓 다시 진행 반복
-                    // 소켓 반복
                 } else {
                     // 결제 실패
                     // 영수증번호 리스트 비워주기

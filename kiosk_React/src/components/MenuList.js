@@ -5,7 +5,7 @@ import useScrollToSubCategoryStore from '../store/scrollListStore';
 
 const MenuList = () => {
     const subCategorys = useCategoryStore((state) => state.subCategorys);
-    const springUrl = 'http://localhost:8083/kiosk';
+    const springUrl = 'http://192.168.30.14:8082/user';
 
     // 헤더에서 카테고리 클릭시 해당 카테고리로 스크롤
     const subCategoryRefs = {};
@@ -33,7 +33,7 @@ const MenuList = () => {
                                         return (
                                             <ul key={menu.menuName}>
                                                 <Link to="menuDetail" state={menu}>
-                                                    <li><img src={springUrl + menu.filePath + menu.originName} alt="메뉴사진" onError={(e) => { e.target.src = require('../resources/image/defaultimg.jpg') }} /></li>
+                                                    <li><img src={springUrl + menu.filePath + menu.changeName} alt="메뉴사진" onError={(e) => { e.target.src = require('../resources/image/defaultimg.jpg') }} /></li>
                                                     <li>{menu.menuName}</li>
                                                     <li>{menu.price.toLocaleString('ko-KR')} 원</li>
                                                 </Link>

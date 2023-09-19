@@ -59,7 +59,7 @@ var isStomp = false;
 const notificationSound = document.getElementById('notificationSound');
 
 function socketst() {
-	var sock = new SockJS("http://192.168.30.4:8083/kiosk/user");
+	var sock = new SockJS("http://192.168.30.14:8083/kiosk/user");
 	var client = Stomp.over(sock);
 	isStomp = true;
 	socket = client;

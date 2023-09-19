@@ -10,7 +10,7 @@ import useSocketStore from '../store/socketStore';
 
 const DutchpayByMenu = (props) => {
 
-    const springUrl = 'http://192.168.80.14:8083/kiosk';
+    const springUrl = 'http://192.168.30.14:8082/user';
     const navigate = useNavigate();
     const [receiptNo , setReceiptNo] = useState([]);
 
@@ -89,6 +89,7 @@ const DutchpayByMenu = (props) => {
             // 영수증번호 리스트 비워주기
             resetReceiptNo();
         }
+        setTotalCashPrice(0);
     }
 
     return (
@@ -111,7 +112,7 @@ const DutchpayByMenu = (props) => {
                                 cartItems.map(menu => (
                                     <ul id={menu.menuNo+menu.menuName+menu.totalPrice}>
                                         <li>
-                                            <img src={springUrl + menu.filePath + menu.originName} alt="메뉴사진" onError={(e) => { e.target.src = require('../resources/image/defaultimg.jpg') }} />
+                                            <img src={springUrl + menu.filePath + menu.changeName} alt="메뉴사진" onError={(e) => { e.target.src = require('../resources/image/defaultimg.jpg') }} />
                                         </li>
                                         <li>
                                             {menu.menuName}

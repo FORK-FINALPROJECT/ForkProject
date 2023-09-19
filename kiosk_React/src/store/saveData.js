@@ -4,7 +4,7 @@ import axios from 'axios';
 const useSaveData = create((set, get) => ({
     // 기본결제시
     basicPay: async (kioskNo, cartItems, cartTotalPrice) => {
-        let result = await axios.post("http://localhost:3000/kiosk/basicPay/"+kioskNo , {cartItems , cartTotalPrice} )
+        let result = await axios.post("http://192.168.30.14:3000/kiosk/basicPay/"+kioskNo , {cartItems , cartTotalPrice} )
             .then( (response) => {
                 if(response.data > 0){
                     console.log('결제 성공');
@@ -21,7 +21,7 @@ const useSaveData = create((set, get) => ({
     },
     // 분할결제시
     dutchPay: async (kioskNo, cartItems, totalPrice) => {
-        let result = await axios.post("http://localhost:3000/kiosk/dutchPay/"+kioskNo , {cartItems , totalPrice})
+        let result = await axios.post("http://192.168.30.14:3000/kiosk/dutchPay/"+kioskNo , {cartItems , totalPrice})
             .then( (response) => {
                 if(response.data > 0){
                     console.log('결제 성공');

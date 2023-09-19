@@ -6,7 +6,7 @@ import SelectPayModal2 from './SelectPayModal2';
 
 const CartView = () => {
 
-    const springUrl = 'http://localhost:8083/kiosk';
+    const springUrl = 'http://192.168.30.14:8082/user';
 
     // 결제 모달
     const [modalShow, setModalShow] = useState(false);
@@ -77,7 +77,7 @@ const CartView = () => {
                                 {cartItems.map(item => (
                                     <div key={item.id} className="cart-order-wrap">
                                         <div className="cart-menu-pic">
-                                            <img src={springUrl + item.filePath + item.originName} alt="메뉴사진" onError={(e) => {e.target.src = require('../resources/image/defaultimg.jpg')}}/>
+                                            <img src={springUrl + item.filePath + item.changeName} alt="메뉴사진" onError={(e) => {e.target.src = require('../resources/image/defaultimg.jpg')}}/>
                                         </div>
                                         <div className="cart-menu-details">
                                             <div className="cart-menu-name">

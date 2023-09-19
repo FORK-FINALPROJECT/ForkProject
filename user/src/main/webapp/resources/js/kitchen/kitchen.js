@@ -30,7 +30,7 @@ function sMenu(){
 }
 
 function socketst() {
-	let sock = new SockJS("http://192.168.30.4:8083/kiosk/user");
+	let sock = new SockJS("http://192.168.30.14:8083/kiosk/user");
 	let client = Stomp.over(sock);
 	socket = client;
 	
