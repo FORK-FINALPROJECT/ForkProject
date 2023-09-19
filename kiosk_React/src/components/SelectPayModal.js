@@ -129,6 +129,7 @@ function SelectPayModal(props) {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
+                {cartTotalPrice == 0 ? "결제할 금액이 없습니다" : 
                 <div>
                     {payMethod ? (
                         <div className='selectPayModal2'>
@@ -183,6 +184,7 @@ function SelectPayModal(props) {
                         </div>
                     )}
                 </div>
+                }
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleCloseModal}>Close</Button>
