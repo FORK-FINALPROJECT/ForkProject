@@ -118,7 +118,7 @@ function socketst() {
 						
 						$.ajax({
 							url : "selectDetailMenu",
-							data : {kioskNo : j},
+							data : {kioskNo : kno},
 							success : function(result) {
 							
 								var html = "";
@@ -137,8 +137,8 @@ function socketst() {
 		                        
 		                        console.log(html);
 		                        
-		                        $(`#kiosk${j} > .struc_title`).after(html); 
-                        		$(`#kiosk${j}`).addClass("in_menu");
+		                        $(`#kiosk${kno} > .struc_title`).after(html); 
+                        		$(`#kiosk${kno}`).addClass("in_menu");
 							} 
 						});
 					

@@ -60,6 +60,9 @@ public class KitchenController {
 			log.info("menuList={}", menuList);
 			order.setMenuOption(menuList);
 			newOrder = order;
+			if( menuList == null ) {
+				newOrder = null;
+			}
 		}
 		
 		return newOrder;		

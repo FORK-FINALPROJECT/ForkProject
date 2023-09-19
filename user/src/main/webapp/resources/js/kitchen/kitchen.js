@@ -1,5 +1,15 @@
 $(document).ready(function() {
+const notificationSound = document.getElementById('notificationSound');
 
+sMenu();	
+
+// socket
+let socket = null;
+socketst();
+
+});
+
+function sMenu(){
 	let orderList = document.querySelectorAll('.order-page');
 	
 	orderList.forEach( (order) => {
@@ -17,12 +27,7 @@ $(document).ready(function() {
 	        })
 	    }
 	})
-
-// socket
-let socket = null;
-socketst();
-
-});
+}
 
 function socketst() {
 	let sock = new SockJS("http://192.168.30.4:8083/kiosk/user");
@@ -42,26 +47,31 @@ function socketst() {
 			data : { receiptNoList : rlist },
 			type : "POST",
 			success(newOrder) {
-				let orderPage = "";
-				let orderList = "";
-				let optionName = "";0
-				
-				for(menu of newOrder.menuOption) {
-					if ( menu.optionName != null ) {
-						optionName = "( " + menu.optionName + " )" 
+				if ( newOrder.menuOption.length > 0 ) {
+					let orderPage = "";
+					let orderList = "";
+					
+					for(menu of newOrder.menuOption) {
+					let optionName = "";
+					
+						if ( menu.optionName != null ) {
+							optionName = "( " + menu.optionName + " )" 
+						}
+					
+						orderList += `<li>${menu.cnt} x ${menu.menuName} ${optionName}</li>`
 					}
-				
-					orderList += `<li>${menu.cnt} x ${menu.menuName} ${optionName}</li>`
+					
+					orderPage = `<div class="order-page">
+									<div class="order-page-top">${newOrder.strucTitle} ${newOrder.payDate}</div>
+									<div class="order-page-content">
+										${orderList}
+									</div>
+								</div>`
+					$(".outer").children().first().before(orderPage);
+					
+					notificationSound.play();
+					sMenu();
 				}
-				
-				orderPage = `<div class="order-page">
-								<div class="order-page-top">${newOrder.strucTitle} ${newOrder.payDate}</div>
-								<div class="order-page-content">
-									${orderList}
-								</div>
-							</div>`
-				$(".outer").children().first().before(orderPage);
-		
 		
 			} 
 		});
