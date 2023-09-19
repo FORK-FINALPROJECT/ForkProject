@@ -51,7 +51,7 @@ function SelectPayModal(props) {
             // 1. 소켓이 정상적으로 보내졌을 경우
             handleResetCartStore(); // 카트비워주기
             resetReceiptNo(); // 영수증번호 리스트 비워주기
-
+            
             // 2. 아니면 소켓 다시 진행 반복
             // 소켓 반복
         } else {
@@ -65,17 +65,21 @@ function SelectPayModal(props) {
     const handlePaymentMethodClick = (method) => {
         setPayMethod(method);
         setModalTimer(10); // 타이머 리셋
+        let result = basicPay(kioskNo, cartItems, cartTotalPrice);
+        let receiptNoList = addReceiptNo(result);
 
         // 결제 방법 별로 message 담아서 웹소켓에 보내보내
         if (method === "카드결제") {
             message = {
                 kioskNo: kioskNo,
                 price: null,
+                receiptNoList : receiptNoList
             };
         } else {
             message = {
                 kioskNo: kioskNo,
                 price: cartTotalPrice,
+                receiptNoList : receiptNoList
             };
         }
     };
@@ -129,7 +133,7 @@ function SelectPayModal(props) {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {cartTotalPrice == 0 ? "결제할 금액이 없습니다" : 
+               
                 <div>
                     {payMethod ? (
                         <div className='selectPayModal2'>
@@ -184,7 +188,7 @@ function SelectPayModal(props) {
                         </div>
                     )}
                 </div>
-                }
+                
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleCloseModal}>Close</Button>
