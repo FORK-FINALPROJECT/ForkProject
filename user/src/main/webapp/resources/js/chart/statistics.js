@@ -133,12 +133,15 @@ function drawMenuChart(){
 		url: 'selectPrCategory',
 		success(categorylist){
 			for(prCate of categorylist) {
-					let prNo= prCate.categoryNo;
+					let prNo= prCate.prCategoryNo;
+					console.log(prNo);
 					$.ajax({
 						url: 'menuChart',
 						data: {startDay: startDay.value, endDay: endDay.value, prCateNo: prNo},
 						async: false,
 						success(menulist){
+						
+						console.log(menulist);
 						
 						chartDataLabels=[];
 						chartDataDatasets=[];

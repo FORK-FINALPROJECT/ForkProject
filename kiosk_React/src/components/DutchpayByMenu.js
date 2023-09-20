@@ -7,8 +7,21 @@ import useCartStore from '../store/cartStore';
 import useSaveData from '../store/saveData';
 import { useReceiptStore } from '../store/receiptViewStore';
 import useSocketStore from '../store/socketStore';
+import paymentProcessStore from '../store/paymentProcessStore';
+import Modal from 'react-bootstrap/Modal';
 
 const DutchpayByMenu = (props) => {
+
+    const [show, setShow] = useState(false);
+  
+    const handleClose = () => setShow(false);
+    const handleShow = (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        setShow(true)
+    };
+    // true 결제중 false 결제x
+    const { setPaymentProcess, getPaymentProcess } = paymentProcessStore();
 
     const springUrl = 'http://192.168.30.14:8082/user';
     const navigate = useNavigate();
@@ -73,6 +86,7 @@ const DutchpayByMenu = (props) => {
                 price : cashPrice == 0 ? null : getTotalCashPrice(),
                 receiptNoList : receiptNoList
             };
+            setPaymentProcess(true);
 
             if(!handleSetNewCartAfterDutchByMenu(menu, menu.totalPrice).length){ // 모두 결제된 경우
                 // 소켓 보내주는곳
@@ -80,6 +94,7 @@ const DutchpayByMenu = (props) => {
                 console.log(message);
                 // 1. 소켓이 정상적으로 보내졌을 경우
                 resetReceiptNo(); // 영수증번호 리스트 비워주기
+                setPaymentProcess(false);
                 navigate("/")
                 // 2. 아니면 소켓 다시 진행 반복
                 // 소켓 반복
@@ -94,6 +109,17 @@ const DutchpayByMenu = (props) => {
 
     return (
         <div className="content-wrap">
+            <Modal show={show} onHide={handleClose} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+                <Modal.Header closeButton>
+                <Modal.Title><br></br> </Modal.Title>
+                </Modal.Header>
+                <Modal.Body><div style={{"font-size":"1.5vw"}}>결제를 모두 종료 후 이용해주세요.</div></Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                    닫기
+                </Button>
+                </Modal.Footer>
+            </Modal>
             <div className="main-content">
                 <div className="main-content-dutchpay">
                     <div className="page-head">
@@ -102,7 +128,7 @@ const DutchpayByMenu = (props) => {
                         </div>
                         <div className="dutchpay-button">
                             <Button variant="secondary" id="button-dutchpayByMenu"><Link to="/dutchpayByMenu">메뉴별</Link></Button>
-                            <Button variant="secondary" id="button-dutchpayByPrice"><Link to="/dutchpayByPrice">금액별</Link></Button>
+                            <Button variant="secondary" id="button-dutchpayByPrice"><Link to="/dutchpayByPrice" onClick={getPaymentProcess() ? (e) => handleShow(e) : {}}>금액별</Link></Button>
                         </div>
                     </div>
 

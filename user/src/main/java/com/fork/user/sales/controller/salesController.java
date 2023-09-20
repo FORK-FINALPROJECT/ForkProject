@@ -56,6 +56,7 @@ public class salesController {
     @ResponseBody
     public List<TotalMenuList> selectDetailMenu(int kioskNo) {
     	List<TotalMenuList> totalMenuList = salesService.detailOrderList(kioskNo); 
+    	System.out.println(totalMenuList);
     	return totalMenuList;
     }
     

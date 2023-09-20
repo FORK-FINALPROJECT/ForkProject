@@ -74,7 +74,7 @@ public interface ManagementService {
 
 	int checkLicenseHistory(int memberNo);
 
-	int updateLicenseHistory(int memberNo);
+	int updateLicenseHistory(LicenseHistory lh);
 
 	List<Option> selectMenuOptionList(int menuNo);
 

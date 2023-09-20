@@ -590,10 +590,8 @@ public class ManagementController {
 		
 		int result = mService.checkLicenseHistory(memberNo);
 		
-		log.info("result = " + result);
-		
 		if(result > 0) {
-			int result1 = mService.updateLicenseHistory(memberNo);
+			int result1 = mService.updateLicenseHistory(lh);
 		} else {
 			int result2 = mService.insertLicenseHistory(lh);
 		}
