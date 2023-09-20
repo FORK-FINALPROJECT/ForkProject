@@ -145,7 +145,7 @@ public class MemberController {
 			session.setAttribute("alertMsg", "회원가입에 실패했습니다.");
 		}
 		
-		return "forward:index.jsp";
+		return "forward:login.jsp";
 		
 	}
 	

@@ -107,24 +107,19 @@
     </div>
     
     <!-- 호출 확인 모달 -->
-    <div id="alertPage" class="alertPage" style="display: none;">
+    <!-- <div id="alertPage" class="alertPage" style="display: none;">
         <div class="alertPage-content">
         	번 테이블에서 호출하였습니다.
         	<button class="closebutton" onclick="closeModal()">확인</button>
         </div>
-    </div> 
+    </div> --> 
     
     <audio id="notificationSound" preload="auto">
     	<source src="resources/audio/call2.mp3" type="audio/mpeg">
 	</audio>
     
-    
-    
-    
-    
-    
-    
     <script type="text/javascript" src="resources/js/adminLee.js"></script>
     <script>
         $("#sales-ready").addClass("header_btn_on").removeClass("header_btn");
     </script>
+</body>

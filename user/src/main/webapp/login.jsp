@@ -34,7 +34,7 @@
 
 	<c:if test="${not empty alertMsg }">
 		<script>
-			alertify.alert("서비스 요청 성공", '${alertMsg}');
+			alertify.alert(" ", '${alertMsg}');
 		</script>
 		<c:remove var="alertMsg"/>
 	</c:if>

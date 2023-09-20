@@ -160,7 +160,7 @@ button:active {
 						<span class="lisenece-title">3개월 이용권</span><br>
 						<span class="lisenece-price">150,000원</span>
 					</div>
-					<div class="lisenece-btn"><button value="결제" class="pay" onclick="requestPay(150000)">결제</button></div>
+					<div class="lisenece-btn"><button value="결제" class="pay" onclick="requestPay(100)">결제</button></div>
 				</div>
 		</div>
 		
@@ -184,7 +184,7 @@ button:active {
 		function requestPay(amount) {
 			IMP.init("imp52171157"); 
 	    	IMP.request_pay({
-	    		pg : 'html5_inicis', 
+	    		pg : 'nice', 
 			    pay_method : 'card',
 			    merchant_uid : 'merchant_' + new Date().getTime(),
 			    name : '이용권'/*상품명*/,

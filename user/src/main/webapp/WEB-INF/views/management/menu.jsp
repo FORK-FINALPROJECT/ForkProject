@@ -221,7 +221,6 @@ textarea {
 	padding: 20px;
 	border: 1px solid #888;
 	width: 710px;
-	height: 400px;
 	border-radius: 5px;
 	text-align: center;
 	font-size: 20px;
@@ -232,7 +231,7 @@ textarea {
 	width: 150px;
 	margin-left: 20px;
 	margin-top: 20px;
-	height: 10%;
+	height: 4vh;
 }
 
 .menu-detail {
@@ -270,7 +269,8 @@ textarea {
 .menu_detail_img {
 	width: 300px;
 	height: 300px;
-	border: 1px solid black;
+	border: 1px solid lightgray;
+	border-radius: 10px;
 }
 .top-menu{
 	height: 50px;

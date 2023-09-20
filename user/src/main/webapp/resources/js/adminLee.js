@@ -3,23 +3,6 @@ $('.struc_table').click(function(e){
     $('#struc_detail').modal("show");
 });
 
-// 모달창 기능
-const alertPage = document.getElementById('alertPage');
-
-function openModal() {
-    alertPage.style.display = 'block';
-}
-
-function closeModal() {
-    alertPage.style.display = 'none';
-}
-
-window.addEventListener('click', (event) => {
-    if (event.target === alertPage) {
-        closeModal();
-    }
-});
-
 $("#clear-table").click(function () {
     const kioskNo = document.getElementById('kiosk-no').value; // 클릭 이벤트 핸들러 내에서 kioskNo를 가져옵니다.
 
@@ -38,19 +21,6 @@ $("#clear-table").click(function () {
 
 $(document).ready(function() {
 	socketst();
-	
-	/*$('.cleartable').on('click', function(evt) {
-		evt.preventDefault();
-		if(!isStomp && socket.readyState !== 1) return;
-			let msg = 1;
-			console.log("mmmmmmmmm>>", msg);
-			if(isStomp){
-				socket.send('/user/send/claerTable/{kioskNo}', {}, msg);
-			} else {
-				socket.send(msg);
-			}
-	
-	});*/
 });
 
 var socket = null;
@@ -110,10 +80,25 @@ function socketst() {
 							} 
 						});
 					} else if(data.price == 0) {
-					 	const text1 = data.kioskNo + '번 테이블에서 호출하였습니다. <button class="closebutton" onclick="closeModal()">확인</button>'
-						$(".alertPage-content").html(text1);
+						
+						const alertPage = document.createElement('div');
+						alertPage.id = 'alertPage';
+						alertPage.setAttribute('class','alertPage');
+						alertPage.style.display = 'none';
+						
+						const alertPageContent = document.createElement('div');
+						alertPageContent.setAttribute('class', 'alertPageContent');
+						const info = document.createTextNode(`${data.kioskNo}번 테이블에서 호출하였습니다.`);
+						const closebutton = document.createElement('button');
+						closebutton.setAttribute('class','closebutton');
+						closebutton.addEventListener('click', () => closeModal(alertPage));
+						closebutton.innerText = "확인";
+						alertPageContent.append(info , closebutton);
+						alertPage.append(alertPageContent);
+					
+						$("body").append(alertPage);
 						notificationSound.play();
-					 	openModal();
+						openModal(alertPage);
 					} else {
 						
 						$.ajax({
@@ -141,11 +126,25 @@ function socketst() {
                         		$(`#kiosk${kno}`).addClass("in_menu");
 							} 
 						});
-					
-						const text2 = data.kioskNo + '번 테이블 현금결제 요망. <button class="closebutton" onclick="closeModal()">확인</button>'
-						$(".alertPage-content").html(text2);
+						const alertPage = document.createElement('div');
+						alertPage.id = 'alertPage';
+						alertPage.setAttribute('class','alertPage');
+						alertPage.style.display = 'none';
+						
+						const alertPageContent = document.createElement('div');
+						alertPageContent.setAttribute('class', 'alertPageContent');
+						const info = document.createTextNode(`${data.kioskNo}번 테이블 ${data.price}원 현금결제 요망.`);
+						const closebutton = document.createElement('button');
+						closebutton.setAttribute('class','closebutton');
+						closebutton.addEventListener('click', () => closeModal(alertPage));
+						closebutton.innerText = "확인";
+						alertPageContent.append(info , closebutton);
+						alertPage.append(alertPageContent);
+						
+						// data.kioskNo + '번 테이블 현금결제 요망. <button class="closebutton" onclick="closeModal()">확인</button>'
+						$("body").append(alertPage);
 						notificationSound.play();
-						openModal();
+						openModal(alertPage);
 					}
 				    
 				  } catch (error) {
@@ -156,6 +155,15 @@ function socketst() {
 		
 	
 	});
+}
+
+// 모달창 기능
+function openModal(alertPage) {
+    alertPage.style.display = 'block';
+}
+
+function closeModal(alertPage) {
+    alertPage.remove();
 }
 
 function detail_order(title, no){
