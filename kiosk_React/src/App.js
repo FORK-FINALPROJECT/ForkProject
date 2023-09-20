@@ -230,7 +230,7 @@ function App() {
 
   useEffect(() => {
       // 스프링 부트 서버의 SockJS 엔드포인트 URL
-      const createWebSocket = () => new SockJS('http://192.168.30.14:8083/kiosk/user'); // 스프링 부트 서버 주소로 변경
+      const createWebSocket = () => new SockJS('http://192.168.130.31:8083/kiosk/user'); // 스프링 부트 서버 주소로 변경
       const stompClient = Stomp.over(createWebSocket); // 최적화 1) 연결종료시 재연결할수있는 웹소켓 생성 팩토리 전달
 
       stompClient.connect({}, (frame) => {

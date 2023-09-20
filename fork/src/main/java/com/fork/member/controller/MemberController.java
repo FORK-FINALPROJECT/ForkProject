@@ -178,39 +178,41 @@ public class MemberController {
 	}
 	
 	
-	// 파일 다운
-	@GetMapping("/shopDetail/fileDownload/{memberNo}")
-	public ResponseEntity<Resource> fileDownload(
-			@PathVariable("memberNo") int memberNo
-		) throws UnsupportedEncodingException {
-	
-	ResponseEntity<Resource> responseEntity = null;
-	Member member = mService.selectShop(memberNo);
-	log.info("member 확인! === {}", member);
-	if(member == null) {
-		return responseEntity.notFound().build();
-	
-	}
-	
-	String filePath = "/resources/file";
-	String saveDirectory = application.getRealPath(filePath);
-	File downFile = new File(saveDirectory, member.getFileChangeName());
-
-	Resource resource = resourceLoader.getResource("file:"+downFile);
-
-	String filename = new String(member.getFileOriginName().getBytes("utf-8"), "iso-8859-1");
-	
-	
-	responseEntity = ResponseEntity
-			.ok()
-			.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM_VALUE)
-			.header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename="+filename)
-			.body(resource);
-			
-
-	return responseEntity;
-	
-	} 
+	/*
+	 * // 파일 다운
+	 * 
+	 * @GetMapping("/shopDetail/fileDownload/{memberNo}") public
+	 * ResponseEntity<Resource> fileDownload(
+	 * 
+	 * @PathVariable("memberNo") int memberNo ) throws UnsupportedEncodingException
+	 * {
+	 * 
+	 * ResponseEntity<Resource> responseEntity = null; Member member =
+	 * mService.selectShop(memberNo); log.info("member 확인! === {}", member);
+	 * if(member == null) { return responseEntity.notFound().build();
+	 * 
+	 * }
+	 * 
+	 * String filePath = "/resources/file"; String saveDirectory =
+	 * application.getRealPath(filePath); File downFile = new File(saveDirectory,
+	 * member.getFileChangeName());
+	 * 
+	 * Resource resource = resourceLoader.getResource("file:"+downFile);
+	 * 
+	 * String filename = new String(member.getFileOriginName().getBytes("utf-8"),
+	 * "iso-8859-1");
+	 * 
+	 * 
+	 * responseEntity = ResponseEntity .ok() .header(HttpHeaders.CONTENT_TYPE,
+	 * MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	 * .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename="+filename)
+	 * .body(resource);
+	 * 
+	 * 
+	 * return responseEntity;
+	 * 
+	 * }
+	 */
 	
 	// 가맹점 삭제하기
 	@GetMapping("/deleteShop/{memberNo}")

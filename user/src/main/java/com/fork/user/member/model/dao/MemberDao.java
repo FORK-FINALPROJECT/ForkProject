@@ -54,4 +54,8 @@ public class MemberDao {
 		return sqlSession.update("memberMapper.changePwd", m);
 	}
 
+	public Member selectShop(int memberNo) {
+		return sqlSession.selectOne("memberMapper.selectShop", memberNo);
+	}
+
 }

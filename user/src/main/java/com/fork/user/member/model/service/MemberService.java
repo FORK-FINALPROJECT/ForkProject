@@ -20,4 +20,6 @@ public interface MemberService {
 
 	int changePwd(Member m);
 
+	Member selectShop(int memberNo);
+
 }

@@ -143,7 +143,7 @@
                         <th>사업자 등록증</th>
                         <td>
                             <button type="button" class="download-btn"
-                            onclick="location.href='${contextPath}/shopDetail/fileDownload/${member.memberNo }'">
+                            onclick="location.href='http://localhost:8082/user/shopDetail/fileDownload/${member.memberNo }'">
                                 ${member.fileOriginName} - 다운로드
                             </button>
                         </td>

@@ -79,5 +79,10 @@ public class MemberServiceImpl implements MemberService {
 	public int idcheck(String memberId) {
 		return memberDao.idcheck(memberId);
 	}
+
+	@Override
+	public Member selectShop(int memberNo) {
+		return memberDao.selectShop(memberNo);
+	}
 	
 }

@@ -90,4 +90,10 @@
 		WHERE MEMBER_ID = #{memberId}
 	</select>
 	
+	<select id="selectShop" parameterType="int" resultMap="memberResultSet">
+	   SELECT *
+	   FROM MEMBER
+	   WHERE STATUS = 'Y' AND MEMBER_NO = #{memberNo}
+	</select>
+	
 </mapper>
