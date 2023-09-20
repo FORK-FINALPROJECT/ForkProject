@@ -594,27 +594,10 @@ public class ManagementController {
 		
 		if(result > 0) {
 			int result1 = mService.updateLicenseHistory(memberNo);
-			
-			
-			if(result1 > 0) {
-				session.setAttribute("alertMsg", "성공적으로 구매되었습니다.");
-			} else {
-				session.setAttribute("alertMsg", "구매에 실패했습니다.");
-			}
-			
-			return "redirect:/license";
 		} else {
 			int result2 = mService.insertLicenseHistory(lh);
-			
-			if(result2 > 0) {
-				session.setAttribute("alertMsg", "성공적으로 구매되었습니다.");
-			} else {
-				session.setAttribute("alertMsg", "구매에 실패했습니다.");
-			}
-			
-			return "redirect:/license";
 		}
-		
+		return "";
 	}
 	
 }

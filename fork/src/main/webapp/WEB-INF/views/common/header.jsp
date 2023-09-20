@@ -185,7 +185,7 @@
             		<c:when test="${ empty loginUser }">
 		                <ul>
 		                    <li id="login-btn"><a id="login-btn-text" href="${contextPath}/login">로그인</a></li>
-		                    <li id="enroll-btn"><a id="enroll-btn-text" href="http://192.168.130.31:8082/user/login.jsp">회원가입</a></li>
+		                    <li id="enroll-btn"><a id="enroll-btn-text" href="http://localhost:8082/user/login.jsp">회원가입</a></li>
 		                </ul>
             		</c:when>
             		<c:otherwise>

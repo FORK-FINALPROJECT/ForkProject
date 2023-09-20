@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>옵션 관리</title>
+<title>이용권 결제</title>
 <style>
 * {
 	/* border: 1px solid red; */
@@ -202,7 +202,12 @@ button:active {
 		        			licensePrice : amount
 		        		},
 		        		success : function(data) {
-		        			console.log("결제 성공");
+		        			alert("결제에 성공하셨습니다.");
+		        			location.href="http://localhost:8082/user/license";
+		        		},
+		        		error : function() {
+		        			alert("결제에 실패했습니다.");
+		        			location.href="http://localhost:8082/user/license";
 		        		}
 		        	})
 		        } else {
