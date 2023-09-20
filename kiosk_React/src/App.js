@@ -84,7 +84,7 @@ function App() {
       // 해당 시간동안 동작이 없으면 실행
       standeByTimer = setTimeout(() => {
         setStandByScreen(true);
-      }, 15 * 100 * 100); // 30초로 바꿔놓음 // 이거 다시 3으로 바꿔놔야함!
+      }, 2 * 100 * 100); // 30초로 바꿔놓음 // 이거 다시 3으로 바꿔놔야함!
       timerArr.push(standeByTimer);
       setStandeByTimer(timerArr);
     };
@@ -103,7 +103,7 @@ function App() {
     // 사용자가 사용하고 타이머 재설정
     document.addEventListener('click', () => {
 
-      let timer = setTimeout(() => { // 이색기가 문제
+      let timer = setTimeout(() => {
         handleUserUsing()
       }, 100)
       timerArr.push(timer);

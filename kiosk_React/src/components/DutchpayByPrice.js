@@ -60,23 +60,15 @@ const DutchpayByPrice = (props) => {
         if(result > 0){
             // 결제 성공
             // 영수증번호 배열에 담아주기
-            let prevReceiptNoList = addReceiptNo(result); // 저장된 영수증 번호(이걸 소켓에서 보내주심 됩니다. 배열형태에요)
-            console.log('****receiptNoList : ', prevReceiptNoList); // 일단 여기까지는 됨! 아래 수정 좀 하면 될것같은데?
-            
+            let prevReceiptNoList = addReceiptNo(result);
             let paidPriceSum = addPaidPrice(price);
-            // console.log('newCartTotalPrice : ', newCartTotalPrice);
-            // console.log('cartTotalPrice : ', cartTotalPrice);
-            // console.log('페이드프라이스섬',paidPriceSum);
             
             if(paidPriceSum == cartTotalPrice){ // 모두 결제된 경우
                 // 가격없이 아이템들 basicPay로 데이터 넣어주기
                 let result = await basicPay(kioskNo, cartItems, 0);
                 if (result > 0) {
                     // 결제 성공
-                    // 영수증번호 배열에 담아주기
-                    let receiptNoList = lastAddReceiptNo( prevReceiptNoList,result); // 저장된 영수증 번호(이걸 소켓에서 보내주심 됩니다. 배열형태에요)
-                    console.log('****receiptNoList : ', receiptNoList);
-
+                    let receiptNoList = lastAddReceiptNo( prevReceiptNoList,result);
                     let message = {
                         kioskNo : kioskNo,
                         price : (getTotalCashPrice() == 0 ? null : getTotalCashPrice() ),
@@ -88,15 +80,12 @@ const DutchpayByPrice = (props) => {
                     handleResetCartStore(); // 카트비워주기
                     resetReceiptNo(); // 영수증번호 리스트 비워주기
                     setTotalCashPrice(0);
-                    
                     navigate("/") // 결제 완료 후 메인화면으로
-        
                 } else {
                     // 결제 실패
                     // 영수증번호 리스트 비워주기
                     resetReceiptNo();
                 }
-
             }
         } else {
             // 결제 실패
