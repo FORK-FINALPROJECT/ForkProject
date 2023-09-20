@@ -23,9 +23,8 @@
 <select id="loginUser" parameterType="member" resultMap="memberResultSet">
 	SELECT *
 	FROM MEMBER
-	WHERE MEMBER_ID = #{memberId} 
-	  AND MEMBER_PWD = #{memberPwd} 
-	  AND STATUS = 'Y'
+	WHERE MEMBER_ID = #{memberId}
+	  	  AND STATUS = 'Y'
 </select>
 
 <!-- 가입승인 list불러오기 -->

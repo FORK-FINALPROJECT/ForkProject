@@ -66,11 +66,8 @@ public class MemberController {
 		
 		log.info("컨트롤러 {}", m);
 		
-		
 		String url = "";
-		if (loginUser != null /*
-								 * && bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd())
-								 */) {
+		if(loginUser != null && bcryptPasswordEncoder.matches(m.getMemberPwd(), loginUser.getMemberPwd())) {
 			session.setAttribute("loginUser", loginUser);
 			url = "redirect:/";
 		}else {
