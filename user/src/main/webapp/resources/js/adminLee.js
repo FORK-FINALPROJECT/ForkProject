@@ -53,29 +53,29 @@ function socketst() {
 							url : "selectDetailMenu",
 							data : {kioskNo : kno},
 							success : function(result) {
+							
 								var html = "";
 								var tprice = 0;
-								html += `<div class="menus">`
-								for(let i = 0; i < result.length; i++) {
+								for(let i = 0; i < 3 ; i++) {
 									html += `<div class="menu">
 		                                        <div class="menu_title">${result[i].menuName}</div>
 		                                        <div class="menu_cnt">${result[i].cnt}</div>
 		                                    </div>`;
 		                           	tprice += result[i].price;
 								}
-								html += `</div>`
 								
-								html += `<div class="menu_footer">`
+								$(`#kiosk${kno} > .menus`).html(html); 
+								
 								if ( result.length > 3 ) {
-									html +=  `<div class="menu_more">…</div>`
+									html =  `<div class="menu_more">…</div>`
 								}
-						        html += `<div class="menu_price">
-			                                	${tprice.toLocaleString()}원
-			                            </div>`;
+								html += `<div class="menu_price">
+		                                	${tprice.toLocaleString()}원
+		                            	 </div>`;
 		                        
 		                        console.log(html);
 		                        
-		                        $(`#kiosk${kno} > .struc_title`).after(html); 
+		                        $(`#kiosk${kno} > .menu_footer`).html(html); 
                         		$(`#kiosk${kno}`).addClass("in_menu");
 							} 
 						});
@@ -108,7 +108,7 @@ function socketst() {
 							
 								var html = "";
 								var tprice = 0;
-								for(let i = 0; i < result.length; i++) {
+								for(let i = 0; i < 3 ; i++) {
 									html += `<div class="menu">
 		                                        <div class="menu_title">${result[i].menuName}</div>
 		                                        <div class="menu_cnt">${result[i].cnt}</div>
@@ -116,13 +116,18 @@ function socketst() {
 		                           	tprice += result[i].price;
 								}
 								
+								$(`#kiosk${kno} > .menus`).html(html); 
+								
+								if ( result.length > 3 ) {
+									html =  `<div class="menu_more">…</div>`
+								}
 								html += `<div class="menu_price">
-		                                	${tprice}원
+		                                	${tprice.toLocaleString()}원
 		                            	 </div>`;
 		                        
 		                        console.log(html);
 		                        
-		                        $(`#kiosk${kno} > .struc_title`).after(html); 
+		                        $(`#kiosk${kno} > .menu_footer`).html(html); 
                         		$(`#kiosk${kno}`).addClass("in_menu");
 							} 
 						});

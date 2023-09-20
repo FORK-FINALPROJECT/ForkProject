@@ -47,10 +47,11 @@
                     
                     <div class="struc ${struc_class}${inMenu}" id="kiosk${struc.kioskNo}" style="transform: translate3d(${struc.positionX}px, ${struc.positionY}px, 0);" onclick="detail_order('${struc.strucTitle}', ${struc.kioskNo})">
                         <div class="struc_title">${struc.strucTitle}</div>
+                        <div></div>
+      			        <div class="menus">
                         <c:if test="${inMenu eq ' in_menu'}">
                             <c:set var="price" value="0" />
                            	<c:set var="quantity" value="0" />
-           			            <div class="menus">
                             <c:forEach var="order" items="${orderList}" varStatus="status">
                                 <c:if test="${struc.kioskNo eq order.kioskNo && quantity le 3}">
                                     <div class="menu">
@@ -61,8 +62,10 @@
                                     </div>
                                 </c:if>                                
                             </c:forEach>
-                        	</div>
-			                <div class="menu_footer">
+                        </c:if>
+                        </div>
+			            <div class="menu_footer">
+                        <c:if test="${inMenu eq ' in_menu'}">
 			                	<div class="menu_more">
 	                               	<c:if test="${quantity eq 4}">
 					                	…
@@ -71,9 +74,8 @@
 			                	<div class="menu_price">
 	                                <fmt:formatNumber type="number" maxFractionDigits="3" value="${price}" />원
 	                            </div>
+                        </c:if>    
 			                </div>        
-                            
-                        </c:if>
                     </div>
                     
                     <c:set var="inMenu" value="" />
