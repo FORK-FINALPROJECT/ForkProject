@@ -8,9 +8,9 @@
 	<result column="BOARD_TITLE" property="boardTitle"/>
 	<result column="BOARD_CONTENT" property="boardContent"/>
 	<result column="BOARD_WRITER" property="boardWriter"/>
-	<result column="BOARD_COUNT" property="boardCount"/>
 	<result column="BOARD_CREATE_DATE" property="boardCreateDate"/>
 	<result column="BOARD_STATUS" property="boardStatus"/>
+	<result column="BOARD_COUNT" property="boardCount"/>
 </resultMap>
 
 
