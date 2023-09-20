@@ -89,7 +89,6 @@ public class KioskController {
 				}
 			}
 		}
-		// 오류
 		return 0;
 	}
 	
