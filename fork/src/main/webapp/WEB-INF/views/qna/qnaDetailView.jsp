@@ -327,7 +327,7 @@
 	    var replyContent = $("#replyContent").val();
 	    
 	    // 댓글 길이가 너무 길 때의 최대 길이 설정 (예: 100자)
-	    var maxReplyLength = 100;
+	    var maxReplyLength = 500;
 	    
 	    if (replyContent.length > maxReplyLength) {
 	        // 댓글 길이가 최대 길이보다 길 경우 알림창 표시
