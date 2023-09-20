@@ -282,10 +282,10 @@
 		WHERE MEMBER_NO = #{memberNo}
 	</select>
 	
-	<update id="updateLicenseHistory" parameterType="int">
-		UPDATE LICENSE_HISTORY
+	<update id="updateLicenseHistory">
+		UPDATE LICENSE_HISTORY	
 		SET LH_DATE = SYSDATE,
-			LH_DAY = ADD_MONTHS(LH_DAY, (SELECT LICENSE_DATE FROM LICENSE WHERE LICENSE_NO = #{memberNo}))
+			LH_DAY = ADD_MONTHS(LH_DAY, (SELECT LICENSE_DATE FROM LICENSE WHERE LICENSE_NO = #{licenseNo}))
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
 	

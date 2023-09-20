@@ -46,6 +46,8 @@ public class ChartController {
 		
 		List<Chart> list = chartService.loadMenuChart(day);
 		
+		log.info("list= {}", list);
+		
         return list;
     }
 	

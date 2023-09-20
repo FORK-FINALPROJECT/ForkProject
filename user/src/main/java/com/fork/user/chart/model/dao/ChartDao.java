@@ -22,7 +22,10 @@ public class ChartDao {
 	}
 
 	public List<Chart> loadMenuChart(Map<String, Object> day) {
+		System.out.println(day);
 		List<Chart> c = sqlSession.selectList("chartMapper.loadMenuChart", day);
+		
+		System.out.println(c);
 		
 		for(Chart cc : c) {
 			int menuNo = cc.getMenuNo();

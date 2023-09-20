@@ -164,8 +164,8 @@ public class ManagementDao {
 		return session.selectOne("managementMapper.checkLicenseHistory", memberNo);
 	}
 
-	public int updateLicenseHistory(int memberNo) {
-		return session.update("managementMapper.updateLicenseHistory", memberNo);
+	public int updateLicenseHistory(LicenseHistory lh) {
+		return session.update("managementMapper.updateLicenseHistory", lh);
 	}
 
 	public List<Option> selectMenuOptionList(int menuNo) {

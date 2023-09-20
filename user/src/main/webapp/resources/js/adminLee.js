@@ -54,13 +54,19 @@ function socketst() {
 							data : {kioskNo : kno},
 							success : function(result) {
 							
+							console.log(result);
+							console.log(result[0].menuName);
+							console.log(result[0].price);
+							
 								var html = "";
 								var tprice = 0;
-								for(let i = 0; i < 3 ; i++) {
+								for(let i = 0; i < result.length ; i++) {
+								
 									html += `<div class="menu">
 		                                        <div class="menu_title">${result[i].menuName}</div>
 		                                        <div class="menu_cnt">${result[i].cnt}</div>
 		                                    </div>`;
+		                                    
 		                           	tprice += result[i].price;
 								}
 								
@@ -106,13 +112,19 @@ function socketst() {
 							data : {kioskNo : kno},
 							success : function(result) {
 							
+							console.log(result);
+							console.log(result[0].menuName);
+							console.log(result[0].price);
+							
 								var html = "";
 								var tprice = 0;
-								for(let i = 0; i < 3 ; i++) {
+								for(let i = 0; i < result.length ; i++) {
+								
 									html += `<div class="menu">
 		                                        <div class="menu_title">${result[i].menuName}</div>
 		                                        <div class="menu_cnt">${result[i].cnt}</div>
 		                                    </div>`;
+		                                    
 		                           	tprice += result[i].price;
 								}
 								
@@ -131,6 +143,7 @@ function socketst() {
                         		$(`#kiosk${kno}`).addClass("in_menu");
 							} 
 						});
+						
 						const alertPage = document.createElement('div');
 						alertPage.id = 'alertPage';
 						alertPage.setAttribute('class','alertPage');

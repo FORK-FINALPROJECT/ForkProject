@@ -11,8 +11,25 @@ import Numpad from './numPadTest';
 import numpadStore from '../store/numpadStore';
 import Modal from 'react-bootstrap/Modal';
 import useSocketStore from '../store/socketStore';
+import paymentProcessStore from '../store/paymentProcessStore';
 
 const DutchpayByPrice = (props) => {
+
+    const { setPaymentProcess, getPaymentProcess } = paymentProcessStore();
+
+    const [show2, setShow2] = useState(false);
+  
+    const handleClose2 = () => setShow(false);
+    const handleShow2 = (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        setShow2(true)
+    };
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     const [receiptNo , setReceiptNo] = useState([]);
     // 받아온 영수증 번호 담아주기
@@ -62,6 +79,7 @@ const DutchpayByPrice = (props) => {
             // 영수증번호 배열에 담아주기
             let prevReceiptNoList = addReceiptNo(result);
             let paidPriceSum = addPaidPrice(price);
+            setPaymentProcess(true);
             
             if(paidPriceSum == cartTotalPrice){ // 모두 결제된 경우
                 // 가격없이 아이템들 basicPay로 데이터 넣어주기
@@ -80,6 +98,7 @@ const DutchpayByPrice = (props) => {
                     handleResetCartStore(); // 카트비워주기
                     resetReceiptNo(); // 영수증번호 리스트 비워주기
                     setTotalCashPrice(0);
+                    setPaymentProcess(false);
                     navigate("/") // 결제 완료 후 메인화면으로
                 } else {
                     // 결제 실패
@@ -110,7 +129,8 @@ const DutchpayByPrice = (props) => {
         }, 0);
         console.log(totalInputPrice , cartTotalPrice)
         if(totalInputPrice != cartTotalPrice ){
-            alert('입력하신 금액과 총결제 금액이 일치하지 않습니다.');
+            // alert('입력하신 금액과 총결제 금액이 일치하지 않습니다.');
+            handleShow();
             return false;
         }
         return true;
@@ -126,11 +146,12 @@ const DutchpayByPrice = (props) => {
         setItems(updateditems);
     }
     // 카드결제 버튼 클릭 시 모달 열기
-    const handleCardPaymentClick = (itemId) => {
+    const handleCardPaymentClick = (item) => {
         if(checkTotalInputPrice()){
             setSelectedPaymentMethod('카드결제');
             setModalShow(true);
-            updatePaymentStatus(itemId);
+            updatePaymentStatus(item.id);
+            handleDutchPay(item.price);
         }
     };
 
@@ -144,6 +165,7 @@ const DutchpayByPrice = (props) => {
             cashPrice = totalCashPrice+item.price;
             setTotalCashPrice(cashPrice);
             console.log("현금결제 금액금액",cashPrice);
+            handleDutchPay(item.price);
         }
     };
 
@@ -225,6 +247,29 @@ const DutchpayByPrice = (props) => {
 
     return (
         <div className="content-wrap">
+            <Modal show={show2} onHide={handleClose2} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+                <Modal.Header closeButton>
+                <Modal.Title><br></br> </Modal.Title>
+                </Modal.Header>
+                <Modal.Body><div style={{"font-size":"1.5vw"}}>결제를 모두 종료 후 이용해주세요.</div></Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose2}>
+                    닫기
+                </Button>
+                </Modal.Footer>
+            </Modal>
+
+            <Modal show={show} onHide={handleClose} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+                <Modal.Header closeButton>
+                <Modal.Title><br></br> </Modal.Title>
+                </Modal.Header>
+                <Modal.Body><div style={{"font-size":"1.5vw"}}>입력하신 금액과 총결제 금액이 일치하지 않습니다.</div></Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                    닫기
+                </Button>
+                </Modal.Footer>
+            </Modal>
             <div className="main-content">
                 <div className="main-content-dutchpay">
                     <div className="page-head">
@@ -232,7 +277,7 @@ const DutchpayByPrice = (props) => {
                             <p className="main-content-detail-category">금액별 분할결제</p>
                         </div>
                         <div className="dutchpay-button">
-                            <Button variant="secondary" id="button-dutchpayByMenu"><Link to="/dutchpayByMenu">메뉴별</Link></Button>
+                            <Button variant="secondary" id="button-dutchpayByMenu"><Link to="/dutchpayByMenu" onClick={getPaymentProcess() ? (e) => handleShow(e) : {}}>메뉴별</Link></Button>
                             <Button variant="secondary" id="button-dutchpayByPrice"><Link to="/dutchpayByPrice">금액별</Link></Button>
                         </div>
                     </div>
@@ -287,8 +332,8 @@ const DutchpayByPrice = (props) => {
                                             {/* <Numpad items={items} setItems={setItems} /> */}
                                         </li>
                                         <li>
-                                            <Button variant="secondary" onClick={() => {if(!paymentStatusCheck(item)) handleCardPaymentClick(item.id); handleDutchPay(item.price, index);}}>카드결제</Button>{' '}
-                                            <Button variant="secondary" onClick={() => {if(!paymentStatusCheck(item)) handleCashPaymentClick(item); handleDutchPay(item.price, index);}}>현금결제</Button>
+                                            <Button variant="secondary" onClick={() => {if(!paymentStatusCheck(item)) handleCardPaymentClick(item); }}>카드결제</Button>{' '}
+                                            <Button variant="secondary" onClick={() => {if(!paymentStatusCheck(item)) handleCashPaymentClick(item); }}>현금결제</Button>
                                         </li>
                                     </ul>
                                 )

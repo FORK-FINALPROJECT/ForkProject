@@ -173,8 +173,8 @@ public class ManagementServiceImpl implements ManagementService {
 	}
 
 	@Override
-	public int updateLicenseHistory(int memberNo) {
-		return managementDao.updateLicenseHistory(memberNo);
+	public int updateLicenseHistory(LicenseHistory lh) {
+		return managementDao.updateLicenseHistory(lh);
 	}
 
 	@Override

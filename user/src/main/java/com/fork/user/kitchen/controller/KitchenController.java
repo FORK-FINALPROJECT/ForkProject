@@ -29,14 +29,19 @@ public class KitchenController {
 	@GetMapping("/kitchen")
     public String toKitchen(Model model) {
 		List<PayStructure> orderList = kitchenService.selectPaylist();
+		List<PayStructure> list = new ArrayList<>();
 
 		for (PayStructure order : orderList) {
 			List<MenuOption> menuList = kitchenService.selectTotalMenulist(order.getTrNo());
-			order.setMenuOption(menuList);
+			if ( menuList.size() > 0 ) {
+				order.setMenuOption(menuList);
+				list.add(order);
+			}
+			
 		}
 		
-		log.info("orderList ={}", orderList);
-		model.addAttribute("orderList", orderList);
+		log.info("orderList ={}", list);
+		model.addAttribute("orderList", list);
 		
 		return "kitchen/kitchen";
         
