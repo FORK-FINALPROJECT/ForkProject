@@ -56,6 +56,7 @@ public class ChartController {
     public List<ChartCategory> selectCategory() {
 		
 		List<ChartCategory> list = chartService.selectChartCategory();
+		System.out.println("pr : "+list);
 		
         return list;
     }

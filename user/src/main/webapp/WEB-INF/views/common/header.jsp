@@ -24,7 +24,7 @@
             <div class="header_btn" onclick="location.href='statistics'" id="statistics">판매집계</div>
             <div class="header_btn" onclick="location.href='menu'" id="header-menu">메뉴</div>
             <div class="header_btn" onclick="location.href='license'" id="header-license">결제</div>
-            <div class="header_btn" onclick="location.href='http://localhost:8084/fork/qnaList'">문의</div>
+            <div class="header_btn" onclick="location.href='http://192.168.30.14:8084/fork/qnaList'">문의</div>
             <div class="header_btn" onclick="location.href='kitchen'">주방으로가기</div>
             <div class="header_btn" onclick="openModal5();">로그아웃</div>
             <div id="time"></div>

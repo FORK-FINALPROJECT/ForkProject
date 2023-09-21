@@ -133,7 +133,8 @@ function drawMenuChart(){
 		url: 'selectPrCategory',
 		success(categorylist){
 			for(prCate of categorylist) {
-					let prNo= prCate.prCategoryNo;
+					let prNo= prCate.categoryNo;
+					console.log(categorylist);
 					console.log(prNo);
 					$.ajax({
 						url: 'menuChart',
