@@ -44,7 +44,7 @@
     <select id="selectChartCategory" resultMap="categoryResultMap">
     	SELECT *
 		FROM CATEGORY
-		WHERE NOT PR_CATEGORY_NO = 0
+		WHERE PR_CATEGORY_NO = 0
     </select>
     
     

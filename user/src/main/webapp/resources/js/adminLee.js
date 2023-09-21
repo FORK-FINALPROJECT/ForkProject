@@ -62,18 +62,23 @@ function socketst() {
 								var tprice = 0;
 								for(let i = 0; i < result.length ; i++) {
 								
-									html += `<div class="menu">
-		                                        <div class="menu_title">${result[i].menuName}</div>
-		                                        <div class="menu_cnt">${result[i].cnt}</div>
-		                                    </div>`;
+									if ( i < 3 ) {
+									
+										html += `<div class="menu">
+			                                        <div class="menu_title">${result[i].menuName}</div>
+			                                        <div class="menu_cnt">${result[i].cnt}</div>
+			                                    </div>`;
+                                    }
 		                                    
 		                           	tprice += result[i].price;
 								}
 								
 								$(`#kiosk${kno} > .menus`).html(html); 
 								
+								html = "";
+								
 								if ( result.length > 3 ) {
-									html =  `<div class="menu_more">…</div>`
+									html +=  `<div class="menu_more">…</div>`
 								}
 								html += `<div class="menu_price">
 		                                	${tprice.toLocaleString()}원
@@ -120,18 +125,23 @@ function socketst() {
 								var tprice = 0;
 								for(let i = 0; i < result.length ; i++) {
 								
-									html += `<div class="menu">
-		                                        <div class="menu_title">${result[i].menuName}</div>
-		                                        <div class="menu_cnt">${result[i].cnt}</div>
-		                                    </div>`;
+									if ( i < 3 ) {
+									
+										html += `<div class="menu">
+			                                        <div class="menu_title">${result[i].menuName}</div>
+			                                        <div class="menu_cnt">${result[i].cnt}</div>
+			                                    </div>`;
+                                    }
 		                                    
 		                           	tprice += result[i].price;
 								}
 								
 								$(`#kiosk${kno} > .menus`).html(html); 
 								
+								html = "";
+								
 								if ( result.length > 3 ) {
-									html =  `<div class="menu_more">…</div>`
+									html +=  `<div class="menu_more">…</div>`
 								}
 								html += `<div class="menu_price">
 		                                	${tprice.toLocaleString()}원

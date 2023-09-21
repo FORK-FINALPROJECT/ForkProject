@@ -534,7 +534,7 @@ textarea {
 			 							for ( i=0; i<(Math.floor(menu.length/5)); i++) {
 			 								table += `<tr>`;
 			 								for ( j=0; j<5; j++ ) {
-			 									table += `<td class="footer-text menu_img" onclick="openModal3(\${menu[index].menuNo})"><img src='http://localhost:8082/user\${menu[index].filePath}\${menu[index].changeName}' /><br>\${menu[index].menuName}</td>`;
+			 									table += `<td class="footer-text menu_img" onclick="openModal3(\${menu[index].menuNo})"><img src='http://192.168.30.14:8082/user\${menu[index].filePath}\${menu[index].changeName}' /><br>\${menu[index].menuName}</td>`;
 			 									index++;
 			 								}
 											table += `</tr>`;
@@ -545,7 +545,7 @@ textarea {
 			 							if ( (Math.round(menu.length%5)) > 0 ) {
 			 								table += `<tr>`;
 			 								for ( i=0; i<(Math.round(menu.length%5)); i++ ) {
-			 									table += `<td class="footer-text menu_img" onclick="openModal3(\${menu[index].menuNo})	"><img src='http://localhost:8082/user\${menu[index].filePath}\${menu[index].changeName}' /><br>\${menu[index].menuName}</td>`;
+			 									table += `<td class="footer-text menu_img" onclick="openModal3(\${menu[index].menuNo})	"><img src='http://192.168.30.14:8082/user\${menu[index].filePath}\${menu[index].changeName}' /><br>\${menu[index].menuName}</td>`;
 			 									index++;
 			 								}
 			 	 							for ( i=0; i<5-(Math.floor(menu.length%5)); i++ ) {
