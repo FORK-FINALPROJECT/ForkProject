@@ -1,0 +1,68 @@
+
+--공지사항 insert
+Insert into FORK.NOTICE (NOTICE_NO,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_WRITER,NOTICE_COUNT,NOTICE_CREATE_DATE,NOTICE_STATUS) values (1,'FORK 비상메뉴얼','갑자기 FORK가 실행이 되지 않거나, 문제가 생겼을 경우<br>당황하지 마시고 비상메뉴얼을 통해 문제를 해결해보시길..',1,0,'23/09/20','Y');
+Insert into FORK.NOTICE (NOTICE_NO,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_WRITER,NOTICE_COUNT,NOTICE_CREATE_DATE,NOTICE_STATUS) values (2,'이용금액 상향 안내입니다.','다음달부터 이용금액이 현재 기준 금액 대비 10% 향상되오니 착오 없으시길 바랍니다.',1,1,'23/09/20','Y');
+Insert into FORK.NOTICE (NOTICE_NO,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_WRITER,NOTICE_COUNT,NOTICE_CREATE_DATE,NOTICE_STATUS) values (9,'이용 해지관련 안내드립니다.','이용 해지는 이용일이 지나면 자동해지되는 경우와 중도 해지를 원하시면 QNA게시판이나 고객센터로 연락주시기 바랍니다. ',1,0,'23/09/20','Y');
+Insert into FORK.NOTICE (NOTICE_NO,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_WRITER,NOTICE_COUNT,NOTICE_CREATE_DATE,NOTICE_STATUS) values (10,'사진등록이 어려우신 사장님들을 위한 안내사항입니다.','사진등록이 어려우신 사장님들께서는 FORK 비상메뉴얼에 상세한 설명이 나와있으니 참고하시길 바랍니다.',107,0,'23/09/20','Y');
+Insert into FORK.NOTICE (NOTICE_NO,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_WRITER,NOTICE_COUNT,NOTICE_CREATE_DATE,NOTICE_STATUS) values (11,'*중요* FORK 10만 회원 기념 신규고객 대상 할인 이벤트!','10만 회원 달성 기념 신규고객님들을 위한 1달 무료 서비스를 제공중이오니 많은 관심 부탁드립니다.',107,0,'23/09/20','Y');
+Insert into FORK.NOTICE (NOTICE_NO,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_WRITER,NOTICE_COUNT,NOTICE_CREATE_DATE,NOTICE_STATUS) values (12,'이벤트 관련 안내드립니다.','첫달 무료이벤트는 신규회원을 위한 이벤트이오니 이점에 착오 없으시길 바랍니다.',107,0,'23/09/20','Y');
+Insert into FORK.NOTICE (NOTICE_NO,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_WRITER,NOTICE_COUNT,NOTICE_CREATE_DATE,NOTICE_STATUS) values (13,'사장님들께 안내말씀드립니다.','화이팅!',1,0,'23/09/20','Y');
+Insert into FORK.NOTICE (NOTICE_NO,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_WRITER,NOTICE_COUNT,NOTICE_CREATE_DATE,NOTICE_STATUS) values (14,'FORK 사용법','FORK 사용법을 참고하시어 원활한 가게 운영을 하시기 바랍니다.',107,0,'23/09/20','Y');
+Insert into FORK.NOTICE (NOTICE_NO,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_WRITER,NOTICE_COUNT,NOTICE_CREATE_DATE,NOTICE_STATUS) values (15,'FORK 비상메뉴얼 업데이트 안내','비상메뉴얼 첨부파일을 확인하시기 바랍니다.',107,0,'23/09/20','Y');
+Insert into FORK.NOTICE (NOTICE_NO,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_WRITER,NOTICE_COUNT,NOTICE_CREATE_DATE,NOTICE_STATUS) values (16,'안녕하세요 사장님','ㅎㅎㅋ',1,0,'23/09/20','Y');
+Insert into FORK.NOTICE (NOTICE_NO,NOTICE_TITLE,NOTICE_CONTENT,NOTICE_WRITER,NOTICE_COUNT,NOTICE_CREATE_DATE,NOTICE_STATUS) values (17,'FORK 업데이트 안내드립니다.','9/30일 새벽 3시에 업데이트 예정이오니 다음날에 업데이트 해주세요!',107,1,'23/09/20','Y');
+
+--공지사항 첨부파일 insert
+Insert into FORK.NOTICE_ATTACH (FA_NO,REF_NNO,FA_ORIGIN_NAME,FA_CHANGE_NAME,FA_PATH,FA_UPLOAD_DATE,FA_STATUS) values (1,1,'tamin.jpg','2023092017081440697.jpg','/resources/noticeFile/','23/09/20','Y');
+Insert into FORK.NOTICE_ATTACH (FA_NO,REF_NNO,FA_ORIGIN_NAME,FA_CHANGE_NAME,FA_PATH,FA_UPLOAD_DATE,FA_STATUS) values (5,11,'telephone.png','2023092019512048024.png','/resources/noticeFile/','23/09/20','Y');
+Insert into FORK.NOTICE_ATTACH (FA_NO,REF_NNO,FA_ORIGIN_NAME,FA_CHANGE_NAME,FA_PATH,FA_UPLOAD_DATE,FA_STATUS) values (3,9,'icon (5).png','2023092019484284139.png','/resources/noticeFile/','23/09/20','Y');
+Insert into FORK.NOTICE_ATTACH (FA_NO,REF_NNO,FA_ORIGIN_NAME,FA_CHANGE_NAME,FA_PATH,FA_UPLOAD_DATE,FA_STATUS) values (4,10,'tamin (1).jpg','2023092019495623060.jpg','/resources/noticeFile/','23/09/20','Y');
+Insert into FORK.NOTICE_ATTACH (FA_NO,REF_NNO,FA_ORIGIN_NAME,FA_CHANGE_NAME,FA_PATH,FA_UPLOAD_DATE,FA_STATUS) values (6,12,'메모.txt','2023092019525518144.txt','/resources/noticeFile/','23/09/20','Y');
+Insert into FORK.NOTICE_ATTACH (FA_NO,REF_NNO,FA_ORIGIN_NAME,FA_CHANGE_NAME,FA_PATH,FA_UPLOAD_DATE,FA_STATUS) values (7,13,'map.png','2023092019533218009.png','/resources/noticeFile/','23/09/20','Y');
+Insert into FORK.NOTICE_ATTACH (FA_NO,REF_NNO,FA_ORIGIN_NAME,FA_CHANGE_NAME,FA_PATH,FA_UPLOAD_DATE,FA_STATUS) values (8,14,'e-mail.png','2023092019543046707.png','/resources/noticeFile/','23/09/20','Y');
+Insert into FORK.NOTICE_ATTACH (FA_NO,REF_NNO,FA_ORIGIN_NAME,FA_CHANGE_NAME,FA_PATH,FA_UPLOAD_DATE,FA_STATUS) values (9,15,'icon (1) (6).png','2023092019554178596.png','/resources/noticeFile/','23/09/20','Y');
+Insert into FORK.NOTICE_ATTACH (FA_NO,REF_NNO,FA_ORIGIN_NAME,FA_CHANGE_NAME,FA_PATH,FA_UPLOAD_DATE,FA_STATUS) values (10,16,'tamin (1).jpg','2023092019555889694.jpg','/resources/noticeFile/','23/09/20','Y');
+Insert into FORK.NOTICE_ATTACH (FA_NO,REF_NNO,FA_ORIGIN_NAME,FA_CHANGE_NAME,FA_PATH,FA_UPLOAD_DATE,FA_STATUS) values (11,17,'tamin (1).jpg','2023092019572164860.jpg','/resources/noticeFile/','23/09/20','Y');
+
+--qna Board insert
+Insert into FORK.QNA_BOARD (BOARD_NO,BOARD_TITLE,BOARD_CONTENT,BOARD_WRITER,BOARD_CREATE_DATE,BOARD_STATUS,BOARD_COUNT) values (1,'DD','GF',1,'23/09/20','Y',1);
+Insert into FORK.QNA_BOARD (BOARD_NO,BOARD_TITLE,BOARD_CONTENT,BOARD_WRITER,BOARD_CREATE_DATE,BOARD_STATUS,BOARD_COUNT) values (2,'ASDASD','ASDASDASD',1,'23/09/20','Y',0);
+Insert into FORK.QNA_BOARD (BOARD_NO,BOARD_TITLE,BOARD_CONTENT,BOARD_WRITER,BOARD_CREATE_DATE,BOARD_STATUS,BOARD_COUNT) values (3,'ZZ','ZZZZZ',1,'23/09/20','Y',0);
+Insert into FORK.QNA_BOARD (BOARD_NO,BOARD_TITLE,BOARD_CONTENT,BOARD_WRITER,BOARD_CREATE_DATE,BOARD_STATUS,BOARD_COUNT) values (4,'DD','DDD',1,'23/09/20','Y',0);
+Insert into FORK.QNA_BOARD (BOARD_NO,BOARD_TITLE,BOARD_CONTENT,BOARD_WRITER,BOARD_CREATE_DATE,BOARD_STATUS,BOARD_COUNT) values (5,'asdasd','asdasdasd',107,'23/09/20','Y',2);
+Insert into FORK.QNA_BOARD (BOARD_NO,BOARD_TITLE,BOARD_CONTENT,BOARD_WRITER,BOARD_CREATE_DATE,BOARD_STATUS,BOARD_COUNT) values (6,'후후훗','후훗',107,'23/09/20','Y',0);
+Insert into FORK.QNA_BOARD (BOARD_NO,BOARD_TITLE,BOARD_CONTENT,BOARD_WRITER,BOARD_CREATE_DATE,BOARD_STATUS,BOARD_COUNT) values (7,'사용방법 문의','아니 이거 당최 어떻게 쓰라는건지 모르겠네요;;;
+
+장사 20년 하면서 이렇게 어려운 프로그램 처음 봅니다',107,'23/09/20','Y',1);
+Insert into FORK.QNA_BOARD (BOARD_NO,BOARD_TITLE,BOARD_CONTENT,BOARD_WRITER,BOARD_CREATE_DATE,BOARD_STATUS,BOARD_COUNT) values (8,'사용료 할인해주세요','1년치나 결제하는데 무슨 90만원이나 받아쳐먹나요 이렇게 장사하면 소상공인 죽어납니다',1,'23/09/20','Y',0);
+Insert into FORK.QNA_BOARD (BOARD_NO,BOARD_TITLE,BOARD_CONTENT,BOARD_WRITER,BOARD_CREATE_DATE,BOARD_STATUS,BOARD_COUNT) values (9,'이거 프로그램 쓸 때 컴ㅍㅜ타가 문제가 생겨요','이거 플고그램 이상해요 
+
+자꾸 리니지랑 메이플 돌리는데 버벅입니다. 
+
+콤푸타 성능에 악영향을 줍니다. ',107,'23/09/20','Y',1);
+Insert into FORK.QNA_BOARD (BOARD_NO,BOARD_TITLE,BOARD_CONTENT,BOARD_WRITER,BOARD_CREATE_DATE,BOARD_STATUS,BOARD_COUNT) values (10,'메뉴가 사라져요','벌써 몇번쨰인지 모르겠어요
+
+메뉴 계속 등록하는데 자꾸 사라지는 장사를 어떻게 하라는 겁니까 진짜 짜증나서 프로그램 못써먹겠네',1,'23/09/20','Y',1);
+Insert into FORK.QNA_BOARD (BOARD_NO,BOARD_TITLE,BOARD_CONTENT,BOARD_WRITER,BOARD_CREATE_DATE,BOARD_STATUS,BOARD_COUNT) values (11,'사진등록해주세요','메뉴가 몇갠데 사장이 하나하나 등록하나요 장사하기도 바빠죽겠는데 회사에서 해줘야지컴퓨터 잘 할지도 모르는데 하루종일 컴퓨터만 붙잡고 앉아있어서 장사 손해가 이만저만이 아니에여 
+손해배상 해주세요!',107,'23/09/20','Y',0);
+Insert into FORK.QNA_BOARD (BOARD_NO,BOARD_TITLE,BOARD_CONTENT,BOARD_WRITER,BOARD_CREATE_DATE,BOARD_STATUS,BOARD_COUNT) values (12,'상담원 불친절','고객센터로 문의하는데 상담원이 너무 불친절 하네요
+정동혁인가 뭔가 하는 사람 짜르세요.
+해지하기 전에 사람관리 잘하쇼. 다음엔 죽소.',1,'23/09/20','Y',1);
+Insert into FORK.QNA_BOARD (BOARD_NO,BOARD_TITLE,BOARD_CONTENT,BOARD_WRITER,BOARD_CREATE_DATE,BOARD_STATUS,BOARD_COUNT) values (13,'로그인오류;;','회원가입부터 복잡하더니 뭔 자꾸 로그인해도 계속 로그인하라고 나오고 어쩌라는겁니까........
+사용료 결제하려다가 정 떨어져서 다른 프로그램으로 떠납니다......',107,'23/09/20','Y',1);
+Insert into FORK.QNA_BOARD (BOARD_NO,BOARD_TITLE,BOARD_CONTENT,BOARD_WRITER,BOARD_CREATE_DATE,BOARD_STATUS,BOARD_COUNT) values (14,'제발 살려주세요','이 편지는 영국에서 최초로 시작되어 일년에 한바퀴를 돌면서 받는 사람에게 행운을 주었고 지금은 당신에게로 옮겨진 이 편지는 4일 안에 당신 곁을 떠나야 합니다. 이 편지를 포함해서 7통을 행운이 필요한 사람에게 보내 주셔야 합니다. 복사를 해도 좋습니다. 혹 미신이라 하실지 모르지만 사실입니다.
+
+이거 안쓰면 제가 죽습니다.. 죄송합니다... ',107,'23/09/20','Y',1);
+Insert into FORK.QNA_BOARD (BOARD_NO,BOARD_TITLE,BOARD_CONTENT,BOARD_WRITER,BOARD_CREATE_DATE,BOARD_STATUS,BOARD_COUNT) values (15,'마지막 기회요','환불 받을라니까 당장 전화하쇼 010-1111-2222
+여기 사장 이름도 아는 사이요.
+느그 사장이랑 마! 밥도 묵고! 목용탕도 가고! 다 했어 임마! 여기 게시판 관리자 누군지 모르겠지만 사장통해서 당장 전화하라고 전해라.',107,'23/09/20','Y',0);
+Insert into FORK.QNA_BOARD (BOARD_NO,BOARD_TITLE,BOARD_CONTENT,BOARD_WRITER,BOARD_CREATE_DATE,BOARD_STATUS,BOARD_COUNT) values (16,'아프니까사장이다 올리겠씁니다.','니네 프로그램 쓰면서 하루 손해가 100만원 이상난다. 너네 이렇게 장사하다간 삼대가 멸할것이다. 좋게 말할때 프로그램 쓴 30일 3000만원 손해배상 안하면 해줄때까지 앞에 가서 1인 시위를 하겠다. 우리 사위가 조선일보하는데 여기 1면에 실어준다고 했다. 너네 이 미친프로그램 인터넷에 올려서 공론화하겠다. 네이버 30만 회원을 가진 대형 카페에 올려서 회사 망하게 만들테니 준비들해.',1,'23/09/20','Y',1);
+
+--reply댓글 insert
+Insert into FORK.REPLY (REPLY_NO,REPLY_CONTENT,REF_BNO,REPLY_WRITER,REPLY_CREATE_DATE,REPLY_STATUS) values (1,'asdasd',5,107,'23/09/20','Y');
+Insert into FORK.REPLY (REPLY_NO,REPLY_CONTENT,REF_BNO,REPLY_WRITER,REPLY_CREATE_DATE,REPLY_STATUS) values (2,'죄송합니다 고객님 업데이트 후에도 같은 문제가 발생하신다면 고객센터로 연락을 주시기 바랍니다.',10,107,'23/09/20','Y');
+Insert into FORK.REPLY (REPLY_NO,REPLY_CONTENT,REF_BNO,REPLY_WRITER,REPLY_CREATE_DATE,REPLY_STATUS) values (3,'ㄷㄷㄷ죄송함다;;',16,1,'23/09/20','Y');
+Insert into FORK.REPLY (REPLY_NO,REPLY_CONTENT,REF_BNO,REPLY_WRITER,REPLY_CREATE_DATE,REPLY_STATUS) values (4,'죄송하다면 다야?????? 3000만원 당장 배상해라',16,1,'23/09/20','Y');
+Insert into FORK.REPLY (REPLY_NO,REPLY_CONTENT,REF_BNO,REPLY_WRITER,REPLY_CREATE_DATE,REPLY_STATUS) values (5,'콤푸타가 아니라 컴퓨터입니다.',9, 1,'23/09/20','Y');
+
+commit;
